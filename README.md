@@ -1,1 +1,1 @@
-# Decentralised Voting Application
+# Decentralised Voting Applications
