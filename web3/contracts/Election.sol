@@ -2,10 +2,12 @@
 pragma solidity ^0.8.0;
 
 contract Election {
+
+    //@VARIABLES
     // holds data of a particular election
     uint256 public id;
     string public name;
-    address public owner;
+    address public ownerAddress;
     string public start_date;
     string public end_date;
     string[] public verifications;
@@ -16,11 +18,22 @@ contract Election {
     // candidate id (index of the candidates array) mapped to the number of votes
     mapping(uint256 => uint256) public votes;
 
+
+    //@MODIFIERS
+    //only owner modifier
+    
+    modifier onlyOwner(){
+        require(msg.sender == ownerAddress);
+        _;
+    }
+
+
+    //@FUNCTIONS
     // to enable upgrades we need to set up Proxies hence no constructors
     function init(uint256 _id, string memory _name, string memory _start_date, string memory _end_date, string[] memory _verifications, string[] memory _candidates) external {
         id = _id;
         name = _name;
-        owner = msg.sender;
+        ownerAddress = msg.sender;
         start_date = _start_date;
         end_date = _end_date;
         verifications = _verifications;
@@ -36,4 +49,6 @@ contract Election {
         // id is the index starting from 1
         return candidates.length;
     }
+
+    
 }
