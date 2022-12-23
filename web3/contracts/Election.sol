@@ -28,13 +28,16 @@ contract ElectionInfo {
     //@MODIFIERS
     // only owner modifier
     modifier onlyOwner(uint256 _electionid) {
-        require(msg.sender == elections[_electionid].ownerAddress);
+        require(
+            msg.sender == elections[_electionid].ownerAddress,
+            "Acess Denied,you aren't the owner of the contract"
+        );
         _;
     }
 
     //state check modifier
     modifier inPhase(Phase _phase, uint256 _electionid) {
-        require(elections[_electionid].currPhase == _phase);
+        require(elections[_electionid].currPhase == _phase, "Wrong phase");
         _;
     }
 
@@ -85,14 +88,19 @@ contract ElectionInfo {
     }
 
     //function to get all candidates of particular voting id
-    function getCandidates(uint256 _electionid)
+    function getElectionResults(uint256 _electionid)
         public
         view
-        returns (string[] memory, uint256[] memory)
+        returns (
+            string[] memory,
+            uint256[] memory,
+            Phase
+        )
     {
         return (
             elections[_electionid].candidates,
-            elections[_electionid].numberOfVotes
+            elections[_electionid].numberOfVotes,
+            elections[_electionid].currPhase
         );
     }
 

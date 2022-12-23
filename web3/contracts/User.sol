@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 import "./Election.sol";
 
-contract UserInfo is Election {
+contract UserInfo is ElectionInfo {
     struct User {
         uint256 userId;
         string name;
