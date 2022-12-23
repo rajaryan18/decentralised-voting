@@ -114,7 +114,7 @@ contract ElectionInfo {
         for (uint256 i = 0; i < votings[_electionid].voted.length; i++) {
             //check if user has already voted
             require(
-                keccak256(abi.encodePacked(votings[_electionid].voted[i])) ==
+                votings[_electionid].voted[i] ==
                     keccak256(abi.encodePacked(_aadhar)),
                 "Voter has already voted"
             );
