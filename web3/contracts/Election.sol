@@ -5,7 +5,6 @@ contract Election {
     //@VARIABLES
     // holds data of a particular election
     struct Voting {
-        uint256 id;
         string name;
         uint256 start_date;
         uint256 end_date;
@@ -49,7 +48,6 @@ contract Election {
 
     // to enable upgrades we need to set up Proxies hence no constructors
     function init(
-        uint256 _id,
         string memory _name,
         uint256 _start_date,
         uint256 _end_date
@@ -65,7 +63,6 @@ contract Election {
             "The end date should be ahead of the start date"
         );
 
-        voting.id = _id;
         voting.name = _name;
         voting.start_date = _start_date;
         voting.end_date = _end_date;

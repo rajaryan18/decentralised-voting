@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
+import "./Election.sol";
 
-contract UserInfo {
+contract UserInfo is Election {
     struct User {
         uint256 userId;
         string name;
@@ -16,9 +17,9 @@ contract UserInfo {
 
     uint256 public noOfUsers = 0;
 
-    function hashAadhar(string memory _aadhar) private pure returns (bytes32) {
-        return keccak256(abi.encodePacked(_aadhar));
-    }
+    // function hashAadhar(string memory _aadhar) private pure returns (bytes32) {
+    //     return keccak256(abi.encodePacked(_aadhar));
+    // }
 
     function hashMetamask(address _addr) private pure returns (bytes32) {
         return keccak256(abi.encodePacked(_addr));
@@ -44,7 +45,27 @@ contract UserInfo {
         return noOfUsers - 1;
     }
 
-    // function createElection(){};
+    function createElection(
+        uint256 _userid,
+        string memory _aadhar,
+        string memory _name,
+        uint256 _start_date,
+        uint256 _end_date
+    ) public {
+        User storage item = Users[_userid];
+        address temp = msg.sender;
+        require(
+            item.aadharHash == keccak256(abi.encodePacked(_aadhar)),
+            "Wrong aadhar number"
+        );
+        require(
+            item.metamaskHash == keccak256(abi.encodePacked(temp)),
+            "Wrong metamask address"
+        );
+        Users[_userid].noOfElections++;
+
+        Users[_userid].elections.push(init(_name, _start_date, _end_date) - 1);
+    }
 
     function getUser(
         uint256 _id,
