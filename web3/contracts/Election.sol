@@ -79,6 +79,7 @@ contract ElectionInfo {
         inPhase(Phase.PRESTART, _electionid)
     {
         elections[_electionid].candidates.push(_name);
+        elections[_electionid].numberOfVotes.push(0);
     }
 
     //function to get all candidates of particular voting id
