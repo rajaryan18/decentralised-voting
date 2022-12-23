@@ -21,19 +21,19 @@ contract ElectionInfo {
         address ownerAddress;
     }
 
-    mapping(uint256 => Election) public votings;
-    uint256 public numberOfVoting = 0;
+    mapping(uint256 => Election) public elections;
+    uint256 public numberOfElections = 0;
 
     //@MODIFIERS
     // only owner modifier
     modifier onlyOwner(uint256 _electionid) {
-        require(msg.sender == votings[_electionid].ownerAddress);
+        require(msg.sender == elections[_electionid].ownerAddress);
         _;
     }
 
     //state check modifier
     modifier inPhase(Phase _phase, uint256 _electionid) {
-        require(votings[_electionid].currPhase == _phase);
+        require(elections[_electionid].currPhase == _phase);
         _;
     }
 
@@ -51,7 +51,7 @@ contract ElectionInfo {
         uint256 _start_date,
         uint256 _end_date
     ) public returns (uint256) {
-        Election storage voting = votings[numberOfVoting];
+        Election storage voting = elections[numberOfElections];
         //checks if everything is okay
         require(
             _start_date > block.timestamp,
@@ -67,9 +67,9 @@ contract ElectionInfo {
         voting.end_date = _end_date;
         voting.ownerAddress = msg.sender;
         voting.currPhase = Phase.PRESTART;
-        numberOfVoting++;
+        numberOfElections++;
 
-        return numberOfVoting;
+        return numberOfElections;
     }
 
     //to add Candidates
@@ -78,7 +78,7 @@ contract ElectionInfo {
         onlyOwner(_electionid)
         inPhase(Phase.PRESTART, _electionid)
     {
-        votings[_electionid].candidates.push(_name);
+        elections[_electionid].candidates.push(_name);
     }
 
     //function to get all candidates of particular voting id
@@ -88,8 +88,8 @@ contract ElectionInfo {
         returns (string[] memory, uint256[] memory)
     {
         return (
-            votings[_electionid].candidates,
-            votings[_electionid].numberOfVotes
+            elections[_electionid].candidates,
+            elections[_electionid].numberOfVotes
         );
     }
 
@@ -99,7 +99,7 @@ contract ElectionInfo {
         onlyOwner(_electionid)
         inPhase(Phase.PRESTART, _electionid)
     {
-        votings[_electionid].currPhase = Phase.ONGOING;
+        elections[_electionid].currPhase = Phase.ONGOING;
     }
 
     //function to do vote
@@ -111,17 +111,17 @@ contract ElectionInfo {
         uint256 _candidateID,
         string memory _aadhar
     ) public inPhase(Phase.ONGOING, _electionid) returns (uint256[] memory) {
-        for (uint256 i = 0; i < votings[_electionid].voted.length; i++) {
+        for (uint256 i = 0; i < elections[_electionid].voted.length; i++) {
             //check if user has already voted
             require(
-                votings[_electionid].voted[i] ==
+                elections[_electionid].voted[i] ==
                     keccak256(abi.encodePacked(_aadhar)),
                 "Voter has already voted"
             );
         }
-        votings[_electionid].numberOfVotes[_candidateID]++;
-        votings[_electionid].voted.push(hashAadhar(_aadhar));
-        return votings[_electionid].numberOfVotes;
+        elections[_electionid].numberOfVotes[_candidateID]++;
+        elections[_electionid].voted.push(hashAadhar(_aadhar));
+        return elections[_electionid].numberOfVotes;
     }
 
     //function to end voting
@@ -130,6 +130,6 @@ contract ElectionInfo {
         onlyOwner(_electionid)
         inPhase(Phase.ONGOING, _electionid)
     {
-        votings[_electionid].currPhase = Phase.END;
+        elections[_electionid].currPhase = Phase.END;
     }
 }
