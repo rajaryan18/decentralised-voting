@@ -16,6 +16,7 @@ contract ElectionInfo {
         uint256 end_date;
         string[] candidates;
         uint256[] numberOfVotes;
+        uint256 totalVoted;
         bytes32[] voted;
         Phase currPhase;
         address ownerAddress;
@@ -67,6 +68,7 @@ contract ElectionInfo {
         voting.end_date = _end_date;
         voting.ownerAddress = msg.sender;
         voting.currPhase = Phase.PRESTART;
+        voting.totalVoted = 0;
         numberOfElections++;
 
         return numberOfElections;
@@ -112,16 +114,17 @@ contract ElectionInfo {
         uint256 _candidateID,
         string memory _aadhar
     ) public inPhase(Phase.ONGOING, _electionid) returns (uint256[] memory) {
-        for (uint256 i = 0; i < elections[_electionid].voted.length; i++) {
+        for (uint256 i = 0; i < elections[_electionid].totalVoted; i++) {
             //check if user has already voted
             require(
-                elections[_electionid].voted[i] ==
+                elections[_electionid].voted[i] !=
                     keccak256(abi.encodePacked(_aadhar)),
                 "Voter has already voted"
             );
         }
         elections[_electionid].numberOfVotes[_candidateID]++;
         elections[_electionid].voted.push(hashAadhar(_aadhar));
+        elections[_electionid].totalVoted++;
         return elections[_electionid].numberOfVotes;
     }
 
