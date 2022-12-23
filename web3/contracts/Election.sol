@@ -4,6 +4,12 @@ pragma solidity ^0.8.0;
 contract Election {
     //@VARIABLES
     // holds data of a particular election
+    // current stage of the election
+    enum Phase {
+        PRESTART,
+        ONGOING,
+        END
+    }
     struct Voting {
         string name;
         uint256 start_date;
@@ -11,33 +17,31 @@ contract Election {
         string[] candidates;
         uint256[] numberOfVotes;
         bytes32[] voted;
+        Phase currPhase;
+        address ownerAddress;
     }
 
-    // current stage of the election
-    enum Phase {
-        PRESTART,
-        ONGOING,
-        END
-    }
-    Phase public currPhase;
+    
 
     mapping(uint256 => Voting) public votings;
     uint256 public numberOfVoting = 0;
 
-    address ownerAddress;
+    
 
     //@MODIFIERS
     // only owner modifier
-    modifier onlyOwner() {
-        require(msg.sender == ownerAddress);
+    modifier onlyOwner(uint _id) {
+        require(msg.sender == votings[_id].ownerAddress);
         _;
     }
 
     //state check modifier
-    modifier inPhase(Phase _phase) {
-        require(currPhase == _phase);
+    modifier inPhase(Phase _phase, uint256 _id) {
+        require(votings[_id].currPhase == _phase);
         _;
     }
+
+
 
     //@FUNCTIONS
 
@@ -66,9 +70,8 @@ contract Election {
         voting.name = _name;
         voting.start_date = _start_date;
         voting.end_date = _end_date;
-
-        ownerAddress = msg.sender;
-        currPhase = Phase.PRESTART;
+        voting.ownerAddress = msg.sender;
+        voting.currPhase = Phase.PRESTART;
         numberOfVoting++;
 
         return numberOfVoting;
@@ -77,8 +80,8 @@ contract Election {
     //to add Candidates
     function addCandidates(string memory _name, uint256 _id)
         public
-        onlyOwner
-        inPhase(Phase.PRESTART)
+        onlyOwner(_id)
+        inPhase(Phase.PRESTART, _id)
     {
         votings[_id].candidates.push(_name);
     }
@@ -93,8 +96,8 @@ contract Election {
     }
 
     //function to start voting, only official can start voting (here phase changes from PRESTART to ONGOING)
-    function startVoting() public onlyOwner inPhase(Phase.PRESTART) {
-        currPhase = Phase.ONGOING;
+    function startVoting(uint256 _id) public onlyOwner(_id) inPhase(Phase.PRESTART, _id) {
+        votings[_id].currPhase = Phase.ONGOING;
     }
 
     //function to do vote
@@ -105,7 +108,7 @@ contract Election {
         uint256 _id,
         uint256 _candidateID,
         string memory _aadhar
-    ) public inPhase(Phase.ONGOING) returns (uint256[] memory) {
+    ) public inPhase(Phase.ONGOING, _id) returns (uint256[] memory) {
         for (uint256 i = 0; i < votings[_id].voted.length; i++) {
             //check if user has already voted
             require(
@@ -120,7 +123,7 @@ contract Election {
     }
 
     //function to end voting
-    function endVoting() public onlyOwner inPhase(Phase.ONGOING) {
-        currPhase = Phase.END;
+    function endVoting(uint256 _id) public onlyOwner(_id) inPhase(Phase.ONGOING, _id) {
+        votings[_id].currPhase = Phase.END;
     }
 }
