@@ -88,6 +88,7 @@ contract Election {
             require(keccak256(abi.encodePacked(votings[_id].voted[i])) == keccak256(abi.encodePacked(_aadharHash)), "Voter has already voted");
         }
         votings[_id].numberOfVotes[_candidateID]++;
+        votings[_id].voted.push(_aadharHash);
         return votings[_id].numberOfVotes;
     }
 
