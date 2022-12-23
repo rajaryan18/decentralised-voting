@@ -60,7 +60,7 @@ contract UserInfo is ElectionInfo {
         );
         require(
             item.metamaskHash == keccak256(abi.encodePacked(temp)),
-            "Wrong metamask address"
+            "Acess Denied,you aren't the owner of the election.wrong metamask address"
         );
         Users[_userid].noOfElections++;
 

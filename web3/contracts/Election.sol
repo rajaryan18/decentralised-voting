@@ -30,7 +30,7 @@ contract ElectionInfo {
     modifier onlyOwner(uint256 _electionid) {
         require(
             msg.sender == elections[_electionid].ownerAddress,
-            "Acess Denied,you aren't the owner of the contract"
+            "Acess Denied,you aren't the owner of the election.wrong metamask address"
         );
         _;
     }
