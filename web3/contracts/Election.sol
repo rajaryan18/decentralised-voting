@@ -59,7 +59,7 @@ contract Election {
         Voting storage voting = votings[numberOfVoting];
         //checks if everything is okay
         require(
-            _start_date < block.timestamp,
+            _start_date > block.timestamp,
             "The start date should be date in future"
         );
         require(
