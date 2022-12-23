@@ -12,19 +12,19 @@ contract UserInfo {
         uint256[] elections; //will store the election ids of elections started by this particular user.
     }
 
-    mapping(uint256 => User) public Users;
+    mapping(uint256 => User) private Users;
 
     uint256 public noOfUsers = 0;
 
-    function hashAadhar(string memory _aadhar) public pure returns (bytes32) {
+    function hashAadhar(string memory _aadhar) private pure returns (bytes32) {
         return keccak256(abi.encodePacked(_aadhar));
     }
 
-    function hashMetamask(address _addr) public pure returns (bytes32) {
+    function hashMetamask(address _addr) private pure returns (bytes32) {
         return keccak256(abi.encodePacked(_addr));
     }
 
-    //createuser creates a user and returns its id int User array;
+    //createuser creates a user and returns its id in User array;
     function createUser(
         string memory _name,
         string memory _dob,
