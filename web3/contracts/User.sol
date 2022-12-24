@@ -32,6 +32,8 @@ contract UserInfo is ElectionInfo {
         string memory _aadhar,
         address _addr
     ) public returns (uint256) {
+        // Aadhar Numbers can be used for one account only
+        for(uint256 i=0;i<noOfUsers;i++) require(Users[i].aadharHash != keccak256(abi.encodePacked((_aadhar))), "Aadhars cannot be used again");
         User storage user = Users[noOfUsers];
 
         user.name = _name;
@@ -52,6 +54,8 @@ contract UserInfo is ElectionInfo {
         uint256 _start_date,
         uint256 _end_date
     ) public {
+        require(_userid < noOfUsers, "Invalid userID");
+        require(_start_date < _end_date, "Start Date should be before End Date");
         User storage item = Users[_userid];
         address temp = msg.sender;
         require(
@@ -72,6 +76,7 @@ contract UserInfo is ElectionInfo {
         string memory _aadhar,
         address _addr
     ) public view returns (User memory) {
+        require(_id < noOfUsers, "Invalid userID");
         User storage item = Users[_id];
         require(
             item.aadharHash == keccak256(abi.encodePacked(_aadhar)),
@@ -98,6 +103,7 @@ contract UserInfo is ElectionInfo {
 
     //returns the array of election ids of that specific user
     function getElections(uint256 _id) public view returns (uint256[] memory) {
+        require(_id < noOfUsers, "Invalid UserID");
         return Users[_id].elections;
     }
 }
