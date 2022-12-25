@@ -98,7 +98,7 @@ contract ElectionInfo {
         return elections[_electionid].candidates;
     }
 
-    //function to get all candidates of particular voting id
+    //function to get all the candidates ,their respective no of votes and the phase of the election
     function getElectionResults(uint256 _electionid)
         public
         inPhase(Phase.END, _electionid)
