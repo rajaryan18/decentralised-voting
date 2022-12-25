@@ -87,7 +87,7 @@ contract ElectionInfo {
         elections[_electionid].numberOfVotes.push(0);
     }
 
-    //function to get all candidates of particular voting id
+    //function to get all the candidates ,their respective no of votes and the phase of the election
     function getElectionResults(uint256 _electionid)
         public
         view
