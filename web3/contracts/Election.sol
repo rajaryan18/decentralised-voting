@@ -24,8 +24,7 @@ contract ElectionInfo {
     }
 
     mapping(uint256 => Election) public elections;
-    uint256 public numberOfElections = 0;
-
+    uint256 public numberOfElections;
     //@MODIFIERS
     // only owner modifier
     modifier onlyOwner(uint256 _electionid) {
