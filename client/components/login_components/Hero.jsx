@@ -10,9 +10,24 @@ import { OrbitControls } from '@react-three/drei'
 import { Model1 } from '../threejs/Echain';
 import robothandd from "../../public/robothandd.png";
 import Button from './Button';
-
+import SignInCard from './SignInCard';
+import SignUpCard from './SignUpCard';
+import { useState } from 'react';
+import CanvasCard from './Canvas';
 
 const Hero = () => {
+
+
+  const [user, setuser] = useState("hii");
+  const handleClick = () => {
+    if (user === null) {
+      setuser("hii")
+    }
+    else {
+      setuser(null)
+    }
+  }
+
   return (
     <section id="home" className={`flex md:flex-row flex-col py-6 sm:py-20 `}>
       <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 -mt-28 `}>
@@ -41,18 +56,11 @@ const Hero = () => {
 
       <div className={`flex-1 flex-col ${styles.flexCenter} md:my-0 my-10 relative`}>
         <div className='h-[500px] w-[400px] mr-36'>
-          <Canvas className='mt-8'>
-            <OrbitControls enableZoom={false} autoRotate={true} enableRotate={false} autoRotateSpeed={40} />
-            <ambientLight intensity={0.6} />
 
-            <directionalLight position={[0, 5, -2]} intensity={1} />
-            <directionalLight position={[0, -20, -1]} intensity={0.8} />
-            <directionalLight position={[1, 0, -8]} intensity={0.6} />
-            <directionalLight position={[-10, 0, -8]} intensity={0.6} />
-            <directionalLight position={[0, 30, 0]} intensity={0.5} />
+          {/* <CanvasCard /> */}
+          {/* <SignUpCard /> */}
+          {user ? <SignUpCard on={handleClick} /> : <SignInCard on={handleClick} />}
 
-            <Model1 />
-          </Canvas>
 
         </div>
 

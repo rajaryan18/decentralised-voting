@@ -2,6 +2,12 @@ import { useRouter } from "next/router"
 import Image from 'next/image'
 import vote from "/public/vote.png";
 import CandidateCard from "../components/CandidateCard";
+import metamask from '/public/metamask.png'
+// import robothandd from "/public/robothandd.png";
+import { Canvas } from '@react-three/fiber'
+// import { Model } from '../components/threejs/Metamask3d'
+import { OrbitControls } from '@react-three/drei'
+import { Model1 } from '../components/threejs/Echain';
 
 const id = () => {
     const router = useRouter();
@@ -11,7 +17,7 @@ const id = () => {
         <div className="px-[50px] mt-[10px] w-[600px] flex" >
           <div className="flex flex-col">
           <h2 className="font-bold text-white text-[40px] w-[600px]" > Hello Prateek,</h2>
-          <p className="text-gradient font-bold text-[20px] w-[600px]" >Welome to Devote</p>
+          <p className="text-gradient font-bold text-[20px] w-[600px]" >Welome to decentralized Election</p>
           </div>
           
         </div>
@@ -24,9 +30,30 @@ const id = () => {
 
               <Image src={vote} alt="vote" className="w-[290px] h-[290px] pl-[-50px] mt-[-120px] ml-[170px]"/>
           </div>
-        <div className="h-[1000px] w-[50%] ml-[50px] mt-[20px] bg-blue-200 p-[20px]">
-          <CandidateCard />
+          <div className="flex w-[100%]" >
+            <div className=" w-[50%] ml-[50px] mt-[20px] to-transparent rounded-[20px] p-[20px] flex flex-col gap-[20px]">
+              <CandidateCard />
+              <CandidateCard />
+              <CandidateCard />
+            </div>
+            <div className=" w-[50%] mr-[50px] mt-[20px] to-transparent rounded-[20px] p-[20px] flex justify-center items-center">
+            <div className='h-[500px] w-[400px] '>
+              <Canvas className='mt-8'>
+                <OrbitControls enableZoom={false} autoRotate={true} enableRotate={false} autoRotateSpeed={20} />
+                <ambientLight intensity={0.6} />
+
+                <directionalLight position={[0, 5, -2]} intensity={1} />
+                <directionalLight position={[0, -20, -1]} intensity={0.8} />
+                <directionalLight position={[1, 0, -8]} intensity={0.6} />
+                <directionalLight position={[-10, 0, -8]} intensity={0.6} />
+                <directionalLight position={[0, 30, 0]} intensity={0.5} />
+
+                <Model1 />
+              </Canvas>
+
         </div>
+            </div>
+          </div>
     </div>
   )
 }
