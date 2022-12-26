@@ -19,7 +19,7 @@ const EthDetail = () => (
     </div>
 
     <div className={layout.sectionImg}>
-      <Image src={ether} alt="billing" className="w-[60%] h-[100%]" />
+      <Image priority={true} src={ether} alt="billing" className="w-[60%] h-[100%]" />
       {/* <Image src={blockchain} alt="billing" className="w-[100%] h-[100%]" /> */}
       <div className="absolute z-[0] w-[40%] h-[20%] top-0 pink__gradient" />
       <div className="absolute z-[1] w-[80%] h-[40%] rounded-full white__gradient bottom-40" />

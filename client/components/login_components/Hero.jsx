@@ -14,11 +14,11 @@ import Button from './Button';
 
 const Hero = () => {
   return (
-    <section id="home" className={`flex md:flex-row flex-col `}>
+    <section id="home" className={`flex md:flex-row flex-col py-6 sm:py-20 `}>
       <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 -mt-28 `}>
 
 
-        <div className="flex flex-row justify-between items-center w-full -top-20">
+        <div className="flex flex-row justify-between items-center w-full">
           <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-white ss:leading-[100.8px] leading-[75px]">
             The Next <br className="sm:block hidden" />{" "}
             <span className="text-gradient">Generation</span>{" "}
@@ -42,7 +42,7 @@ const Hero = () => {
       <div className={`flex-1 flex-col ${styles.flexCenter} md:my-0 my-10 relative`}>
         <div className='h-[500px] w-[400px] mr-36'>
           <Canvas className='mt-8'>
-            <OrbitControls enableZoom={false} autoRotate={true} enableRotate={false} autoRotateSpeed={120} />
+            <OrbitControls enableZoom={false} autoRotate={true} enableRotate={false} autoRotateSpeed={60} />
             <ambientLight intensity={0.6} />
 
             <directionalLight position={[0, 5, -2]} intensity={1} />
@@ -61,7 +61,7 @@ const Hero = () => {
         <div className="absolute z-[1] w-[80%] h-[70%] rounded-full white__gradient bottom-40" />
         <div className="absolute z-[0] w-[50%] h-[45%] right-20 bottom-20 blue__gradient" />
         {/* gradient end */}
-        <Image src={robothandd} height={200} width={600} className="relative bottom-36 ml-10" />
+        <Image priority={true} src={robothandd} height={200} width={600} className="relative bottom-36 ml-10" />
       </div>
 
 

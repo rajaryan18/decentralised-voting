@@ -8,7 +8,7 @@ import meta from "../../public/metamask.png"
 const MetaDetail = () => (
   <section id="product" className={layout.sectionReverse}>
     <div className={layout.sectionImgReverse}>
-      <Image src={meta} alt="billing" className="w-[60%] h-[100%] relative z-[5]" />
+      <Image priority={true} src={meta} alt="billing" className="w-[60%] h-[100%] relative z-[5]" />
       {/* <Image src={block} alt="billing" className="w-[60%] h-[100%] relative z-[5]" /> */}
 
       {/* gradient start */}
