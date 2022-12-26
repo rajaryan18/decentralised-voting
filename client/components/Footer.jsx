@@ -1,6 +1,7 @@
-import styles from "../style";
-import { logo } from "../../../public/assets";
-import { footerLinks, socialMedia } from "../constants";
+import styles from "./src/style";
+
+
+import { footerLinks, socialMedia } from "./src/constants";
 import Head from 'next/head'
 import Image from 'next/image'
 
