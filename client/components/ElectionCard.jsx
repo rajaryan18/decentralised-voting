@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 
 
-const ElectionCard = ({title, candidateCount, TotalVotes, description, imageURL}) => {
+const ElectionCard = ({ title, candidateCount, TotalVotes, description, imageURL }) => {
   return (
-    <div className="hover:cursor-pointer card text-white bg-[#1c1c24] z-[20px] h-[400px] w-[290px] flex items-center flex-col align-center hover:scale-105 duration-300 overflow-y-auto">
+    <div className="hover:cursor-pointer overflow-hidden overflow-y-hidden card rounded-2xl text-white bg-[#1c1c24] z-[20px] h-[400px] w-[290px] flex items-center flex-col align-center hover:scale-105 duration-300">
       <Image
         priority={true}
         src={imageURL}
@@ -23,8 +23,8 @@ const ElectionCard = ({title, candidateCount, TotalVotes, description, imageURL}
           </p>
         </div>
         <div className="flex justify-start mx-[5px] text-left mt-[10px]">
-            <p className="text-[#808191] text-epilogue" > <span className="text-[#b2b3bd] font-semibold" >About: </span> {description}</p>
-            
+          <p className="text-[#808191] text-epilogue" > <span className="text-[#b2b3bd] font-semibold" >About: </span> {description}</p>
+
         </div>
       </div>
     </div>

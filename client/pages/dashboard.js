@@ -14,69 +14,70 @@ export default function Home() {
             {/* <div className="absolute z-[0] w-[40%] h-[20%] top-0 pink__gradient" />
             <div className="absolute z-[1] w-[80%] h-[40%] rounded-full white__gradient bottom-40" />
             <div className="absolute z-[0] w-[50%] h-[25%] right-20 bottom-20 blue__gradient" /> */}
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <ElectionCard 
-                title = {"Election Name"}
-                candidateCount = {"69"}
-                TotalVotes = {"6969"}
-                imageURL = {speech}
-                description = {"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+            <ElectionCard
+                title={"Election Name"}
+                candidateCount={"69"}
+                TotalVotes={"6969"}
+                imageURL={speech}
+                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
+            <div className='di relative h-[300px] w-[500px] mb-20 overflow-hidden rounded-xl bg-[#111526]'></div>
         </div>
     )
 }
