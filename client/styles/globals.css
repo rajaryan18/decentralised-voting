@@ -157,7 +157,7 @@
   inherits: true;
 }
 
-body {
+/* body {
 	font-family: Raleway, sans-serif;
 	text-align: center;
 	margin: 0;
@@ -169,7 +169,7 @@ body {
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
-}
+} */
 
 p {
 	margin: 0;
