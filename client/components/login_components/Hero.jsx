@@ -42,7 +42,7 @@ const Hero = () => {
       <div className={`flex-1 flex-col ${styles.flexCenter} md:my-0 my-10 relative`}>
         <div className='h-[500px] w-[400px] mr-36'>
           <Canvas className='mt-8'>
-            <OrbitControls enableZoom={false} autoRotate={true} enableRotate={false} autoRotateSpeed={60} />
+            <OrbitControls enableZoom={false} autoRotate={true} enableRotate={false} autoRotateSpeed={40} />
             <ambientLight intensity={0.6} />
 
             <directionalLight position={[0, 5, -2]} intensity={1} />
