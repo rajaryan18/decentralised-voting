@@ -17,6 +17,7 @@ contract ElectionInfo {
         uint256 noOfCandidates;
         string[] candidates;
         uint256[] numberOfVotes;
+        string image_url;
         uint256 totalVoted;
         bytes32[] voted;
         Phase currPhase;
@@ -54,6 +55,7 @@ contract ElectionInfo {
     //both start and end date should be in unix format in seconds elapsed
     function init(
         string memory _name,
+        string memory _image_url,
         uint256 _start_date,
         uint256 _end_date
     ) public returns (uint256) {
@@ -76,6 +78,7 @@ contract ElectionInfo {
         voting.totalVoted = 0;
         voting.noOfCandidates = 0;
         numberOfElections++;
+        voting.image_url = _image_url;
 
         return numberOfElections;
     }
