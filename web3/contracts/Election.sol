@@ -14,6 +14,7 @@ contract ElectionInfo {
         string name;
         uint256 start_date;
         uint256 end_date;
+        uint256 noOfCandidates;
         string[] candidates;
         uint256[] numberOfVotes;
         uint256 totalVoted;
@@ -23,11 +24,11 @@ contract ElectionInfo {
     }
 
     mapping(uint256 => Election) public elections;
-    uint256 public numberOfElections = 0;
-
+    uint256 public numberOfElections;
     //@MODIFIERS
     // only owner modifier
     modifier onlyOwner(uint256 _electionid) {
+        require(_electionid < numberOfElections, "Invalid Election ID");
         require(
             msg.sender == elections[_electionid].ownerAddress,
             "Acess Denied,you aren't the owner of the election.wrong metamask address"
@@ -37,6 +38,7 @@ contract ElectionInfo {
 
     //state check modifier
     modifier inPhase(Phase _phase, uint256 _electionid) {
+        require(_electionid < numberOfElections, "Invalid Election ID");
         require(elections[_electionid].currPhase == _phase, "Wrong phase");
         _;
     }
@@ -72,6 +74,7 @@ contract ElectionInfo {
         voting.ownerAddress = msg.sender;
         voting.currPhase = Phase.PRESTART;
         voting.totalVoted = 0;
+        voting.noOfCandidates = 0;
         numberOfElections++;
 
         return numberOfElections;
@@ -81,26 +84,32 @@ contract ElectionInfo {
     function addCandidates(string memory _name, uint256 _electionid)
         public
         onlyOwner(_electionid)
-        inPhase(Phase.PRESTART, _electionid)
+        inPhase(Phase.PRESTART, _electionid) returns (string[] memory)
     {
         elections[_electionid].candidates.push(_name);
         elections[_electionid].numberOfVotes.push(0);
+        elections[_electionid].noOfCandidates++;
+        return elections[_electionid].candidates;
+    }
+
+    function getCandidates(uint256 _electionid) public view onlyOwner(_electionid) returns(string[] memory) {
+        require(_electionid < numberOfElections, "Invalid Election ID");
+        return elections[_electionid].candidates;
     }
 
     //function to get all the candidates ,their respective no of votes and the phase of the election
     function getElectionResults(uint256 _electionid)
         public
+        inPhase(Phase.END, _electionid)
         view
         returns (
             string[] memory,
-            uint256[] memory,
-            Phase
+            uint256[] memory
         )
     {
         return (
             elections[_electionid].candidates,
-            elections[_electionid].numberOfVotes,
-            elections[_electionid].currPhase
+            elections[_electionid].numberOfVotes
         );
     }
 
@@ -122,6 +131,7 @@ contract ElectionInfo {
         uint256 _candidateID,
         string memory _aadhar
     ) public inPhase(Phase.ONGOING, _electionid) returns (uint256[] memory) {
+        require(_candidateID < elections[_electionid].noOfCandidates && _candidateID >= 0, "Invalid Candidate ID");
         for (uint256 i = 0; i < elections[_electionid].totalVoted; i++) {
             //check if user has already voted
             require(

@@ -15,11 +15,16 @@ contract UserInfo is ElectionInfo {
 
     mapping(uint256 => User) private Users;
 
-    uint256 public noOfUsers = 0;
+    uint256 public noOfUsers;
 
     // function hashAadhar(string memory _aadhar) private pure returns (bytes32) {
     //     return keccak256(abi.encodePacked(_aadhar));
     // }
+
+    function initializer() public {
+        noOfUsers = 0;
+        numberOfElections = 0;
+    }
 
     function hashMetamask(address _addr) private pure returns (bytes32) {
         return keccak256(abi.encodePacked(_addr));

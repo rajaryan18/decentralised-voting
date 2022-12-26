@@ -79,7 +79,7 @@ describe("User Contract", function() {
         const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address);
         const userId = createdUser.value.toNumber();
 
-        const createdElection = await HardhatUser.createElection(userId, _aadhar, _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000) + 3600);
+        const createdElection = await HardhatUser.createElection(userId, _aadhar, _name, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
         const election = await HardhatUser.getElections(userId);
         
         expect(election.length === 1);
@@ -87,6 +87,102 @@ describe("User Contract", function() {
     });
 });
 
-// describe("EletionInfo Contract", function() {
-//     describe()
-// });
+describe("Election Contract", function() {
+    async function deployElectionFixture() {
+        const Election = await ethers.getContractFactory("ElectionInfo");
+
+        // deploy the election contract
+        const HardhatElection = await Election.deploy();
+        await HardhatElection.deployed();
+        // return fixtures to use in tests
+        return { Election, HardhatElection };
+    }
+
+    it("Create Elections", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        const _name = "Generale Elections";
+        const _start_date = Math.floor(new Date().getTime()/1000);
+        const _end_date = Math.floor(new Date().getTime()/1000) + 3600;
+        // checks all the requirements
+        await expect(HardhatElection.init(_name, _start_date-100000, _end_date)).to.be.revertedWith("The start date should be date in future");
+        await expect(HardhatElection.init(_name, _start_date+100000, _start_date+100000)).to.be.revertedWith("The end date should be ahead of the start date");
+        // check if electon has been created
+        const election = await HardhatElection.init(_name, _start_date+100000, _end_date+100000);
+        const eid = election.value.toNumber();
+
+        expect(eid === 1);
+    });
+
+    it("Can Start Voting", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        await HardhatElection.init("Raj Aryan", Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
+        await expect(HardhatElection.startVoting(1)).to.be.revertedWith("Invalid Election ID");
+        await HardhatElection.startVoting(0);
+        // force an error with starting again
+        await expect(HardhatElection.startVoting(0)).to.be.revertedWith("Wrong phase");
+    });
+
+    it("Can End Voting", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        await HardhatElection.init("Raj Aryan", Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
+        await expect(HardhatElection.endVoting(1)).to.be.revertedWith("Invalid Election ID");
+        await expect(HardhatElection.endVoting(0)).to.be.revertedWith("Wrong phase");
+        await HardhatElection.startVoting(0);
+        await HardhatElection.endVoting(0);
+    });
+
+    it("Can Add Candidates", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        await HardhatElection.init("Raj Aryan", Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
+
+        const candiates = await HardhatElection.addCandidates("Raj Aryan", 0);
+        expect(candiates[0] === "Raj Aryan");
+        await HardhatElection.startVoting(0);
+        await expect(HardhatElection.addCandidates("Aayush", 0)).to.be.revertedWith("Wrong phase");
+        await expect(HardhatElection.getCandidates(5)).to.be.revertedWith("Invalid Election ID");
+        const candidates = await HardhatElection.getCandidates(0);
+        expect(candidates[0] === "Raj Aryan");
+    });
+
+    it("Can Cast Votes", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        await HardhatElection.init("Raj Aryan", Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
+
+        const _aadhar = [ "621429020078", "621429020077", "621429020079" ];
+        await HardhatElection.addCandidates("Raj Aryan", 0);
+        await HardhatElection.addCandidates("Aayush", 0);
+        await expect(HardhatElection.doVote(0, 5, _aadhar[0])).to.be.revertedWith("Wrong phase");
+        await HardhatElection.startVoting(0);
+        await expect(HardhatElection.doVote(0, 5, _aadhar[0])).to.be.revertedWith("Invalid Candidate ID");
+       
+        const votes = await HardhatElection.doVote(0, 0, _aadhar[0]);
+
+        expect(votes.length === 2);
+
+        await expect(HardhatElection.doVote(0, 0, _aadhar[0])).to.be.revertedWith("Voter has already voted");
+    });
+
+    it("Shows End Results", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        await HardhatElection.init("Raj Aryan", Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
+
+        const _aadhar = [ "621429020078", "621429020077", "621429020079" ];
+        await HardhatElection.addCandidates("Raj Aryan", 0);
+        await HardhatElection.addCandidates("Aayush", 0);
+
+        await HardhatElection.startVoting(0);
+        await HardhatElection.doVote(0, 0, _aadhar[0]);
+        await HardhatElection.doVote(0, 0, _aadhar[1]);
+        await HardhatElection.doVote(0, 0, _aadhar[2]);
+
+        await expect(HardhatElection.getElectionResults(0)).to.be.revertedWith("Wrong phase");
+        await HardhatElection.endVoting(0);
+        const result = await HardhatElection.getElectionResults(0);
+        let max = 0;
+        for(let i=1;i<result[0].length;i++) {
+            if(result[1][max] < result[1][i]) max = i;
+        }
+        expect(result[1][max] === 3);
+        expect(result[0][max] === "Raj Aryan");
+    });
+});
