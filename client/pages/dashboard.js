@@ -1,10 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
+
 import ElectionCard from '../components/ElectionCard'
 import speech from "/public/speech.svg";
-import Navbar from '../components/Navbar'
+
 
 
 
@@ -62,7 +59,7 @@ export default function Home() {
                 imageURL={speech}
                 description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
             />
-            <div className='di relative h-[300px] w-[500px] mb-20 overflow-hidden rounded-xl bg-[#111526]'></div>
-        </div>
+
+        </div >
     )
 }
