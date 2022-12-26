@@ -7,8 +7,8 @@ import { Model } from '../components/threejs/Metamask3d'
 import { OrbitControls } from '@react-three/drei'
 import { Model1 } from '../components/threejs/Echain'
 
-import styles from "../components/src/style";
-import { MetaDetail, Footer, Navbar, Stats, Hero, EthDetail, Features } from "../components/src/login_components";
+import styles from "../components/login_components/style";
+import { MetaDetail, Footer, Navbar, Stats, Hero, EthDetail, Features } from "../components/login_components";
 import { star } from '../public/assets'
 
 

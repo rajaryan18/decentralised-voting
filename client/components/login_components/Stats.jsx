@@ -1,5 +1,5 @@
 import { stats } from "../constants";
-import styles from "../style";
+import styles from "./style";
 import Head from 'next/head'
 import Image from 'next/image'
 

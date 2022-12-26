@@ -1,10 +1,9 @@
-import { card } from "../../../public/assets";
-import styles, { layout } from "../style";
-import Button from "./Button";
-import Head from 'next/head'
+
+import styles, { layout } from "./style";
+
 import Image from 'next/image'
-import ether from "../../../public/ethereum-2879620.png"
-import blockchain from "../../../public/blockchain-3061800%400.png"
+import ether from "../../public/ethereum-2879620.png"
+
 
 const EthDetail = () => (
   <section className={layout.section}>

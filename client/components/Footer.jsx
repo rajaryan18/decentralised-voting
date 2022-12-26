@@ -1,7 +1,7 @@
-import styles from "./src/style";
+import styles from "./login_components/style";
 
 
-import { footerLinks, socialMedia } from "./src/constants";
+import { footerLinks, socialMedia } from "./constants";
 import Head from 'next/head'
 import Image from 'next/image'
 

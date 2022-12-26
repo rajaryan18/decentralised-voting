@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { bill } from "../../../public/assets";
-import styles, { layout } from "../style";
-import meta from "../../../public/metamask.png"
-import block from "../../../public/blockchain-3061800-3061800%400.png"
+import { bill } from "../../public/assets";
+import styles, { layout } from "./style";
+import meta from "../../public/metamask.png"
+
 
 const MetaDetail = () => (
   <section id="product" className={layout.sectionReverse}>

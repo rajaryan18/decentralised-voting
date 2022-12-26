@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { close, logo, menu } from "../public/assets";
-import { navLinks } from "./src/constants";
+import { navLinks } from "./constants";
 import Head from 'next/head'
 import Image from 'next/image'
 

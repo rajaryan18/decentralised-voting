@@ -1,4 +1,4 @@
-import { facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox, send, shield, star } from "../../../public/assets";
+import { facebook, instagram, linkedin, twitter, send, shield, star } from "../../public/assets";
 
 export const navLinks = [
   {

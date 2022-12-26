@@ -1,14 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from "../style";
-import { discount, robothand, robot } from "../../../public/assets";
+import styles from "./style";
+import { discount, robothand, robot } from "../../public/assets";
 // import { metamask.png } from "../../../public"
 
 import { Canvas } from '@react-three/fiber'
 // import { Model } from '../components/threejs/Metamask3d'
 import { OrbitControls } from '@react-three/drei'
-import { Model1 } from '../../threejs/Echain';
-import robothandd from "../../../public/robothandd.png";
+import { Model1 } from '../threejs/Echain';
+import robothandd from "../../public/robothandd.png";
 import Button from './Button';
 
 
