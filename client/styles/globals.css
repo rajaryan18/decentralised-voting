@@ -140,24 +140,37 @@
 }
 
 @property --angle {
-  syntax: '<angle>';
+  syntax: "<angle>";
   initial-value: 90deg;
   inherits: true;
 }
 
 @property --gradX {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   initial-value: 50%;
   inherits: true;
 }
 
 @property --gradY {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   initial-value: 0%;
   inherits: true;
 }
 
 /* body {
+<<<<<<< HEAD
+  font-family: Raleway, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 1rem;
+  background-color: rgba(10, 12, 18, 1);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+=======
 	font-family: Raleway, sans-serif;
 	text-align: center;
 	margin: 0;
@@ -169,36 +182,80 @@
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
+>>>>>>> 553142b (styling dynamic page)
 } */
 
 p {
-	margin: 0;
+  margin: 0;
 }
 
 :root {
-	--d: 2500ms;
-	--angle: 90deg;
-	--gradX: 100%;
-	--gradY: 50%;
-	--c1: rgba(168, 239, 255, 1);
-	--c2: rgba(168, 239, 255, 0.1);
+  --d: 2500ms;
+  --angle: 90deg;
+  --gradX: 100%;
+  --gradY: 50%;
+  --c1: rgba(168, 239, 255, 1);
+  --c2: rgba(168, 239, 255, 0.1);
 }
 
 .wrapper {
-	min-width: min(40rem, 100%);
+  min-width: min(40rem, 100%);
 }
 
 .card {
-	border: 3px solid;
-	border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
-	animation: borderRotate var(--d) linear infinite forwards;
+  border: 3px solid;
+  border-image: conic-gradient(
+      from var(--angle),
+      var(--c2),
+      var(--c1) 0.1turn,
+      var(--c1) 0.15turn,
+      var(--c2) 0.25turn
+    )
+    30;
+  animation: borderRotate var(--d) linear infinite forwards;
   animation-duration: 3.5s;
 }
 
-
 @keyframes borderRotate {
-	100% {
-		--angle: 420deg;
-	}
+  100% {
+    --angle: 420deg;
+  }
+}
+/* .card {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  background-color: #191919;
+  overflow: hidden;
+  border-radius: 10px;
+} */
+.di::before {
+  content: "";
+  width: 200px;
+  height: 800px;
+  left: 160px;
+  top: -250px;
+  background: linear-gradient(#60e0e6, #60e0e6);
+  position: absolute;
+  animation: animate 5s linear infinite;
 }
 
+.di::after {
+  content: "";
+  position: absolute;
+  background: #1e2742;
+  inset: 1.5px;
+  border-radius: 12px;
+}
+
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
