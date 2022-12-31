@@ -13,7 +13,7 @@ const ElectionCard = ({
 
   return (
     <Link href={'/' + id} >
-      <div className="hover:cursor-pointer card text-white bg-[#1c1c24] z-[20px] h-[400px] w-[290px] flex items-center flex-col align-center hover:scale-105 duration-300 overflow-y-auto">
+      <div className="no-scrollbar hover:cursor-pointer card text-white bg-[#1c1c24] z-[20px] h-[400px] w-[290px] flex items-center flex-col align-center hover:scale-105 duration-300 overflow-y-auto">
         <Image
           priority={true}
           src={imageURL}
