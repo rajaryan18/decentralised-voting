@@ -10,16 +10,25 @@ contract ElectionInfo {
         ONGOING,
         END
     }
+    // struct for candidates. Store images on IPFS and upload links here
+    struct Candidate {
+        string name;
+        string party;
+        string image_url;
+        string party_image_url;
+    }
+
     struct Election {
         string name;
         uint256 start_date;
         uint256 end_date;
         uint256 noOfCandidates;
-        string[] candidates;
+        Candidate[] candidates;
         uint256[] numberOfVotes;
         string image_url;
         uint256 totalVoted;
-        bytes32[] voted;
+        // bytes32[] voted;
+        mapping(bytes32 => bool) voted;
         Phase currPhase;
         address ownerAddress;
     }
@@ -84,18 +93,22 @@ contract ElectionInfo {
     }
 
     //to add Candidates
-    function addCandidates(string memory _name, uint256 _electionid)
+    function addCandidates(string memory _name, uint256 _electionid, string memory _party, string memory _image_url, string memory _party_image_url)
         public
         onlyOwner(_electionid)
-        inPhase(Phase.PRESTART, _electionid) returns (string[] memory)
+        inPhase(Phase.PRESTART, _electionid)
     {
-        elections[_electionid].candidates.push(_name);
+        Candidate memory temp;
+        temp.name = _name;
+        temp.party = _party;
+        temp.image_url = _image_url;
+        temp.party_image_url = _party_image_url;
+        elections[_electionid].candidates.push(temp);
         elections[_electionid].numberOfVotes.push(0);
         elections[_electionid].noOfCandidates++;
-        return elections[_electionid].candidates;
     }
 
-    function getCandidates(uint256 _electionid) public view onlyOwner(_electionid) returns(string[] memory) {
+    function getCandidates(uint256 _electionid) public view onlyOwner(_electionid) returns(Candidate[] memory) {
         require(_electionid < numberOfElections, "Invalid Election ID");
         return elections[_electionid].candidates;
     }
@@ -106,7 +119,7 @@ contract ElectionInfo {
         inPhase(Phase.END, _electionid)
         view
         returns (
-            string[] memory,
+            Candidate[] memory,
             uint256[] memory
         )
     {
@@ -135,16 +148,9 @@ contract ElectionInfo {
         string memory _aadhar
     ) public inPhase(Phase.ONGOING, _electionid) returns (uint256[] memory) {
         require(_candidateID < elections[_electionid].noOfCandidates && _candidateID >= 0, "Invalid Candidate ID");
-        for (uint256 i = 0; i < elections[_electionid].totalVoted; i++) {
-            //check if user has already voted
-            require(
-                elections[_electionid].voted[i] !=
-                    keccak256(abi.encodePacked(_aadhar)),
-                "Voter has already voted"
-            );
-        }
+        require(!elections[_electionid].voted[keccak256(abi.encodePacked(_aadhar))], "Voter has already voted");
         elections[_electionid].numberOfVotes[_candidateID]++;
-        elections[_electionid].voted.push(hashAadhar(_aadhar));
+        elections[_electionid].voted[hashAadhar(_aadhar)] = true;
         elections[_electionid].totalVoted++;
         return elections[_electionid].numberOfVotes;
     }

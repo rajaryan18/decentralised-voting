@@ -1,7 +1,6 @@
 //deploy script
 
-// User Contract ->  0x36Ad3CeA12bC28E0a7fd1EB2D1C6eB3b0dcE0cae
-// Election Contract ->  0xD370A6bFBFCA72f655Cf525bCABac16ED737ca23
+// Deployed to 0x6C1C57baF4c43858A6E870103d9dE7aB82a886d3
 
 const { ethers, upgrades } = require('hardhat');
 
@@ -22,7 +21,7 @@ async function deployElection() {
 async function main() {
     const [deployer] = await ethers.getSigners();
     console.log(deployer.address);
-    deployElection();
+    // deployElection();
     deployUser();
 }
 

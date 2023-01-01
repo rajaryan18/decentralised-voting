@@ -54,6 +54,7 @@ contract UserInfo is ElectionInfo {
 
     function createElection(
         uint256 _userid,
+        string memory _image_url,
         string memory _aadhar,
         string memory _name,
         uint256 _start_date,
@@ -73,7 +74,7 @@ contract UserInfo is ElectionInfo {
         );
         Users[_userid].noOfElections++;
 
-        Users[_userid].elections.push(init(_name, _start_date, _end_date) - 1);
+        Users[_userid].elections.push(init(_name, _image_url, _start_date, _end_date) - 1);
     }
 
     function getUser(
