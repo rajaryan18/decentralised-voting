@@ -6,8 +6,8 @@ import { ethers } from 'ethers';
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract('0x6C1C57baF4c43858A6E870103d9dE7aB82a886d3');
-  const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
+  // const { contract } = useContract('0x6C1C57baF4c43858A6E870103d9dE7aB82a886d3');
+  // const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
 
   const address = useAddress();
   const connect = useMetamask();
@@ -17,7 +17,7 @@ export const StateContextProvider = ({ children }) => {
     <StateContext.Provider
       value={{
         address,
-        contract
+        connect
       }}
     >
       {children}

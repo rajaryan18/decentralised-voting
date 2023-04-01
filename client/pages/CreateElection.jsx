@@ -8,7 +8,7 @@ import Loader from '../components/Loader';
 
 import { checkIfImage } from '../utils';
 
-const CreateCampaign = () => {
+const CreateElection = () => {
   // const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { createCampaign } = useStateContext();
@@ -16,6 +16,7 @@ const CreateCampaign = () => {
     id: '',
     title: '',
     aadhar: '',
+    description: '',
     startDate: '2017-06-01T08:30',
     deadline: '2017-06-01T08:30',
     image: ''
@@ -31,17 +32,10 @@ const CreateCampaign = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // checkIfImage(form.image, async (exists) => {
-    //   if (exists) {
     //     setIsLoading(true)
-    //     await createCampaign({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
+    //     await createElection({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
     //     setIsLoading(false);
     //     // navigate('/');
-    //   } else {
-    //     alert('Provide valid image URL')
-    //     setForm({ ...form, image: '' });
-    //   }
-    // })
     console.log(form);
   }
 
@@ -49,17 +43,17 @@ const CreateCampaign = () => {
     <div className="bg-primary bg-[#01040f] flex justify-center items-center flex-col  sm:p-10 p-4">
       {isLoading && <Loader />}
       <div className="bg-blue-gradient flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
-        <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">Start a Campaign</h1>
+        <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">Start a Election</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
         <div className="flex flex-wrap gap-[40px] ">
           <FormField
             labelName="User Id*"
-            placeholder="Eneter your user id"
+            placeholder="Enter your user id"
             inputType="number"
-            value={form.name}
-            handleChange={(e) => handleFormFieldChange('name', e)}
+            value={form.id}
+            handleChange={(e) => handleFormFieldChange('id', e)}
           />
           <FormField
             labelName="Election Title *"
@@ -69,13 +63,20 @@ const CreateCampaign = () => {
             handleChange={(e) => handleFormFieldChange('title', e)}
           />
         </div>
+        <FormField
+          labelName="Election Description*"
+          placeholder="Write description about the election"
+          isTextArea
+          value={form.description}
+          handleChange={(e) => handleFormFieldChange('description', e)}
+        />
 
         <FormField
           labelName="Aadhar number*"
           placeholder="Enter your Aadhar"
           inputType="number"
-          value={form.description}
-          handleChange={(e) => handleFormFieldChange('description', e)}
+          value={form.aadhar}
+          handleChange={(e) => handleFormFieldChange('aadhar', e)}
         />
 
 
@@ -108,7 +109,7 @@ const CreateCampaign = () => {
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton
             btnType="submit"
-            title="Submit new campaign"
+            title="Submit new election"
             styles="bg-[#1dc071]"
           />
         </div>
@@ -117,4 +118,4 @@ const CreateCampaign = () => {
   )
 }
 
-export default CreateCampaign
+export default CreateElection
