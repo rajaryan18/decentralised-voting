@@ -16,29 +16,33 @@ const CreateCampaign = () => {
     id: '',
     title: '',
     aadhar: '',
-    startDate: '',
-    deadline: '',
+    startDate: '2017-06-01T08:30',
+    deadline: '2017-06-01T08:30',
     image: ''
   });
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value })
   }
+  const handleFormFieldChangeTime = (fieldName, e) => {
+    setForm({ ...form, [fieldName]: Math.floor(e.target.value) })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    checkIfImage(form.image, async (exists) => {
-      if (exists) {
-        setIsLoading(true)
-        await createCampaign({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
-        setIsLoading(false);
-        // navigate('/');
-      } else {
-        alert('Provide valid image URL')
-        setForm({ ...form, image: '' });
-      }
-    })
+    // checkIfImage(form.image, async (exists) => {
+    //   if (exists) {
+    //     setIsLoading(true)
+    //     await createCampaign({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
+    //     setIsLoading(false);
+    //     // navigate('/');
+    //   } else {
+    //     alert('Provide valid image URL')
+    //     setForm({ ...form, image: '' });
+    //   }
+    // })
+    console.log(form);
   }
 
   return (
@@ -78,18 +82,18 @@ const CreateCampaign = () => {
 
         <div className="flex flex-wrap gap-[40px]">
           <FormField
-            labelName="End Date *"
-            placeholder="End Date"
-            inputType="date"
-            value={form.deadline}
+            labelName="Start Date *"
+            placeholder="Start Date"
+            inputType="datetime-local"
+            value={form.startDate}
             handleChange={(e) => handleFormFieldChange('startDate', e)}
           />
           <FormField
             labelName="End Date *"
             placeholder="End Date"
-            inputType="date"
+            inputType="datetime-local"
             value={form.deadline}
-            handleChange={(e) => handleFormFieldChange('deadline', e)}
+            handleChange={(e) => handleFormFieldChangeTime('deadline', e)}
           />
         </div>
 
