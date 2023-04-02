@@ -25,9 +25,11 @@ const SignUp = () => {
         name: '',
 
         aadhar: '',
-        metaAddress: address,
+        metaAddress: { address },
         dob: '',
     });
+
+    useEffect(() => { disconnect() }, [])
 
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })
