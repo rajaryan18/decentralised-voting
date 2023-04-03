@@ -10,6 +10,7 @@ import Loader from '../components/Loader';
 import { useDisconnect } from '@thirdweb-dev/react';
 import meta from '../public/metamask.png'
 import { useRouter } from 'next/router';
+import AlertCard from '../components/alert';
 
 
 const SignUp = () => {
@@ -41,7 +42,7 @@ const SignUp = () => {
             setForm({ ...form, ["metaAddress"]: address });
             console.log(form);
         }
-        else { console.log("Wallet not connected"); alert("Wallet not connected") }
+        else { console.log("Wallet not connected"); <AlertCard /> }
 
         //     setIsLoading(true)
         //     await createElection({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
