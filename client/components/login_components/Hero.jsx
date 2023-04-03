@@ -10,8 +10,8 @@ import { OrbitControls } from '@react-three/drei'
 import { Model1 } from '../threejs/Echain';
 import robothandd from "../../public/robothandd.png";
 import Button from './Button';
-import SignInCard from './SignInCard';
-import SignUpCard from './SignUpCard';
+import SignedCard from './SignedCard';
+import SignINCard from './SignInCard';
 import { useState } from 'react';
 import CanvasCard from './Canvas';
 
@@ -29,20 +29,18 @@ const Hero = () => {
   }
 
   return (
-    <section id="home" className={`flex md:flex-row flex-col py-6 sm:py-20 `}>
-      <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 -mt-28 `}>
+    <section id="home" className={`flex md:flex-row flex-col py-6 sm:py-20 mx-10 `}>
+      <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 -mt-28  `}>
 
 
-        <div className="flex flex-row justify-between items-center w-full">
+        <div className="flex flex-row justify-between items-center w-full -mt-40">
           <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-white ss:leading-[100.8px] leading-[75px]">
             The Next <br className="sm:block hidden" />{" "}
             <span className="text-gradient">Generation</span>{" "}
           </h1>
-          {/* <div className="ss:flex hidden md:mr-4 mr-0">
-            <GetStarted />
-          </div> */}
+
         </div>
-        {/* <Image src={metamask.png} height={30} width={30} /> */}
+
 
         <h1 className="font-poppins font-semibold ss:text-[68px] text-[52px] text-white ss:leading-[100.8px] leading-[75px] w-full">
           Voting System.
@@ -59,7 +57,7 @@ const Hero = () => {
 
           {/* <CanvasCard /> */}
           {/* <SignUpCard /> */}
-          {user ? <SignUpCard on={handleClick} /> : <SignInCard on={handleClick} />}
+          {user ? <SignedCard on={handleClick} /> : <SignedCard on={handleClick} />}
 
 
         </div>
@@ -72,10 +70,6 @@ const Hero = () => {
         <Image priority={true} src={robothandd} height={200} width={600} className="relative bottom-36 ml-10" />
       </div>
 
-
-      {/* <div className={`ss:hidden ${styles.flexCenter}`}>
-        <GetStarted />
-      </div> */}
     </section>
   );
 };
