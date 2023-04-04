@@ -25,6 +25,8 @@ const createEthereumContract = () => {
 };
 
 
+
+
 export const StateContextProvider = ({ children }) => {
 
   const [address, setAddress] = useState("");
@@ -74,6 +76,24 @@ export const StateContextProvider = ({ children }) => {
   };
 
 
+  const createElection = async () => {
+    try {
+      if(!ethereum) return alert("Please install MetaMast Wallet");
+      createEthereumContract()
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const addUser = async () => {
+    try {
+      if(!ethereum) return alert("Please install MetaMast Wallet");
+      
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <StateContext.Provider
@@ -81,6 +101,8 @@ export const StateContextProvider = ({ children }) => {
         address,
         connectWallet,
         checkIfWalletIsConnected,
+        createCampaign: createElection
+        // createElection : createCampaign,
       }}
     >
       {children}

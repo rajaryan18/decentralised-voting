@@ -17,7 +17,7 @@ import Footer from '../components/Footer';
 
 const SignUp = () => {
     // const navigate = useNavigate();
-    const { connectWallet, address } = useStateContext();
+    const { connectWallet, address, createCampaign } = useStateContext();
     const disconnect = useDisconnect();
     const router = useRouter();
 
@@ -45,7 +45,8 @@ const SignUp = () => {
             console.log(form);
         }
         else { console.log("Wallet not connected"); <AlertCard /> }
-
+        
+        createCampaign()
         //     setIsLoading(true)
         //     await createElection({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
         //     setIsLoading(false);
@@ -122,16 +123,10 @@ const SignUp = () => {
                         value={form.dob}
                         handleChange={(e) => handleFormFieldChange('dob', e)}
                     />
-                    <div onClick={address ? () => { disconnect() } : () => { connect() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
+                    <div onClick={address ? () => { disconnect() } : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
                         {address ? "Connected" : "Connect metamask"}<Image src={meta} className="h-6 w-6 mt-[1px] ml-2" />
 
                     </div>
-
-
-
-
-
-
 
                     <div className="flex justify-center items-center mt-[40px]">
                         <CustomButton
@@ -141,9 +136,9 @@ const SignUp = () => {
                         />
                     </div>
                 </form>
-                <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
-                <div className="absolute z-[1] w-[30%] h-[50%] rounded-full white__gradient bottom-40" />
-                <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
+                <div className="absolute z-[-1] w-[40%] h-[35%] top-0 pink__gradient" />
+                <div className="absolute z-[-1] w-[30%] h-[50%] rounded-full white__gradient bottom-40" />
+                <div className="absolute z-[-1] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
 
 
             </div>
