@@ -15,7 +15,7 @@ import AlertCard from '../components/alert';
 
 const SignUp = () => {
     // const navigate = useNavigate();
-    const { connect, address } = useStateContext();
+    const { connectWallet, address } = useStateContext();
     const disconnect = useDisconnect();
     const router = useRouter();
 
@@ -81,7 +81,7 @@ const SignUp = () => {
                     value={form.dob}
                     handleChange={(e) => handleFormFieldChange('dob', e)}
                 />
-                <div onClick={address ? () => { disconnect() } : () => { connect() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
+                <div onClick={address ? () => { disconnect() } : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
                     {address ? "Connected" : "Connect metamask"}<Image src={meta} className="h-6 w-6 mt-[1px] ml-2" />
 
                 </div>
