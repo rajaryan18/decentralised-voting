@@ -11,7 +11,7 @@ import { Model1 } from '../threejs/Echain';
 import robothandd from "../../public/robothandd.png";
 import Button from './Button';
 import SignedCard from './SignedCard';
-import SignINCard from './SignInCard';
+import SignInCard from './SignInCard';
 import { useState } from 'react';
 import CanvasCard from './Canvas';
 
@@ -57,7 +57,7 @@ const Hero = () => {
 
           {/* <CanvasCard /> */}
           {/* <SignUpCard /> */}
-          {user ? <SignedCard on={handleClick} /> : <SignedCard on={handleClick} />}
+          {user ? <SignInCard on={handleClick} /> : <SignedCard on={handleClick} />}
 
 
         </div>
