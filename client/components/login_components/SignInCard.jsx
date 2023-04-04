@@ -15,7 +15,6 @@ const SignUpCard = (props) => {
             <div className="absolute z-20 inset-[1.5px] rounded-[12px] ">
                 <div className="bg-[#283457] text-white px-2 py-3  rounded-t-xl h-[130px]">
                     <div className='content text-2xl  md:text-3xl  text-center text-white'>Welcome to De<span className='text-[#60e0e6]'>ction</span></div>
-                    {/* <p className='text-xs mt-1 text-white/75 md:mx-[11%] mx-10'>Aadhar Number</p> */}
                     <div className='mx-auto items-center flex justify-center'><input type="text" placeholder="Enter your Aadhar no" className=' outline-none text-black rounded-xl h-[40px] w-[82%]  mt-6   px-5 py-3'></input></div>
                 </div>
                 <button onClick={ address ? () => { disconnect() } : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
