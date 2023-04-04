@@ -5,13 +5,25 @@ import { MetaDetail, Footer, Navbar, Stats, Hero, EthDetail, Features } from "..
 import styles from "../components/login_components/style";
 
 
+
 export default function App({ Component, pageProps }) {
   return (
     <ThirdwebProvider >
 
       <StateContextProvider>
+        <div className={`bg-primary bg-[#01040f] ${styles.paddingX} ${styles.flexCenter}`}>
+          <div className={`${styles.boxWidth}`}>
+            <Navbar />
+          </div>
+        </div>
 
         <Component {...pageProps} />
+
+        <div className={`bg-primary bg-[#01040f] ${styles.paddingX} ${styles.flexCenter}`}>
+          <div className={`${styles.boxWidth}`}>
+            <Footer />
+          </div>
+        </div>
 
 
       </StateContextProvider>

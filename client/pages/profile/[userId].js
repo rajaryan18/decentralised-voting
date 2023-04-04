@@ -8,11 +8,7 @@ import ProfileElectionCard from "../../components/profileElectionCard";
 export default function Profile() {
     return (
         <div className='bg-primary bg-[#01040f]'>
-            <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-                <div className={`${styles.boxWidth}`}>
-                    <Navbar />
-                </div>
-            </div>
+
 
             <div className=" flex  flex-col sm:px-10 lg:px-24 md:px-20 ">
                 <div className="upperborder h-44 w-full bg-[#1e2742] rounded-t-3xl mt-10 "></div>
@@ -67,12 +63,7 @@ export default function Profile() {
 
 
             </div>
-            <div className={`bg-primary ${styles.paddingX} ${styles.flexCenter}`}>
-                <div className={`${styles.boxWidth}`}>
-                    <Footer />
 
-                </div>
-            </div>
 
 
 

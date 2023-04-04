@@ -19,11 +19,7 @@ export default function Home() {
     return (
 
         <div className="bg-primary bg-[#01040f] w-full overflow-hidden">
-            <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-                <div className={`${styles.boxWidth}`}>
-                    <Navbar />
-                </div>
-            </div>
+
             <div className={`bg-primary ${styles.flexStart}`}>
                 <div className={`${styles.boxWidth}`}>
                     <Hero />
@@ -37,10 +33,11 @@ export default function Home() {
                     <MetaDetail />
                     <EthDetail />
 
-
-                    <Footer />
                 </div>
             </div>
+            <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
+            <div className="absolute z-[1] w-[30%] h-[40%] rounded-full white__gradient bottom-40" />
+            <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
         </div>
 
 

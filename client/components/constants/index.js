@@ -4,18 +4,22 @@ export const navLinks = [
   {
     id: "login",
     title: "Login",
+    site: "",
   },
   {
     id: "dashboard",
     title: "Dashboard",
+    site: "dashboard",
   },
   {
     id: "profile",
     title: "Profiles",
+    site: "profile/a",
   },
   {
     id: "elections",
     title: "Elections",
+    site: "election/a",
   },
 ];
 

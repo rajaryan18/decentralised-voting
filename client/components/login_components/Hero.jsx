@@ -62,11 +62,6 @@ const Hero = () => {
 
         </div>
 
-        {/* gradient start */}
-        <div className="absolute z-[0] w-[40%] h-[40%] top-0 pink__gradient" />
-        <div className="absolute z-[1] w-[80%] h-[70%] rounded-full white__gradient bottom-40" />
-        <div className="absolute z-[0] w-[50%] h-[45%] right-20 bottom-20 blue__gradient" />
-        {/* gradient end */}
         <Image priority={true} src={robothandd} height={200} width={600} className="relative bottom-36 ml-10" />
       </div>
 
