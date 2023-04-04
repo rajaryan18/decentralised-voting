@@ -57,12 +57,10 @@ const SignUp = () => {
 
 
     return (
-<<<<<<< HEAD
         <div className="bg-primary bg-[#01040f]">
             {/* <div className={`${styles.paddingX} ${styles.flexCenter}`}>
                 <div className={`${styles.boxWidth}`}>
                     <Navbar />
-=======
         <div className="bg-primary bg-[#01040f] flex justify-center items-center flex-col  sm:p-10 p-4">
             {isLoading && <Loader />}
 
@@ -94,7 +92,6 @@ const SignUp = () => {
                 <div onClick={address ? () => { disconnect() } : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
                     {address ? "Connected" : "Connect metamask"}<Image src={meta} className="h-6 w-6 mt-[1px] ml-2" />
 
->>>>>>> f7bebb97c0b50049e03ae43e99afbb9cd824b456
                 </div>
             </div> */}
             <div className=" flex justify-center items-center flex-col  sm:p-10 p-4">
