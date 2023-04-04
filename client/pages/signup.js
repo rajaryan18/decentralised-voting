@@ -17,22 +17,20 @@ import Footer from '../components/Footer';
 
 const SignUp = () => {
     // const navigate = useNavigate();
-    const { connectWallet, address, createCampaign } = useStateContext();
+    const { connectWallet, address, createCampaign, addUser } = useStateContext();
     const disconnect = useDisconnect();
     const router = useRouter();
 
 
     const [isLoading, setIsLoading] = useState(false);
     const [form, setForm] = useState({
-
         name: '',
-
         aadhar: '',
         metaAddress: { address },
         dob: '',
     });
 
-    useEffect(() => { disconnect() }, [])
+    // useEffect(() => { disconnect() }, [])
 
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })
@@ -42,16 +40,12 @@ const SignUp = () => {
         e.preventDefault();
         if (address) {
             setForm({ ...form, ["metaAddress"]: address });
+            addUser(form.name, form.dob, form.aadhar, form.metaAddress)
             console.log(form);
         }
-        else { console.log("Wallet not connected"); <AlertCard /> }
-        
-        createCampaign()
-        //     setIsLoading(true)
-        //     await createElection({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
-        //     setIsLoading(false);
-        //     // navigate('/');
-
+        else {
+            console.log("Wallet not connected"); <AlertCard /> 
+        }
     }
 
 
@@ -132,6 +126,7 @@ const SignUp = () => {
                         <CustomButton
                             btnType="submit"
                             title="Sign Up"
+                            handleClick={handleSubmit}
                             styles="bg-[#1dc071]"
                         />
                     </div>

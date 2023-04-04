@@ -12,13 +12,13 @@ if (typeof window !== "undefined") {
 }
 console.log(ethereum);
 
-const createEthereumContract = () => {
+const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
   const signer = provider.getSigner();
   const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
 
-  console.log(provider);
-  console.log(signer);
+  // console.log(provider);
+  // console.log(signer);
   console.log((transactionsContract));
 
   return transactionsContract;
@@ -79,19 +79,23 @@ export const StateContextProvider = ({ children }) => {
   const createElection = async () => {
     try {
       if(!ethereum) return alert("Please install MetaMast Wallet");
-      createEthereumContract()
+      getEthereumContract()
 
     } catch (error) {
       console.log(error);
     }
   }
 
-  const addUser = async () => {
+  const addUser = async (name, dob, aadhar, addr) => {
     try {
       if(!ethereum) return alert("Please install MetaMast Wallet");
-      
+
+      const smartContract = getEthereumContract()
+      console.log(ethers.utils.computeAddress(addr));
+      const userID = await smartContract.createUser(name, dob, aadhar, address);
+      console.log(userID);
     } catch (error) {
-      
+      console.log(error);
     }
   }
 
@@ -101,8 +105,8 @@ export const StateContextProvider = ({ children }) => {
         address,
         connectWallet,
         checkIfWalletIsConnected,
-        createCampaign: createElection
-        // createElection : createCampaign,
+        createCampaign: createElection,
+        addUser
       }}
     >
       {children}
