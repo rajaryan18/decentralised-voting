@@ -1,13 +1,16 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-import vote from "/public/vote.png";
-import CandidateCard from "../components/CandidateCard";
-import metamask from "/public/metamask.png";
-// import robothandd from "/public/robothandd.png";
+
+import vote from "../../public/vote.png"
+
+
+import CandidateCard from "../../components/CandidateCard"
+
 import { Canvas } from "@react-three/fiber";
-// import { Model } from '../components/threejs/Metamask3d'
+
 import { OrbitControls } from "@react-three/drei";
-import { Model1 } from "../components/threejs/Echain";
+import { Model1 } from "../../components/threejs/Echain";
+
 
 const id = () => {
   const router = useRouter();
