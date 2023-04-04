@@ -68,11 +68,7 @@
           },
           "t_enum(Phase)5": {
             "label": "enum ElectionInfo.Phase",
-            "members": [
-              "PRESTART",
-              "ONGOING",
-              "END"
-            ],
+            "members": ["PRESTART", "ONGOING", "END"],
             "numberOfBytes": "1"
           },
           "t_mapping(t_uint256,t_struct(Election)30_storage)": {
@@ -218,11 +214,7 @@
           },
           "t_enum(Phase)5": {
             "label": "enum ElectionInfo.Phase",
-            "members": [
-              "PRESTART",
-              "ONGOING",
-              "END"
-            ],
+            "members": ["PRESTART", "ONGOING", "END"],
             "numberOfBytes": "1"
           },
           "t_mapping(t_uint256,t_struct(Election)30_storage)": {
@@ -420,11 +412,7 @@
           },
           "t_enum(Phase)5": {
             "label": "enum ElectionInfo.Phase",
-            "members": [
-              "PRESTART",
-              "ONGOING",
-              "END"
-            ],
+            "members": ["PRESTART", "ONGOING", "END"],
             "numberOfBytes": "1"
           },
           "t_mapping(t_bytes32,t_bool)": {
