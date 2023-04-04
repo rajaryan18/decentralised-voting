@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 
 const SignedCard = (props) => {
-    const { connect, address } = useStateContext();
+    const { connectWallet, address, checkIfWalletIsConnected } = useStateContext();
     const disconnect = useDisconnect();
     const router = useRouter();
     const handleSignIn = () => {
@@ -24,7 +24,7 @@ const SignedCard = (props) => {
                     <div className='contenttext-4xl text-center text-2xl md:text-3xl  text-white'>Welcome back to De<span className='text-[#60e0e6]'>ction</span></div>
                     <div className=' flex justify-center'><Image src={ethe} className="h-28 w-28 -mt-4 mx-auto" /></div>
                 </div>
-                <button onClick={address ? () => { disconnect() } : () => { connect() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
+                <button onClick={address ? () => { disconnect() } : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
                     {address ? "Connected" : "Connect metamask"}<Image src={meta} className="h-6 w-6 mt-[1px] ml-2" />
 
                 </button>

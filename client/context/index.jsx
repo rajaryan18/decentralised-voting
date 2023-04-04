@@ -1,23 +1,86 @@
-import React, { useContext, createContext } from 'react';
+import React, { useContext, createContext, useEffect, useState } from 'react';
 
 import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
 import { ethers } from 'ethers';
 
 const StateContext = createContext();
 
-export const StateContextProvider = ({ children }) => {
-  // const { contract } = useContract('0x6C1C57baF4c43858A6E870103d9dE7aB82a886d3');
-  // const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
+import { contractABI, contractAddress } from "./constants"
 
-  const address = useAddress();
-  const connect = useMetamask();
+if (typeof window !== "undefined") {
+  var { ethereum } = window;
+}
+console.log(ethereum);
+
+const createEthereumContract = () => {
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const signer = provider.getSigner();
+  const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
+
+  console.log(provider);
+  console.log(signer);
+  console.log((transactionsContract));
+
+  return transactionsContract;
+};
+
+
+export const StateContextProvider = ({ children }) => {
+
+  const [address, setAddress] = useState("");
+
+  //Function to check if wallet is connected
+  const checkIfWalletIsConnected = async () => {
+    try{
+      if(!ethereum){
+        return alert("Please install MetaMask wallet");
+      }
+
+      const accounts = await ethereum.request({
+        method: "eth_accounts"
+      });
+      
+      if(accounts.length){
+        console.log(accounts);
+        setAddress(accounts[0]);
+      }else{
+        console.log("No Account found");
+      }
+
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  useEffect(()=>{
+    checkIfWalletIsConnected();
+  }, [])
+
+
+  //Function to connect wallet
+  const connectWallet = async () => {
+    try{
+      if(!ethereum) return alert("Please install MetaMask wallet");
+
+      const accounts = await ethereum.request({method: "eth_requestAccounts"});
+      console.log(accounts);
+      setAddress(accounts[0]);
+      window.location.reload();
+      // console.log(accounts);
+    }catch (error){
+      console.log(error);
+      // throw new Error("No ethereum object");
+    }
+  };
+
 
 
   return (
     <StateContext.Provider
       value={{
         address,
-        connect
+        connectWallet,
+        checkIfWalletIsConnected,
       }}
     >
       {children}
