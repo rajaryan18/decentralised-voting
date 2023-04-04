@@ -9,6 +9,19 @@ const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
 
+  // function togglee(word) {
+  //   const arr = ["login", "dashboard", "election", "profile"]
+  //   arr.map((res) => {
+  //     console.log(res == word)
+  //     if (res == word) {
+  //       document.getElementById(`${res}`).className = `text-blue-500 hover:text-blue-400 font-poppins font-normal cursor-pointer text-[16px] duration-200 `
+  //     }
+  //     else {
+  //       document.getElementById(`${res}`).className = `text-white hover:text-blue-400 font-poppins font-normal cursor-pointer text-[16px] duration-200 `
+  //     }
+  //   })
+  // }
+
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
       <div className="w-[124px] h-[32px] text-3xl text-white" >De<span className="text-[#60e0e6]">ction</span></div>
@@ -16,12 +29,12 @@ const Navbar = () => {
       <ul className="list-none sm:flex text-5sxl hidden justify-end items-center flex-1">
         {navLinks.map((nav, index) => (
           <li
+            id={nav.id}
             key={nav.id}
-            className={`font-poppins font-normal cursor-pointer text-[16px] ${active === nav.title ? "text-white" : "text-white/75"
-              } ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
-            onClick={() => setActive(nav.title)}
+            className={`text-white hover:text-blue-400 font-poppins font-normal cursor-pointer text-[16px] ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
+          // onClick={(event) => togglee(`${nav.title}`)}
           >
-            <a href={`#${nav.id}`}>{nav.title}</a>
+            <a href={`/${nav.site}`}>{nav.title}</a>
           </li>
         ))}
       </ul>
