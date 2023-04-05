@@ -34,8 +34,7 @@ const CreateElection = () => {
     e.preventDefault();
 
     if (!verify_aadhar(form.aadhar)) return console.log("This Aadhar doesn't exists");
-    // setForm({ ...form, ["deadline"]: convertToUNIX(form.deadline) });
-    // setForm({ ...form, ["startDate"]: convertToUNIX(form.startDate) });
+
     console.log(convertToUNIX(form.startDate));
     console.log(convertToUNIX(form.deadline));
     console.log(form);
@@ -45,7 +44,7 @@ const CreateElection = () => {
     <div className="bg-primary bg-[#01040f] flex justify-center items-center flex-col  sm:p-10 p-4">
       {isLoading && <Loader />}
       <div className="bg-blue-gradient flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
-        <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">Start a Election</h1>
+        <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">Start an Election</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
@@ -109,7 +108,7 @@ const CreateElection = () => {
           handleChange={(e) => handleFormFieldChange('image', e)}
         />
 
-        <div className="flex justify-center items-center mt-[40px]">
+        <div className="flex justify-center items-center mt-[40px] mb-10">
           <CustomButton
             btnType="submit"
             title="Submit new election"
