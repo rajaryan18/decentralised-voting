@@ -40,7 +40,7 @@ const SignUp = () => {
         e.preventDefault();
         if (address) {
             setForm({ ...form, ["metaAddress"]: address });
-            addUser(form.name, form.dob, form.aadhar, form.metaAddress)
+            addUser(form.name, form.dob, form.aadhar, address)
             console.log(form);
         }
         else {
