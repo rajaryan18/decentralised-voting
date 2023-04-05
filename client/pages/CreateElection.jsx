@@ -34,7 +34,7 @@ const CreateElection = () => {
 
     if (!verify_aadhar(form.aadhar)) return console.log("This Aadhar doesn't exists");
 
-    createCampaign(form.id, form.image, form.aadhar, form.title, form.startDate, form.deadline)
+    createCampaign(form.id, form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline))
 
     console.log(convertToUNIX(form.startDate));
     console.log(convertToUNIX(form.deadline));
