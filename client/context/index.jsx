@@ -1,17 +1,11 @@
 import React, { useContext, createContext, useEffect, useState } from "react";
-
 import { ethers } from "ethers";
-
 const StateContext = createContext();
-
 import { contractABI, contractAddress } from "./constants";
-
+import convertToUNIX from "../utils/helper_functions"
 if (typeof window !== "undefined") {
   var { ethereum } = window;
 }
-
-// console.log(ethereum);
-
 
 const getEthereumContract = () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
@@ -40,7 +34,6 @@ export const StateContextProvider = ({ children }) => {
       });
 
       if (accounts.length) {
-        // console.log(accounts);
         setAddress(accounts[0]);
       } else {
         console.log("No Account found");
@@ -60,27 +53,24 @@ export const StateContextProvider = ({ children }) => {
   const connectWallet = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask wallet");
-
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      // console.log(accounts);
       setAddress(accounts[0]);
       window.location.reload();
-      // console.log(accounts);
     } catch (error) {
       console.log(error);
-      // throw new Error("No ethereum object");
     }
   };
 
-  /*THIS FUNCTION IS YET TO BE COMPLETED (HAVE TO CONVERT DATE IN UNIX FORMAT)  */
+  /*THIS FUNCTION IS YET TO BE COMPLETED (HAVE TO CONVERT DATE IN UNIX FORMAT) */
   //Function to create election
   const createElection = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const election_count = smartContract.createElection(userID, image_url, aadhar, election_name, start_date, end_date);
+      const election_count = await smartContract.createElection(userID, image_url, aadhar, election_name, convertToUNIX(start_date), convertToUNIX(end_date));
+      console.log(election_count);
     } catch (error) {
       console.log(error);
     }
@@ -93,9 +83,7 @@ export const StateContextProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask Wallet");
 
       const smartContract = getEthereumContract();
-      // console.log(address);
       const userID = await smartContract.createUser(name, dob, aadhar, addr);
-      // console.log(userID);
     } catch (error) {
       console.log(error);
     }
@@ -109,7 +97,6 @@ export const StateContextProvider = ({ children }) => {
 
       const smartContract = getEthereumContract();
       const req_user = await smartContract.getUser(userID, aadhar, address);
-      console.log(req_user);
     } catch (error) {
       console.log(error);
     }
