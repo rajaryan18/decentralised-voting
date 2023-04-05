@@ -40,11 +40,11 @@ const SignUp = () => {
         e.preventDefault();
         if (address) {
             setForm({ ...form, ["metaAddress"]: address });
-            addUser(form.name, form.dob, form.aadhar, form.metaAddress)
+            addUser(form.name, form.dob, form.aadhar, address)
             console.log(form);
         }
         else {
-            console.log("Wallet not connected"); <AlertCard /> 
+            console.log("Wallet not connected"); <AlertCard />
         }
     }
 
@@ -93,7 +93,7 @@ const SignUp = () => {
                 {isLoading && <Loader />}
 
 
-                <form onSubmit={handleSubmit} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
+                <form onSubmit={handleSubmit} className="w-full z-[10] md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
 
 
                     <FormField
@@ -131,9 +131,9 @@ const SignUp = () => {
                         />
                     </div>
                 </form>
-                <div className="absolute z-[-1] w-[40%] h-[35%] top-0 pink__gradient" />
-                <div className="absolute z-[-1] w-[30%] h-[50%] rounded-full white__gradient bottom-40" />
-                <div className="absolute z-[-1] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
+                <div className="absolute z-[0] w-[40%] h-[35%] top-20 pink__gradient" />
+                <div className="absolute z-[0] w-[30%] h-[50%] rounded-full white__gradient bottom-40" />
+                <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
 
 
             </div>

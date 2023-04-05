@@ -13,12 +13,12 @@ export const navLinks = [
   },
   {
     id: "profile",
-    title: "Profiles",
+    title: "Profile",
     site: "profile/a",
   },
   {
-    id: "elections",
-    title: "Elections",
+    id: "election",
+    title: "Election",
     site: "election/a",
   },
 ];

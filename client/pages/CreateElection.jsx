@@ -17,8 +17,8 @@ const CreateElection = () => {
     title: '',
     aadhar: '',
     description: '',
-    startDate: '2017-06-01T08:30',
-    deadline: '2017-06-01T08:30',
+    startDate: '',
+    deadline: '',
     image: ''
   });
 
@@ -94,8 +94,9 @@ const CreateElection = () => {
             placeholder="End Date"
             inputType="datetime-local"
             value={form.deadline}
-            handleChange={(e) => handleFormFieldChangeTime('deadline', e)}
+            handleChange={(e) => handleFormFieldChange('deadline', e)}
           />
+
         </div>
 
         <FormField
@@ -110,13 +111,14 @@ const CreateElection = () => {
           <CustomButton
             btnType="submit"
             title="Submit new election"
+            handleClick={handleSubmit}
             styles="bg-[#1dc071]"
           />
         </div>
       </form>
-      <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
+      {/* <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
       <div className="absolute z-[-1] w-[30%] h-[50%] rounded-full white__gradient bottom-40" />
-      <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
+      <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" /> */}
     </div>
   )
 }

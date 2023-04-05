@@ -12,7 +12,7 @@ const ElectionCard = ({
 }) => {
   return (
     <Link href={"/" + id}>
-      <div className="rounded-[15px] p-[10px] no-scrollbar hover:cursor-pointer text-white bg-[#1c1c24] z-[20px] h-[400px] w-[290px] flex items-center flex-col align-center hover:scale-105 duration-300 overflow-y-auto">
+      <div className="rounded-[15px] p-[10px] z-50 no-scrollbar hover:cursor-pointer text-white bg-[#1c1c24] h-[400px] w-[290px] flex items-center flex-col align-center hover:scale-105 duration-300 overflow-y-auto ">
         <Image
           priority={true}
           src={imageURL}
@@ -24,7 +24,7 @@ const ElectionCard = ({
           {/* <div className="w-[90%] h-[1px] bg-[#808191] self-center my-[5px]" /> */}
           <div className="flex justify-between align-center px-[5px] mt-[5px]">
             <p className="text-[#808191]">
-              <span className="text-[#b2b3bd] font-semibold">Candidates: </span>{" "}
+              <span className="text-[#b2b3bd] font-semibold">Candidates: </span>
               {candidateCount}
             </p>
             <p className="text-[#808191]">
@@ -34,10 +34,9 @@ const ElectionCard = ({
               {TotalVotes}
             </p>
           </div>
-          <div className="flex justify-start mx-[5px] text-left mt-[10px]">
+          <div className="flex justify-start mx-[5px] text-left mt-[10px] pb-[20px]">
             <p className="text-[#808191] text-epilogue">
-              {" "}
-              <span className="text-[#b2b3bd] font-semibold">About: </span>{" "}
+              <span className="text-[#b2b3bd] font-semibold">About: </span>
               {description}
             </p>
           </div>
