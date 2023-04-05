@@ -7,12 +7,12 @@ import Image from 'next/image'
 
 const Footer = () => (
   <section className={`${styles.flexCenter} ${styles.paddingY} flex-col`}>
-    <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
-      <div className="flex-[1] flex flex-col justify-start mr-10">
+    <div className={`${styles.flexStart} md:flex-row items-center justify-center md:justify-start md:items-start flex-col mb-8 w-full`}>
+      <div className="flex-[1] flex flex-col justify-start items-center text-center md:items-start md:text-start mr-0 lg:mr-10">
         <div
-          className="w-[266px] h-[72.14px] object-contain text-white text-5xl"
+          className="w-[266px] h-[72.14px] object-contain text-white mt-4 md:mt-0 text-4xl lg:text-5xl"
         >De<span className="text-[#60e0e6]">ction</span></div>
-        <p className={`${styles.paragraph} mt-4 max-w-[312px]`}>
+        <p className={`${styles.paragraph} text-center mt-4 max-w-[312px]`}>
           A new way to make the elections easy, reliable and secure.
         </p>
       </div>
@@ -40,7 +40,7 @@ const Footer = () => (
     </div>
 
     <div className="w-full flex justify-between items-center md:flex-row flex-col pt-6 border-t-[1px] border-t-[#3F3E45]">
-      <p className="font-poppins font-normal text-center text-[18px] leading-[27px] text-white">
+      <p className="font-poppins font-normal text-center text-[14px] lg:text-[18px] leading-[27px] text-white">
         Copyright Ⓒ 2022 Dection. All Rights Reserved.
       </p>
 
@@ -50,7 +50,7 @@ const Footer = () => (
             key={social.id}
             src={social.icon}
             alt={social.id}
-            className={`w-[21px] h-[21px] object-contain cursor-pointer ${index !== socialMedia.length - 1 ? "mr-6" : "mr-0"
+            className={`lg:w-[21px] w-[17px] h-[17px] lg:h-[21px] object-contain cursor-pointer ${index !== socialMedia.length - 1 ? "mr-6" : "mr-0"
               }`}
             onClick={() => window.open(social.link)}
           />

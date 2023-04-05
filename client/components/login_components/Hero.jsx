@@ -29,40 +29,42 @@ const Hero = () => {
   }
 
   return (
-    <section id="home" className={`flex md:flex-row flex-col py-6 sm:py-20 mx-10 `}>
-      <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6 -mt-28  `}>
+    <section id="home" className={`flex md:flex-row flex-col py-6  mx-10 mt-44 lg:mt-32 `}>
+      <div className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6   `}>
 
 
-        <div className="flex flex-row justify-between items-center w-full -mt-40">
-          <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-white ss:leading-[100.8px] leading-[75px]">
+        <div className="flex flex-row justify-between text-center md:text-start  items-center w-full -mt-40 ">
+          <h1 className="flex-1 font-poppins font-semibold text-[40px] lg:text-[52px] text-white  leading-[50px] lg:leading-[75px]">
             The Next <br className="sm:block hidden" />{" "}
             <span className="text-gradient">Generation</span>{" "}
+            <br className="sm:block hidden" />
+            <span className="">Voting System.</span>{" "}
+            {/* <h1 className="font-poppins flex text-center md:text-start font-semibold text-[40px] lg:text-[52px] text-white leading-[50px] lg:leading-[75px] w-full">
+              Voting System.
+            </h1> */}
           </h1>
 
         </div>
 
 
-        <h1 className="font-poppins font-semibold ss:text-[68px] text-[52px] text-white ss:leading-[100.8px] leading-[75px] w-full">
-          Voting System.
-        </h1>
+
         <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
           Aliqua adipisicing qui do consequat nulla aliqua eu voluptate laborum. Sit irure amet quis eu. Minim dolor adipisicing minim nisi quis.
           Qui commodo occaecat nisi qui velit.
         </p>
-        <Button styles={`mt-10`} />
+
+        <Button styles={`mt-6 mx-auto md:mx-0`} />
+
       </div>
 
-      <div className={`flex-1 flex-col ${styles.flexCenter} md:my-0 my-10 relative`}>
-        <div className='h-[500px] w-[400px] mr-36'>
-
-          {/* <CanvasCard /> */}
-          {/* <SignUpCard /> */}
+      <div className={`flex-1 flex-col ${styles.flexCenter} md:my-0 my-10 relative  `}>
+        <div className='h-[500px] w-[400px] flex flex-row items-center justify-center mb-20  '>
           {user ? <SignInCard on={handleClick} /> : <SignedCard on={handleClick} />}
 
 
         </div>
 
-        <Image priority={true} src={robothandd} height={200} width={600} className="relative bottom-36 ml-10" />
+        <Image priority={true} src={robothandd} height={100} width={600} alt="robo-hand" className="relative bottom-36 ml-10" />
       </div>
 
     </section>
