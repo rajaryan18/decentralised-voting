@@ -65,11 +65,11 @@ export const StateContextProvider = ({ children }) => {
 
   /*THIS FUNCTION IS YET TO BE COMPLETED (HAVE TO CONVERT DATE IN UNIX FORMAT) */
   //Function to create election
-  const createElection = async () => {
+  const createElection = async (userID, image_url, aadhar, election_name, start_date, end_date) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const election_count = await smartContract.createElection(userID, image_url, aadhar, election_name, convertToUNIX(start_date), convertToUNIX(end_date));
+      const election_count = await smartContract.createElection(userID, image_url, aadhar, election_name, start_date, end_date);
       console.log(election_count);
     } catch (error) {
       console.log(error);

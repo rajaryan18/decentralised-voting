@@ -42,7 +42,7 @@ const Navbar = () => {
         ))}
         <li className="items-center flex justify-center">
           <div onClick={address ? null : () => { connectWallet() }} className="ml-10 w-32 h-8 items-center  bg-gradient-to-r flex text-[16px] from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800  justify-center text-white rounded-xl mx-auto  text-center py-1">
-            {address ? "Connected" : "Connect"}<Image src={meta} className="h-5 w-5 mt-1 ml-2" />
+            {address ? "Connected" : "Connect"}
 
           </div>
         </li>
