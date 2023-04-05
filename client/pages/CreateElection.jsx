@@ -5,6 +5,7 @@ import { useStateContext } from '../context';
 import CustomButton from '../components/CustomButton';
 import FormField from '../components/FormField';
 import Loader from '../components/Loader';
+import { convertToUNIX, verify_aadhar } from '../utils/helper_functions'
 
 import { checkIfImage } from '../utils';
 
@@ -26,16 +27,17 @@ const CreateElection = () => {
     setForm({ ...form, [fieldName]: e.target.value })
   }
   const handleFormFieldChangeTime = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: Math.floor(e.target.value) })
+    setForm({ ...form, [fieldName]: convertToUNIX(e.target.value) })
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //     setIsLoading(true)
-    //     await createElection({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
-    //     setIsLoading(false);
-    //     // navigate('/');
+    if (!verify_aadhar(form.aadhar)) return console.log("This Aadhar doesn't exists");
+    // setForm({ ...form, ["deadline"]: convertToUNIX(form.deadline) });
+    // setForm({ ...form, ["startDate"]: convertToUNIX(form.startDate) });
+    console.log(convertToUNIX(form.startDate));
+    console.log(convertToUNIX(form.deadline));
     console.log(form);
   }
 
