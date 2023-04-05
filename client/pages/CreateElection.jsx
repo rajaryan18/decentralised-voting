@@ -110,6 +110,7 @@ const CreateElection = () => {
           <CustomButton
             btnType="submit"
             title="Submit new election"
+            handleClick={handleSubmit}
             styles="bg-[#1dc071]"
           />
         </div>
