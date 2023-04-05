@@ -26,7 +26,6 @@ const getEthereumContract = () => {
 
 
 
-
 export const StateContextProvider = ({ children }) => {
 
   const [address, setAddress] = useState("");
