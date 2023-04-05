@@ -14,6 +14,7 @@ import AlertCard from '../components/alert';
 import styles from "../components/login_components/style"
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { verify_aadhar } from '../utils/helper_functions';
 
 const SignUp = () => {
     // const navigate = useNavigate();
@@ -38,6 +39,7 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!verify_aadhar(form.aadhar)) return console.log("This aadhar doesn't exists");
         if (address) {
             setForm({ ...form, ["metaAddress"]: address });
             addUser(form.name, form.dob, form.aadhar, address)
