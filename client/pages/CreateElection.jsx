@@ -17,8 +17,8 @@ const CreateElection = () => {
     title: '',
     aadhar: '',
     description: '',
-    startDate: '2017-06-01T08:30',
-    deadline: '2017-06-01T08:30',
+    startDate: '',
+    deadline: '',
     image: ''
   });
 
@@ -94,8 +94,9 @@ const CreateElection = () => {
             placeholder="End Date"
             inputType="datetime-local"
             value={form.deadline}
-            handleChange={(e) => handleFormFieldChangeTime('deadline', e)}
+            handleChange={(e) => handleFormFieldChange('deadline', e)}
           />
+
         </div>
 
         <FormField
