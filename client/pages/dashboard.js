@@ -58,9 +58,9 @@ export default function Home() {
                     description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
                 />
             </div>
-            <div className="absolute z-[0] w-[40%] h-[35%] top-20 pink__gradient" />
+            {/* <div className="absolute z-[0] w-[40%] h-[35%] top-20 pink__gradient" />
             <div className="absolute z-[1] w-[30%] h-[20%] rounded-full white__gradient bottom-60" />
-            <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
+            <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" /> */}
         </div >
     )
 }

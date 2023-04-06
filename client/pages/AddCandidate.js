@@ -23,9 +23,7 @@ const AddCandidate = () => {
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })
     }
-    const handleFormFieldChangeTime = (fieldName, e) => {
-        setForm({ ...form, [fieldName]: Math.floor(e.target.value) })
-    }
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();

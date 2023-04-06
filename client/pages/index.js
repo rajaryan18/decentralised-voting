@@ -35,9 +35,9 @@ export default function Home() {
 
                 </div>
             </div>
-            <div className="absolute z-[0] w-[40%] h-[35%] top-20 pink__gradient" />
+            {/* <div className="absolute z-[0] w-[40%] h-[35%] top-20 pink__gradient" />
             <div className="absolute z-[1] w-[30%] h-[40%] rounded-full white__gradient bottom-40" />
-            <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
+            <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" /> */}
         </div>
 
 
