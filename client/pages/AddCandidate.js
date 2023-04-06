@@ -11,7 +11,7 @@ import { checkIfImage } from '../utils';
 const AddCandidate = () => {
     // const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
-    const { createCampaign } = useStateContext();
+    const { addCandidate } = useStateContext();
     const [form, setForm] = useState({
         electionId: '',
         name: '',
@@ -29,12 +29,8 @@ const AddCandidate = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        //     setIsLoading(true)
-        //     await createElection({ ...form, target: ethers.utils.parseUnits(form.target, 18) })
-        //     setIsLoading(false);
-        //     // navigate('/');
         console.log(form);
+        addCandidate(form.name, form.electionId, form.party, form.candidateImage, form.partyImage);
     }
 
     return (
@@ -98,9 +94,9 @@ const AddCandidate = () => {
                     />
                 </div>
             </form>
-            <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
+            {/* <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
             <div className="absolute z-[1] w-[30%] h-[50%] rounded-full white__gradient bottom-40" />
-            <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
+            <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" /> */}
         </div>
     )
 }

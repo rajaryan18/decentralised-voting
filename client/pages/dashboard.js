@@ -4,19 +4,7 @@ import speech from "/public/speech.svg";
 
 
 
-async function logJSONData() {
-    const response = await fetch("http://localhost:3000/get_aadhar", {
-        method: "POST",
-        body: {
-            "aadhar": "1405612208"
-        }
-    });
-    const jsonData = await response.json();
-    console.log(data);
-}
-
 export default function Home() {
-    // logJSONData();
     return (
         <div className="bg-primary bg-[#01040f] w-full justify-center overflow-hidden flex flex-wrap gap-[100px] align-center pt-[50px] pb-[50px]" >
             <div className='z-100 bg-primary bg-[#01040f] w-full justify-center overflow-hidden flex flex-wrap gap-[100px] align-center pt-[50px] pb-[50px]'>

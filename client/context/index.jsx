@@ -63,7 +63,6 @@ export const StateContextProvider = ({ children }) => {
     }
   };
 
-  /*THIS FUNCTION IS YET TO BE COMPLETED (HAVE TO CONVERT DATE IN UNIX FORMAT) */
   //Function to create election
   const createElection = async (userID, image_url, aadhar, election_name, start_date, end_date) => {
     try {
@@ -102,6 +101,18 @@ export const StateContextProvider = ({ children }) => {
     }
   };
 
+  //Function to add candidate to election with some election id
+  const addCandidate = async (candidate_name, electionID, party_name, candidate_image_url, party_image_url) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const added_candidate = await smartContract.addCandidates(candidate_name, electionID, party_name, candidate_image_url, party_image_url);
+      console.log(added_candidate);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   const test_aadhar = "2309457323";
   useEffect(() => {
@@ -117,6 +128,7 @@ export const StateContextProvider = ({ children }) => {
         checkIfWalletIsConnected,
         createCampaign: createElection,
         addUser,
+        addCandidate,
       }}
     >
       {children}
