@@ -17,7 +17,7 @@ const Footer = () => (
         </p>
       </div>
 
-      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
+      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10 ">
         {footerLinks.map((footerlink) => (
           <div key={footerlink.title} className={`flex flex-col ss:my-0 my-4 min-w-[150px]`}>
             <h4 className="font-poppins font-medium text-[18px] leading-[27px] text-white">
@@ -44,7 +44,7 @@ const Footer = () => (
         Copyright Ⓒ 2022 Dection. All Rights Reserved.
       </p>
 
-      <div className="flex flex-row md:mt-0 mt-6">
+      <div className="flex flex-row md:mt-0 mt-6 md:mb-0 mb-6">
         {socialMedia.map((social, index) => (
           <Image
             key={social.id}

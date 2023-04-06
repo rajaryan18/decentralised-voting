@@ -16,11 +16,11 @@ export const navLinks = [
     title: "Profile",
     site: "profile/a",
   },
-  {
-    id: "election",
-    title: "Election",
-    site: "election/a",
-  },
+  // {
+  //   id: "election",
+  //   title: "Election",
+  //   site: "election/a",
+  // },
 ];
 
 export const features = [
