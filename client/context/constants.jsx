@@ -1,4 +1,4 @@
-import abi from './goerli.json';
+import abi from './ABI.json';
 
 export const contractABI = abi.abi;
-export const contractAddress = '0x6C1C57baF4c43858A6E870103d9dE7aB82a886d3';
+export const contractAddress = '0xAc308bDAb57c0c94Db9637DD5D04189ae30D9977';
