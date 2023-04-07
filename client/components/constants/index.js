@@ -134,3 +134,90 @@ export const socialMedia = [
   },
 ];
 
+export const electionData = [
+  {
+    name: "Central Elections",
+    id: "1",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "2",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "3",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "4",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "5",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "6",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "7",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "8",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "9",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "10",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "11",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+  {
+    name: "Central Elections",
+    id: "12",
+    winner: "Shivam",
+    votes: "200k",
+    link: "",
+  },
+
+];

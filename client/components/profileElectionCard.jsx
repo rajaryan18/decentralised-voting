@@ -5,23 +5,26 @@ import meta from "../public/metamask.png"
 
 const ProfileElectionCard = (props) => {
     return (
-        <div className='rounded-md hover:scale-110 duration-300 hover:shadow-md hover:shadow-black/75' >
+        <div className='rounded-md  bg-[#252945] hover:scale-110 duration-300 hover:shadow-md hover:shadow-black/75 w-48 mb-8 mx-6 ' >
 
-            <div class=" max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class=" max-w-sm border border-gray-200 rounded-lg shadow">
 
-                {/* <Image className="rounded-t-lg " src={meta} width={80} height={50} alt="" /> */}
-                <div className='bg-white w-40 h-24 rounded-t-md '></div>
+                {/* <Image className="rounded-t-lg " src={url} width={80} height={50} alt="" /> */}
+                <div className='bg-white w-48 h-24 rounded-t-md '></div>
 
                 <div class="px-4 py-3">
                     <div href="#">
-                        <h5 class=" text-lg font-bold tracking-tight text-gray-900 dark:text-white mb-4">Election Name</h5>
+                        <h5 class=" text-lg font-bold tracking-tight text-gray-900 dark:text-white mb-4">{props.name}</h5>
                     </div>
                     <div className='flex flex-col space-y-1 mb-4 text-white'>
+                        <div className='election id text-xs'>
+                            <b>Election Id - </b>{props.id}
+                        </div>
                         <div className='winner text-xs'>
-                            <b>Winner - </b>Shivam
+                            <b>Winner - </b>{props.winner}
                         </div>
                         <div className='text-xs'>
-                            <b>Total Votes - </b>200k
+                            <b>Total Votes - </b>{props.votes}
                         </div>
                     </div>
                     <a href="#" class="inline-flex text-xs items-center px-3 py-2 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
