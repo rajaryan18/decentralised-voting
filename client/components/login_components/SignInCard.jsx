@@ -5,9 +5,6 @@ import { useStateContext } from '../../context';
 
 const SignUpCard = (props) => {
     const { connectWallet, address, checkIfWalletIsConnected } = useStateContext();
-    const disconnect = useDisconnect();
-
-    // console.log(("address is", address));
     return (
         <div className='di relative sm:h-[300px] sm:w-[500px] h-[300px] w-[300px] mb-20 overflow-hidden rounded-xl bg-[#111526] mt-12 '>
             <div className="absolute z-20 inset-[1.5px] rounded-[12px] ">
@@ -15,7 +12,7 @@ const SignUpCard = (props) => {
                     <div className='content text-2xl  md:text-3xl  text-center text-white'>Welcome to De<span className='text-[#60e0e6]'>ction</span></div>
                     <div className='mx-auto items-center flex justify-center'><input type="text" placeholder="Enter your Aadhar no" className=' outline-none text-black rounded-xl h-[40px] w-[82%]  mt-6   px-5 py-3'></input></div>
                 </div>
-                <button onClick={address ? () => { disconnect() } : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
+                <button onClick={address ? null : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
                     {(address) ? "Connected" : "Connect metamask"}<Image src={meta} alt="metamask" className="h-6 w-6 mt-[1px] ml-2" />
 
                 </button>

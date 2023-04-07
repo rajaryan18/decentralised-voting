@@ -7,7 +7,6 @@ import CustomButton from '../components/CustomButton';
 import FormField from '../components/FormField';
 import Loader from '../components/Loader';
 
-import { useDisconnect } from '@thirdweb-dev/react';
 import meta from '../public/metamask.png'
 import { useRouter } from 'next/router';
 import AlertCard from '../components/alert';
@@ -16,7 +15,6 @@ import { verify_aadhar } from '../utils/helper_functions';
 const SignUp = () => {
     // const navigate = useNavigate();
     const { user, connectWallet, address, createCampaign, addUser } = useStateContext();
-    const disconnect = useDisconnect();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [form, setForm] = useState({
