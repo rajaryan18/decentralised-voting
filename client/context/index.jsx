@@ -81,12 +81,12 @@ export const StateContextProvider = ({ children }) => {
 
 
   //Function to create new user (Sign Up)
-  const addUser = async (name, dob, aadhar, addr) => {
+  const addUser = async (name, dob, aadhar, addr, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
 
       const smartContract = getEthereumContract();
-      const userID = await smartContract.createUser(name, dob, aadhar, addr);
+      const userID = await smartContract.createUser(name, dob, aadhar, addr, password);
     } catch (error) {
       console.log(error);
     }
@@ -117,11 +117,103 @@ export const StateContextProvider = ({ children }) => {
     }
   }
 
+  // Functio to do vote
+  const doVote = async (electionID, candidateID, aadhar) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const votes = await smartContract.doVote(electionID, candidateID, aadhar);
+      console.log(votes);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  const test_aadhar = "2309457323";
-  useEffect(() => {
-    getUser(1, test_aadhar, address);
-  }, []);
+  //Function to end Voting(can be done only by election admin)
+  const endVoting = async(electionID) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const endVoting_hash = await smartContract.endVoting(electionID);
+      console.log(endVoting_hash);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Function to startVoting(Only election admin can start voting)
+  const startVoting = async (electionID) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const startVoting_hash = await smartContract.startVoting(electionID);
+      console.log(startVoting_hash);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Function to get election results
+  const getElectionResults = async (electionID) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const electionResult = await smartContract.getElectionResults(electionID);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Function to get Candidates of particular election with electionID
+  const getCandidates = async (electionID) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const candidates = await smartContract.getCandidates(electionID);
+      console.log(candidates);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Function to get all users
+  const getAllUsers = async () => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const allUsers = await smartContract.getAllUsers();
+      console.log(allUsers);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //function of get election created by particular user
+  const getElectionOfUser = async (userID) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const elections_by_userID = await smartContract.getElections(userID);
+      console.log(elections_by_userID);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
+  //Function to check credentials of particular user
+  const checkCredentials = async (userID, password) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const isValidCredentials = await smartContract.checkCredentials(userID);
+      console.log(isValidCredentials);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
 
 
   return (
@@ -137,6 +229,14 @@ export const StateContextProvider = ({ children }) => {
         userinfo,
         setUser,
         setUserInfo,
+        doVote,
+        endVoting,
+        startVoting,
+        getElectionResults,
+        getCandidates,
+        getAllUsers,
+        getElectionOfUser,
+        checkCredentials
       }}
     >
       {children}
