@@ -2,6 +2,8 @@
 const { expect } = require('chai');
 const { ethers } = require('hardhat');
 const { loadFixture } = require('@nomicfoundation/hardhat-network-helpers');
+const { createHmac } = require('crypto');
+const bcryptjs = require('bcryptjs');
 
 describe("User Contract", function() {
     // fixture to use for User.sol contract
@@ -22,8 +24,9 @@ describe("User Contract", function() {
         const _name = "Raj Aryan";
         const _dob = "18 June 2002";
         const _aadhar = "621429020078";
+        const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address);
+        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
         const userId = createdUser.value.toNumber();
         const user = await HardhatUser.getUser(userId, _aadhar, user1.address);
 
@@ -32,16 +35,34 @@ describe("User Contract", function() {
         expect(user.noOfElections === 0);
     });
 
+    it("Should Log User in with correct Credentials", async function() {
+        const { HardhatUser, user1, user2 } = await loadFixture(deployUserFixture);
+        // Create User first
+        const _name = "Raj Aryan";
+        const _dob = "18 June 2002";
+        const _aadhar = "621429020078";
+        const _password1 = bcryptjs.hash('testing', 5);
+        const _password2 = bcryptjs.hash('tester', 5);
+        // creates new User with the above Parameters
+        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password1);
+        const userId = createdUser.value.toNumber();
+        const loggedIn = await HardhatUser.checkCredentials(userId, _password1);
+        const notLoggedIn = await HardhatUser.checkCredentials(userId, _password2)
+        expect(loggedIn == true);
+        expect(notLoggedIn == false);
+    })
+
     it("Should Not Create Accounts with same Aadhar", async function() {
         const { HardhatUser, user1, user2 } = await loadFixture(deployUserFixture);
         const _name = ["Raj Aryan", "Raturi"];
         const _dob = ["18 June 2002", "19 Dec 2001"];
         const _aadhar = ["621429020078"];
+        const _password = bcryptjs.hash('testing', 5);
         // create a User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address);
+        const createdUser = await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address, _password);
         
         // check for requires failing
-        await expect(HardhatUser.createUser(_name[1], _dob[1], _aadhar[0], user2.address)).to.be.revertedWith("Aadhars cannot be used again");
+        await expect(HardhatUser.createUser(_name[1], _dob[1], _aadhar[0], user2.address, _password)).to.be.revertedWith("Aadhars cannot be used again");
     });
 
     it("Cannot Fetch Accounts with Wrong Credentials", async function() {
@@ -49,8 +70,9 @@ describe("User Contract", function() {
         const _name = ["Raj Aryan", "Raturi"];
         const _dob = ["18 June 2002", "19 Dec 2001"];
         const _aadhar = ["621429020078"];
+        const _password = bcryptjs.hash('testing', 5);
         // create a User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address);
+        const createdUser = await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address, _password);
         await expect(HardhatUser.getUser(0, "false number", user1.address)).to.be.revertedWith("Wrong aadhar number");
         await expect(HardhatUser.getUser(0, _aadhar[0], user2.address)).to.be.revertedWith("Wrong metamask address");
         await expect(HardhatUser.getUser(1, _aadhar[0], user1.address)).to.be.revertedWith("Invalid userID");
@@ -62,8 +84,9 @@ describe("User Contract", function() {
         const _dob = "18 June 2002";
         const _aadhar = "621429020078";
         const _image_url = "https://www.google.com";
+        const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address);
+        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
         const userId = createdUser.value.toNumber();
 
         await expect(HardhatUser.createElection(2, _image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000) + 3600)).to.be.revertedWith("Invalid userID");
@@ -77,8 +100,9 @@ describe("User Contract", function() {
         const _dob = "18 June 2002";
         const _aadhar = "621429020078";
         const _image_url = "https://www.google.com";
+        const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address);
+        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
         const userId = createdUser.value.toNumber();
 
         const createdElection = await HardhatUser.createElection(userId, _image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);

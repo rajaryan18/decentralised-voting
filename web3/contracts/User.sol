@@ -14,6 +14,7 @@ contract UserInfo is ElectionInfo {
     }
 
     mapping(uint256 => User) private Users;
+    mapping(uint256 => string) private login;
 
     uint256 public noOfUsers;
 
@@ -35,7 +36,8 @@ contract UserInfo is ElectionInfo {
         string memory _name,
         string memory _dob,
         string memory _aadhar,
-        address _addr
+        address _addr,
+        string memory password
     ) public returns (uint256) {
         // Aadhar Numbers can be used for one account only
         for(uint256 i=0;i<noOfUsers;i++) require(Users[i].aadharHash != keccak256(abi.encodePacked((_aadhar))), "Aadhars cannot be used again");
@@ -47,6 +49,7 @@ contract UserInfo is ElectionInfo {
         user.metamaskHash = hashMetamask(_addr);
         user.noOfElections = 0;
         user.userId = noOfUsers;
+        login[noOfUsers] = password;
         noOfUsers++;
 
         return noOfUsers - 1;
@@ -111,5 +114,10 @@ contract UserInfo is ElectionInfo {
     function getElections(uint256 _id) public view returns (uint256[] memory) {
         require(_id < noOfUsers, "Invalid UserID");
         return Users[_id].elections;
+    }
+
+    function checkCredentials(uint256 _id, string memory password) public view returns (bool) {
+        if(keccak256(abi.encodePacked(login[_id])) == keccak256(abi.encodePacked(password))) return true;
+        return false;
     }
 }
