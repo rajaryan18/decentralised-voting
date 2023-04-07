@@ -21,7 +21,7 @@ const getEthereumContract = () => {
 
 export const StateContextProvider = ({ children }) => {
   const [address, setAddress] = useState("");
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState(true);
   const [userinfo, setUserInfo] = useState({
 
   });

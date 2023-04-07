@@ -2,8 +2,6 @@
 import Image from 'next/image'
 import meta from "../../public/metamask.png"
 import { useStateContext } from '../../context';
-import { useDisconnect } from '@thirdweb-dev/react';
-import { useWalletConnect } from '@thirdweb-dev/react';
 
 const SignUpCard = (props) => {
     const { connectWallet, address, checkIfWalletIsConnected } = useStateContext();

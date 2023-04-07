@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import ProfileElectionCard from "../../components/profileElectionCard";
 import { useStateContext } from "../../context";
+import { AiFillPlusCircle } from 'react-icons/ai';
 export default function Profile() {
     const { user } = useStateContext();
 
@@ -28,11 +29,14 @@ export default function Profile() {
                     </div>
 
 
-
                     <div className="Ongoing Elections mt-20">
+                        <div className="mb-4 ml-2 hover:scale-105 bg-orange-500 h-10 w-32 px-3 py-2 text-white rounded-2xl  hover:bg-orange-400 flex flex-col"><a href="/createelection " className=" ">New Election<AiFillPlusCircle /></a></div>
+
                         <div className="flex flex-row ">
+
                             <div className="bg-green-500 rounded-full h-4 w-4 mr-2 ml-2 mt-2 px-2"></div>
-                            <div className="text-xl text-white">Ongoing Elections</div>
+
+                            <div className="text-xl text-white">Ongoing Elections </div>
                         </div>
                         <div className="bg-[#1e2742] px-6 py-10 w-full mt-2 rounded-xl flex items-center justify-center space-x-10">
                             <ProfileElectionCard />
