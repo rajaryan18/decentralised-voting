@@ -14,11 +14,13 @@ import SignedCard from './SignedCard';
 import SignInCard from './SignInCard';
 import { useState } from 'react';
 import CanvasCard from './Canvas';
+import { useStateContext } from '../../context';
 
 const Hero = () => {
 
+  const { user, connectWallet, address, createCampaign, addUser } = useStateContext();
 
-  const [user, setuser] = useState("hii");
+
   const handleClick = () => {
     if (user === null) {
       setuser("hii")
@@ -59,7 +61,7 @@ const Hero = () => {
 
       <div className={`flex-1 flex-col ${styles.flexCenter} md:my-0 my-10 relative  `}>
         <div className='h-[500px] w-[400px] flex flex-row items-center justify-center mb-20  '>
-          {user ? <SignInCard on={handleClick} /> : <SignedCard on={handleClick} />}
+          {!user ? <SignInCard on={handleClick} /> : <SignedCard on={handleClick} />}
 
 
         </div>

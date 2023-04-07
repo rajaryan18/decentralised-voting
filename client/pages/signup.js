@@ -15,7 +15,7 @@ import { verify_aadhar } from '../utils/helper_functions';
 
 const SignUp = () => {
     // const navigate = useNavigate();
-    const { connectWallet, address, createCampaign, addUser } = useStateContext();
+    const { user, connectWallet, address, createCampaign, addUser } = useStateContext();
     const disconnect = useDisconnect();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -47,9 +47,10 @@ const SignUp = () => {
     }
 
 
-
-
-    return (
+    if (user)
+        return (
+            <div className='bg-primary bg-[#01040f] flex items-center justify-center text-center text-white h-[470px] w-full'>You are already logged in</div>)
+    else return (
         <div className="bg-primary bg-[#01040f]">
             <div className=" flex justify-center items-center flex-col  sm:p-10 p-4">
                 {isLoading && <Loader />}
@@ -99,6 +100,8 @@ const SignUp = () => {
 
         </div>
     )
+
+
 }
 
 export default SignUp

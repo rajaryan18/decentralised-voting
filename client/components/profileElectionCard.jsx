@@ -5,7 +5,7 @@ import meta from "../public/metamask.png"
 
 const ProfileElectionCard = (props) => {
     return (
-        <div className='rounded-md hover:scale-110 duration-200 hover:shadow-md hover:shadow-black/75' >
+        <div className='rounded-md hover:scale-110 duration-300 hover:shadow-md hover:shadow-black/75' >
 
             <div class=" max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 

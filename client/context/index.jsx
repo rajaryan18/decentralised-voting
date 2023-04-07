@@ -21,6 +21,10 @@ const getEthereumContract = () => {
 
 export const StateContextProvider = ({ children }) => {
   const [address, setAddress] = useState("");
+  const [user, setUser] = useState(false);
+  const [userinfo, setUserInfo] = useState({
+
+  });
 
   //Function to check if wallet is connected
   const checkIfWalletIsConnected = async () => {
@@ -129,6 +133,10 @@ export const StateContextProvider = ({ children }) => {
         createCampaign: createElection,
         addUser,
         addCandidate,
+        user,
+        userinfo,
+        setUser,
+        setUserInfo,
       }}
     >
       {children}
