@@ -130,7 +130,7 @@ export const StateContextProvider = ({ children }) => {
   }
 
   //Function to end Voting(can be done only by election admin)
-  const endVoting = async(electionID) => {
+  const endVoting = async (electionID) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
