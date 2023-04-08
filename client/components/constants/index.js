@@ -26,12 +26,12 @@ export const navLinks = [
   {
     id: "dashboard",
     title: "Dashboard",
-    site: "dashboard",
+    site: "/dashboard",
   },
   {
     id: "profile",
     title: "Profile",
-    site: "profile/a",
+    site: "/profile/a",
   },
 
 ];

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { close, logo, menu } from "../public/assets";
 import { navLinks, navLinks2 } from "./constants";
@@ -6,24 +6,24 @@ import Head from 'next/head'
 import Image from 'next/image'
 import meta from "../public/metamask.png"
 import { useStateContext } from "../context";
+import { useRouter } from "next/router";
+import Link from 'next/link';
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
-  const { user, connectWallet, address, createCampaign, addUser } = useStateContext();
+  const { user, setUser, connectWallet, address, createCampaign, addUser } = useStateContext();
+  const router = useRouter();
 
-  // function togglee(word) {
-  //   const arr = ["login", "dashboard", "election", "profile"]
-  //   arr.map((res) => {
-  //     console.log(res == word)
-  //     if (res == word) {
-  //       document.getElementById(`${res}`).className = `text-blue-500 hover:text-blue-400 font-poppins font-normal cursor-pointer text-[16px] duration-200 `
-  //     }
-  //     else {
-  //       document.getElementById(`${res}`).className = `text-white hover:text-blue-400 font-poppins font-normal cursor-pointer text-[16px] duration-200 `
-  //     }
-  //   })
-  // }
+
+  const logout = () => {
+
+    setUser(false);
+    console.log("hiiii")
+
+    router.push('/');
+
+  }
 
   return (
     <nav className="w-full flex py-6 z-100 justify-between items-center navbar">
@@ -35,9 +35,9 @@ const Navbar = () => {
             id={nav.id}
             key={nav.id}
             className={`text-white hover:text-blue-400 font-poppins font-normal cursor-pointer text-[16px] ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
-          // onClick={(event) => togglee(`${nav.title}`)}
+            onClick={nav.id === "logout" ? () => { logout() } : null}
           >
-            <a href={`/${nav.site}`}>{nav.title}</a>
+            {nav.id === "logout" ? (<div>{nav.title}</div>) : (<Link href={`${nav.site}`}>{nav.title}</Link>)}
           </li>
         ))
           :
@@ -48,7 +48,7 @@ const Navbar = () => {
               className={`text-white hover:text-blue-400 font-poppins font-normal cursor-pointer text-[16px] ${index === navLinks.length - 1 ? "mr-0" : "mr-10"}`}
             // onClick={(event) => togglee(`${nav.title}`)}
             >
-              <a href={`/${nav.site}`}>{nav.title}</a>
+              <Link href={`/${nav.site}`}>{nav.title}</Link>
             </li>
           ))}
         <li className="items-center flex justify-center">
@@ -77,9 +77,9 @@ const Navbar = () => {
               <li
                 key={nav.id}
                 className={`font-poppins font-medium cursor-pointer text-[16px] hover:text-blue-400 text-white ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
-                onClick={() => setActive(nav.title)}
+                onClick={nav.id === "logout" ? () => { logout() } : null}
               >
-                <a href={`/${nav.site}`}>{nav.title}</a>
+                {nav.id === "logout" ? (<div>{nav.title}</div>) : (<Link href={`${nav.site}`}>{nav.title}</Link>)}
               </li>
 
 
@@ -89,9 +89,9 @@ const Navbar = () => {
                 <li
                   key={nav.id}
                   className={`font-poppins font-medium cursor-pointer text-[16px] hover:text-blue-400 text-white ${index === navLinks.length - 1 ? "mb-0" : "mb-4"}`}
-                  onClick={() => setActive(nav.title)}
+
                 >
-                  <a href={`/${nav.site}`}>{nav.title}</a>
+                  <Link href={`/${nav.site}`}>{nav.title}</Link>
                 </li>
 
 

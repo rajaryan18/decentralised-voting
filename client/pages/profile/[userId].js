@@ -5,6 +5,7 @@ import ProfileElectionCard from "../../components/profileElectionCard";
 import { useStateContext } from "../../context";
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { IoIosArrowDropupCircle, IoIosArrowDropdownCircle } from "react-icons/io";
+import Link from 'next/link'
 export default function Profile() {
     const { user } = useStateContext();
     const [expandedOn, setExpandedOn] = useState(false);
@@ -31,7 +32,7 @@ export default function Profile() {
 
 
                     <div className="Ongoing Elections mt-20">
-                        <div className="mb-4  ml-2 hover:scale-105 duration-200 bg-orange-500 h-10 w-36 px-3 py-2 text-white rounded-2xl  hover:bg-orange-400 flex flex-row"><a href="/createelection " className=" flex flex-row justify-center items-center">New Election<div className="mt-1 ml-2 "><AiFillPlusCircle /></div ></a></div>
+                        <div className="mb-4  ml-2 hover:scale-105 duration-200 bg-orange-500 h-10 w-36 px-3 py-2 text-white rounded-2xl  hover:bg-orange-400 flex flex-row"><Link href="/createelection " className=" flex flex-row justify-center items-center">New Election<div className="mt-1 ml-2 "><AiFillPlusCircle /></div ></Link></div>
 
                         <div className="flex flex-row ">
 

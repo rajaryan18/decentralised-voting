@@ -14,13 +14,13 @@ import { verify_aadhar } from '../utils/helper_functions';
 
 const SignUp = () => {
     // const navigate = useNavigate();
-    const { user, connectWallet, address, createCampaign, addUser } = useStateContext();
+    const { setUser, user, connectWallet, address, createCampaign, addUser } = useStateContext();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [form, setForm] = useState({
         name: '',
         aadhar: '',
-        metaAddress: { address },
+        password: '',
         dob: '',
     });
 
@@ -32,10 +32,13 @@ const SignUp = () => {
         e.preventDefault();
         if (!verify_aadhar(form.aadhar)) return console.log("This aadhar doesn't exists");
         if (address) {
-            setForm({ ...form, ["metaAddress"]: address });
+            // setForm({ ...form, ["metaAddress"]: address });
             setIsLoading(true);
-            const addedUser = await addUser(form.name, form.dob, form.aadhar, address);
+            const addedUser = await addUser(form.name, form.dob, form.aadhar, address, form.password);
             setIsLoading(false);
+            setUser(true);
+            router.push('/')
+            alert("account created.success")
             console.log(addedUser);
             console.log(form);
         }
@@ -54,7 +57,7 @@ const SignUp = () => {
                 {isLoading && <Loader />}
 
                 <form onSubmit={handleSubmit} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
-                    <div onClick={address ? () => { disconnect() } : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
+                    <div onClick={address ? null : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
                         {address ? "Connected" : "Connect metamask"}<Image src={meta} className="h-6 w-6 mt-[1px] ml-2" />
 
                     </div>
@@ -72,6 +75,13 @@ const SignUp = () => {
                         inputType="number"
                         value={form.aadhar}
                         handleChange={(e) => handleFormFieldChange('aadhar', e)}
+                    />
+                    <FormField
+                        labelName="Password*"
+                        placeholder="Enter new password"
+                        inputType="text"
+                        value={form.password}
+                        handleChange={(e) => handleFormFieldChange('password', e)}
                     />
                     <FormField
                         labelName="DOB *"
