@@ -206,7 +206,7 @@ export const StateContextProvider = ({ children }) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const isValidCredentials = await smartContract.checkCredentials(userID);
+      const isValidCredentials = await smartContract.checkCredentials(userID, password);
       console.log(isValidCredentials);
     } catch (error) {
       console.log(error);
