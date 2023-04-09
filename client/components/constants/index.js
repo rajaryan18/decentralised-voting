@@ -1,6 +1,6 @@
 import { facebook, instagram, linkedin, twitter, send, shield, star } from "../../public/assets";
 
-export const contractAddress = '0xAc308bDAb57c0c94Db9637DD5D04189ae30D9977'
+export const contractAddress = '0x36Ad3CeA12bC28E0a7fd1EB2D1C6eB3b0dcE0cae'
 
 export const navLinks2 = [
   {

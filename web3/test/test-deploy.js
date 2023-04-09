@@ -2,7 +2,6 @@
 const { expect } = require('chai');
 const { ethers } = require('hardhat');
 const { loadFixture } = require('@nomicfoundation/hardhat-network-helpers');
-const { createHmac } = require('crypto');
 const bcryptjs = require('bcryptjs');
 
 describe("User Contract", function() {
@@ -26,9 +25,8 @@ describe("User Contract", function() {
         const _aadhar = "621429020078";
         const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
-        const userId = createdUser.value.toNumber();
-        const user = await HardhatUser.getUser(userId, _aadhar, user1.address);
+        await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
+        const user = await HardhatUser.getUser(_aadhar, user1.address);
 
         expect(user.name === _name);
         expect(user.dob === _dob);
@@ -36,7 +34,7 @@ describe("User Contract", function() {
     });
 
     it("Should Log User in with correct Credentials", async function() {
-        const { HardhatUser, user1, user2 } = await loadFixture(deployUserFixture);
+        const { HardhatUser, user1 } = await loadFixture(deployUserFixture);
         // Create User first
         const _name = "Raj Aryan";
         const _dob = "18 June 2002";
@@ -44,10 +42,9 @@ describe("User Contract", function() {
         const _password1 = bcryptjs.hash('testing', 5);
         const _password2 = bcryptjs.hash('tester', 5);
         // creates new User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password1);
-        const userId = createdUser.value.toNumber();
-        const loggedIn = await HardhatUser.checkCredentials(userId, _password1);
-        const notLoggedIn = await HardhatUser.checkCredentials(userId, _password2)
+        await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password1);
+        const loggedIn = await HardhatUser.checkCredentials(_aadhar, _password1);
+        const notLoggedIn = await HardhatUser.checkCredentials(_aadhar, _password2)
         expect(loggedIn == true);
         expect(notLoggedIn == false);
     })
@@ -59,8 +56,7 @@ describe("User Contract", function() {
         const _aadhar = ["621429020078"];
         const _password = bcryptjs.hash('testing', 5);
         // create a User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address, _password);
-        
+        await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address, _password);
         // check for requires failing
         await expect(HardhatUser.createUser(_name[1], _dob[1], _aadhar[0], user2.address, _password)).to.be.revertedWith("Aadhars cannot be used again");
     });
@@ -72,10 +68,9 @@ describe("User Contract", function() {
         const _aadhar = ["621429020078"];
         const _password = bcryptjs.hash('testing', 5);
         // create a User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address, _password);
-        await expect(HardhatUser.getUser(0, "false number", user1.address)).to.be.revertedWith("Wrong aadhar number");
-        await expect(HardhatUser.getUser(0, _aadhar[0], user2.address)).to.be.revertedWith("Wrong metamask address");
-        await expect(HardhatUser.getUser(1, _aadhar[0], user1.address)).to.be.revertedWith("Invalid userID");
+        await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address, _password);
+        await expect(HardhatUser.getUser("false number", user1.address)).to.be.revertedWith("Invalid user");
+        await expect(HardhatUser.getUser(_aadhar[0], user2.address)).to.be.revertedWith("Wrong metamask address");
     });
 
     it("Should not Start Election with Wrong Credentials", async function() {
@@ -86,12 +81,10 @@ describe("User Contract", function() {
         const _image_url = "https://www.google.com";
         const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
-        const userId = createdUser.value.toNumber();
-
-        await expect(HardhatUser.createElection(2, _image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000) + 3600)).to.be.revertedWith("Invalid userID");
-        await expect(HardhatUser.createElection(userId, _image_url, "Wrong Aadhar", _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000) + 3600)).to.be.revertedWith("Wrong aadhar number");
-        await expect(HardhatUser.createElection(userId, _image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000))).to.be.revertedWith("Start Date should be before End Date");
+        await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
+    
+        await expect(HardhatUser.createElection(_image_url, "Wrong Aadhar", _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000) + 3600)).to.be.revertedWith("Invalid user");
+        await expect(HardhatUser.createElection(_image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000))).to.be.revertedWith("Start Date should be before End Date");
     });
 
     it("Should create Elections", async function() {
@@ -102,11 +95,10 @@ describe("User Contract", function() {
         const _image_url = "https://www.google.com";
         const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        const createdUser = await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
-        const userId = createdUser.value.toNumber();
+        await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
 
-        const createdElection = await HardhatUser.createElection(userId, _image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
-        const election = await HardhatUser.getElections(userId);
+        const createdElection = await HardhatUser.createElection(_image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
+        const election = await HardhatUser.getElections(_aadhar);
         
         expect(election.length === 1);
         expect(createdElection.value.toNumber === election[0].toNumber());

@@ -9,6 +9,11 @@
       "address": "0xAc308bDAb57c0c94Db9637DD5D04189ae30D9977",
       "txHash": "0x304db6fef5c1ad6e8aecdf645292d117761dca5067c11013ef3758ae1bfb6e9d",
       "kind": "transparent"
+    },
+    {
+      "address": "0x36Ad3CeA12bC28E0a7fd1EB2D1C6eB3b0dcE0cae",
+      "txHash": "0x8590445448b675613b8ca3d9673e47168a224321655365a716e1c7ec17ab06c4",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -103,6 +108,260 @@
           },
           "t_mapping(t_uint256,t_struct(User)475_storage)": {
             "label": "mapping(uint256 => struct UserInfo.User)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Candidate)14_storage": {
+            "label": "struct ElectionInfo.Candidate",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "party",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "image_url",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "party_image_url",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "3"
+              }
+            ],
+            "numberOfBytes": "128"
+          },
+          "t_struct(Election)43_storage": {
+            "label": "struct ElectionInfo.Election",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "start_date",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "end_date",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "noOfCandidates",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "candidates",
+                "type": "t_array(t_struct(Candidate)14_storage)dyn_storage",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "numberOfVotes",
+                "type": "t_array(t_uint256)dyn_storage",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "image_url",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "totalVoted",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "7"
+              },
+              {
+                "label": "voted",
+                "type": "t_mapping(t_bytes32,t_bool)",
+                "offset": 0,
+                "slot": "8"
+              },
+              {
+                "label": "currPhase",
+                "type": "t_enum(Phase)5",
+                "offset": 0,
+                "slot": "9"
+              },
+              {
+                "label": "ownerAddress",
+                "type": "t_address",
+                "offset": 1,
+                "slot": "9"
+              }
+            ],
+            "numberOfBytes": "320"
+          },
+          "t_struct(User)475_storage": {
+            "label": "struct UserInfo.User",
+            "members": [
+              {
+                "label": "userId",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "dob",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "aadharHash",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "metamaskHash",
+                "type": "t_bytes32",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "noOfElections",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "elections",
+                "type": "t_array(t_uint256)dyn_storage",
+                "offset": 0,
+                "slot": "6"
+              }
+            ],
+            "numberOfBytes": "224"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          }
+        }
+      }
+    },
+    "63999cf58bb73f4cdc0ac8d7d2ba19f20e92c0dacd29ec4e1f5caa473e62fe53": {
+      "address": "0xa073F84CfB35ce20d550Be65f726AEb9062CD00E",
+      "txHash": "0xeeb13c7f6cf2548f738079ae06bb9cdc73f27e3f72dffa2da9dfa2f15170eab6",
+      "layout": {
+        "solcVersion": "0.8.9",
+        "storage": [
+          {
+            "label": "elections",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_mapping(t_uint256,t_struct(Election)43_storage)",
+            "contract": "ElectionInfo",
+            "src": "contracts\\Election.sol:36"
+          },
+          {
+            "label": "numberOfElections",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256",
+            "contract": "ElectionInfo",
+            "src": "contracts\\Election.sol:37"
+          },
+          {
+            "label": "Users",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_bytes32,t_struct(User)475_storage)",
+            "contract": "UserInfo",
+            "src": "contracts\\User.sol:16"
+          },
+          {
+            "label": "login",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_mapping(t_bytes32,t_string_storage)",
+            "contract": "UserInfo",
+            "src": "contracts\\User.sol:17"
+          },
+          {
+            "label": "noOfUsers",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256",
+            "contract": "UserInfo",
+            "src": "contracts\\User.sol:19"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_struct(Candidate)14_storage)dyn_storage": {
+            "label": "struct ElectionInfo.Candidate[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_enum(Phase)5": {
+            "label": "enum ElectionInfo.Phase",
+            "members": [
+              "PRESTART",
+              "ONGOING",
+              "END"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_string_storage)": {
+            "label": "mapping(bytes32 => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_struct(User)475_storage)": {
+            "label": "mapping(bytes32 => struct UserInfo.User)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Election)43_storage)": {
+            "label": "mapping(uint256 => struct ElectionInfo.Election)",
             "numberOfBytes": "32"
           },
           "t_string_storage": {
