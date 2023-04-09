@@ -44,18 +44,23 @@ export default function Profile() {
                         </div>
                         <div className="flex bg-[#1e2742] rounded-xl mt-3  items-center justify-center text-center">
 
-                            <div className="bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-between justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            <ul className="list-none bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-between justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                 {expandedOn ? electionData.map((el) => (
-                                    <ProfileElectionCard
-                                        name={el.name} id={el.id} winner={el.winner} votes={el.votes}
-                                    />
-                                )) :
-                                    electionData.slice(0, 4).map((el) => (
+                                    <li key={el.id}>
                                         <ProfileElectionCard
                                             name={el.name} id={el.id} winner={el.winner} votes={el.votes}
                                         />
+                                    </li>
+
+                                )) :
+                                    electionData.slice(0, 4).map((el) => (
+                                        <li key={el.id}>
+                                            <ProfileElectionCard
+                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes}
+                                            />
+                                        </li>
                                     ))}
-                            </div>
+                            </ul>
                         </div>
                     </div>
 
@@ -68,18 +73,22 @@ export default function Profile() {
                         </div>
                         <div className="flex bg-[#1e2742] rounded-xl mt-3  items-center justify-center text-center">
 
-                            <div className="bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-center justify-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            <ul className="list-none bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-center justify-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                 {expandedPast ? electionData.map((el) => (
-                                    <ProfileElectionCard
-                                        name={el.name} id={el.id} winner={el.winner} votes={el.votes}
-                                    />
-                                )) :
-                                    electionData.slice(0, 4).map((el) => (
+                                    <li key={el.id}>
                                         <ProfileElectionCard
                                             name={el.name} id={el.id} winner={el.winner} votes={el.votes}
                                         />
+                                    </li>
+                                )) :
+                                    electionData.slice(0, 4).map((el) => (
+                                        <li key={el.id}>
+                                            <ProfileElectionCard
+                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes}
+                                            />
+                                        </li>
                                     ))}
-                            </div>
+                            </ul>
                         </div>
                     </div>
 

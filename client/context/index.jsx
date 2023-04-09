@@ -18,45 +18,29 @@ const getEthereumContract = () => {
   return transactionsContract;
 };
 
-// function getInitialState() {
-//   const [notes, setNotes] = useState(false);
-//   useEffect(() => setNotes(window.localStorage.getItem('notes')), [])
-
-//   return notes ? notes : false;
-// }
+//use local storage hook
 function useLocalStorage(key, initialValue, isSSR) {
-  // State to store our value
-  // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState(() => {
     if (!isSSR) {
       return initialValue;
     }
     try {
-      // Get from local storage by key
       const item = window.localStorage.getItem(key);
-      // Parse stored json or if none return initialValue
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
-      // If error also return initialValue
       console.log(error);
       return initialValue;
     }
   });
-  // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to localStorage.
   const setValue = (value) => {
     try {
-      // Allow value to be a function so we have same API as useState
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
-      // Save state
       setStoredValue(valueToStore);
-      // Save to local storage
       if (!isSSR) {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
     } catch (error) {
-      // A more advanced implementation would handle the error case
       console.log(error);
     }
   };
@@ -73,9 +57,7 @@ export const StateContextProvider = ({ children }) => {
   }, []);
 
   const [user, setUser] = useLocalStorage("user", false, isSSR);
-  const [userinfo, setUserInfo] = useState({
-
-  });
+  const [userinfo, setUserInfo] = useLocalStorage("userinfo", {}, isSSR);
 
 
   //Function to check if wallet is connected
@@ -120,11 +102,11 @@ export const StateContextProvider = ({ children }) => {
   };
 
   //Function to create election
-  const createElection = async (userID, image_url, aadhar, election_name, start_date, end_date) => {
+  const createElection = async (image_url, aadhar, election_name, start_date, end_date) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const election_count = await smartContract.createElection(userID, image_url, aadhar, election_name, start_date, end_date);
+      const election_count = await smartContract.createElection(image_url, aadhar, election_name, start_date, end_date);
       console.log(election_count);
     } catch (error) {
       console.log(error);
@@ -266,7 +248,6 @@ export const StateContextProvider = ({ children }) => {
       console.log(error);
     }
   }
-
 
 
 

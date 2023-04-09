@@ -13,20 +13,25 @@ const SignUpCard = (props) => {
         aadhar: "",
         password: "",
     });
-    const { connectWallet, setUser, checkCredentials, address, checkIfWalletIsConnected } = useStateContext();
+    const { connectWallet, getElectionOfUser, setUser, checkCredentials, address, checkIfWalletIsConnected } = useStateContext();
 
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // if (!verify_aadhar(form.aadhar)) return console.log("This aadhar doesn't exists");
+        if (!verify_aadhar(form.aadhar)) return console.log("This aadhar doesn't exists");
         if (address) {
 
             setIsLoading(true);
             const loginedUser = await checkCredentials(form.aadhar, form.password);
+
+            if (loginedUser) {
+                setUser(true);
+                const electionofuser = await getElectionOfUser(form.aadhar);
+                console.log(electionofuser);
+            }
             setIsLoading(false);
-            if (loginedUser) setUser(true);
             console.log(form);
         }
         else {

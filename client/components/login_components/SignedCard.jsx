@@ -17,7 +17,7 @@ const SignedCard = (props) => {
             <div className="absolute z-20 inset-[1.5px] rounded-[12px] ">
                 <div className="bg-[#283457] text-white px-2 py-4  rounded-t-xl h-[130px]">
                     <div className='contenttext-4xl text-center text-2xl md:text-3xl  text-white'>Welcome back to De<span className='text-[#60e0e6]'>ction</span></div>
-                    <div className=' flex justify-center'><Image src={ethe} className="h-28 w-28 -mt-4 mx-auto" /></div>
+                    <div className=' flex justify-center'><Image src={ethe} alt="ether" className="h-28 w-28 -mt-4 mx-auto" /></div>
                 </div>
                 <button onClick={address ? null : () => { connectWallet() }} className=" bg-gradient-to-r flex from-orange-600 to cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-orange-800 h-[50px] justify-center text-white rounded-xl mt-3 mx-auto w-[80%] text-center py-3">
                     {address ? "Connected" : "Connect metamask"}<Image src={meta} alt="metamask" className="h-6 w-6 mt-[1px] ml-2" />

@@ -13,7 +13,7 @@ const CreateElection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { createCampaign, user } = useStateContext();
   const [form, setForm] = useState({
-    id: '',
+
     title: '',
     aadhar: '',
     description: '',
@@ -34,7 +34,7 @@ const CreateElection = () => {
 
     if (!verify_aadhar(form.aadhar)) return console.log("This Aadhar doesn't exists");
     setIsLoading(true);
-    const camp = await createCampaign(form.id, form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline))
+    const camp = await createCampaign(form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline))
     setIsLoading(false);
     console.log(camp);
     console.log(form);
@@ -49,14 +49,21 @@ const CreateElection = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
+          <FormField
+            labelName="Aadhar number*"
+            placeholder="Enter your Aadhar"
+            inputType="number"
+            value={form.aadhar}
+            handleChange={(e) => handleFormFieldChange('aadhar', e)}
+          />
           <div className="flex flex-wrap gap-[40px] ">
-            <FormField
+            {/* <FormField
               labelName="User Id*"
               placeholder="Enter your user id"
               inputType="number"
               value={form.id}
               handleChange={(e) => handleFormFieldChange('id', e)}
-            />
+            /> */}
             <FormField
               labelName="Election Title *"
               placeholder="Write a title"
@@ -73,13 +80,7 @@ const CreateElection = () => {
             handleChange={(e) => handleFormFieldChange('description', e)}
           />
 
-          <FormField
-            labelName="Aadhar number*"
-            placeholder="Enter your Aadhar"
-            inputType="number"
-            value={form.aadhar}
-            handleChange={(e) => handleFormFieldChange('aadhar', e)}
-          />
+
 
 
 
