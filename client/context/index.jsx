@@ -128,12 +128,13 @@ export const StateContextProvider = ({ children }) => {
 
 
   //Function to get any user
-  const getUser = async (userID, aadhar, address) => {
+  const getUser = async (aadhar, address) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
 
       const smartContract = getEthereumContract();
-      const req_user = await smartContract.getUser(userID, aadhar, address);
+      const req_user = await smartContract.getUser(aadhar, address);
+      return req_user;
     } catch (error) {
       console.log(error);
     }
@@ -249,6 +250,12 @@ export const StateContextProvider = ({ children }) => {
     }
   }
 
+  // const tmp_aadhar = "4218507662"
+  // useEffect(()=>{
+  //   const current_user = getUser(tmp_aadhar, address).then((a)=>{
+  //     console.log(a);
+  //   });
+  // },[])
 
 
   return (
@@ -271,7 +278,8 @@ export const StateContextProvider = ({ children }) => {
         getCandidates,
         getAllUsers,
         getElectionOfUser,
-        checkCredentials
+        checkCredentials,
+        getUser,
       }}
     >
       {children}

@@ -1,15 +1,40 @@
 //Work on user profile here
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { electionData } from "../../components/constants/index"
 import ProfileElectionCard from "../../components/profileElectionCard";
 import { useStateContext } from "../../context";
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { IoIosArrowDropupCircle, IoIosArrowDropdownCircle } from "react-icons/io";
 import Link from 'next/link'
+
+
 export default function Profile() {
-    const { user } = useStateContext();
+    const { user, getUser, address } = useStateContext();
     const [expandedOn, setExpandedOn] = useState(false);
     const [expandedPast, setExpandedPast] = useState(false);
+
+    const [userData, setUserData] = useState({
+        name: '',
+        dob: '',
+        aadhar_hash: '',
+    })
+
+    //tmp_aadhar = aadhar number of current user, tmp_mmsk = metamask id of current user
+    //using above info to get data of current user to show in their profile page
+    const tmp_aadhar = "4218507662"
+    const tmp_mmsk = "0xe3fd1D5c92EA0aEe2547661BEBd3DE3763BBfDc1"
+
+    useEffect(()=>{
+        try {
+            const csu = getUser(tmp_aadhar, tmp_mmsk).then((data)=>{
+                console.log(data);
+                setUserData({...userData, name: data.name, dob: data.dob, aadhar_hash: data.aadharHash})
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }, [])
+
 
     if (user)
         return (
@@ -21,10 +46,10 @@ export default function Profile() {
                     <div className="flex flex-row">
                         <div className="hidden rounded-full bg-[#01040f] h-40 w-40 md:flex items-center justify-center ml-10 -mt-20"> <div className="image bg-white rounded-full h-36 w-36 "></div> </div>
                         <div className="Name text-white mt-5 md:mt-2 ml-3 flex flex-col">
-                            <div className="text-4xl font-epilogue">Kumar Shivam</div>
+                            <div className="text-4xl font-epilogue">{userData.name}</div>
                             <div className="info mt-6">
-                                <div className="aadhar text-white  ">Aadhar number-1234567890</div>
-                                <div className="dob text-white mt-1">DOB- 19/08/2003</div>
+                                <div className="aadhar text-white  ">Aadhar number-{userData.aadhar_hash}</div>
+                                <div className="dob text-white mt-1">DOB- {userData.dob}</div>
                             </div>
                         </div>
                         {/* <div className="address ml-12 mt-6 flex flex-row "><div className="adressimage rounded-full bg-red-400 h-4 w-4 mt-1 "></div><div className="text-white text-sm ml-2 ">0x67E73647d7efA79Af20D2badf559208EA8dC5413</div></div> */}
