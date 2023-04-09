@@ -7,29 +7,32 @@ import dynamic from "next/dynamic";
 //   ssr: false,
 // });
 const isServer = () => typeof window === 'undefined';
+import NonSSRWrapper from '../components/NoSSR';
 
 
 export default function App({ Component, pageProps }) {
   return (
 
+    <NonSSRWrapper>
 
-    <StateContextProvider>
-      <div className={`bg-primary bg-[#01040f] ${styles.paddingX} ${styles.flexCenter}`}>
-        <div className={`${styles.boxWidth}`}>
-          <Navbar />
+      <StateContextProvider>
+        <div className={`bg-primary bg-[#01040f] ${styles.paddingX} ${styles.flexCenter}`}>
+          <div className={`${styles.boxWidth}`}>
+            <Navbar />
+          </div>
         </div>
-      </div>
 
-      <Component {...pageProps} />
+        <Component {...pageProps} />
 
-      <div className={`bg-primary bg-[#01040f] ${styles.paddingX} ${styles.flexCenter}`}>
-        <div className={`${styles.boxWidth}`}>
-          <Footer />
+        <div className={`bg-primary bg-[#01040f] ${styles.paddingX} ${styles.flexCenter}`}>
+          <div className={`${styles.boxWidth}`}>
+            <Footer />
+          </div>
         </div>
-      </div>
 
 
-    </StateContextProvider>
+      </StateContextProvider>
+    </NonSSRWrapper>
 
 
   );

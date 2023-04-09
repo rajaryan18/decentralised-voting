@@ -8,7 +8,7 @@ import meta from "../public/metamask.png"
 import { useStateContext } from "../context";
 import { useRouter } from "next/router";
 import Link from 'next/link';
-
+import dynamic from "next/dynamic";
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
@@ -111,3 +111,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

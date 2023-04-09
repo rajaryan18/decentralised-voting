@@ -30,7 +30,7 @@ const SignUpCard = (props) => {
             console.log(form);
         }
         else {
-            console.log("Wallet not connected"); <AlertCard />
+            console.log("Wallet not connected");
         }
     }
     return (
