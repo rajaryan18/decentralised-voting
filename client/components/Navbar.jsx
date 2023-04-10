@@ -12,15 +12,14 @@ import dynamic from "next/dynamic";
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [toggle, setToggle] = useState(false);
-  const { user, setUser, connectWallet, address, createCampaign, addUser } = useStateContext();
+  const { user, setUser, connectWallet, address, createCampaign, addUser, setUserInfo } = useStateContext();
   const router = useRouter();
 
 
   const logout = () => {
 
     setUser(false);
-    console.log("hiiii")
-
+    setUserInfo({});
     router.push('/');
 
   }

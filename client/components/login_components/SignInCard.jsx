@@ -13,7 +13,7 @@ const SignUpCard = (props) => {
         aadhar: "",
         password: "",
     });
-    const { connectWallet, getElectionOfUser, setUser, checkCredentials, address, checkIfWalletIsConnected } = useStateContext();
+    const { connectWallet, getElectionOfUser, setUser, checkCredentials, address, checkIfWalletIsConnected, setUserInfo, userinfo} = useStateContext();
 
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })
@@ -30,6 +30,8 @@ const SignUpCard = (props) => {
                 setUser(true);
                 const electionofuser = await getElectionOfUser(form.aadhar);
                 console.log(electionofuser);
+                setUserInfo({aadhar: form.aadhar});
+                // console.log();
             }
             setIsLoading(false);
             console.log(form);

@@ -280,6 +280,7 @@ export const StateContextProvider = ({ children }) => {
         getElectionOfUser,
         checkCredentials,
         getUser,
+
       }}
     >
       {children}
