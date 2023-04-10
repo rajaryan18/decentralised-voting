@@ -22,13 +22,13 @@ export default function Profile() {
     //tmp_aadhar = aadhar number of current user, tmp_mmsk = metamask id of current user
     //using above info to get data of current user to show in their profile page
     const tmp_aadhar = "4218507662"
-    const tmp_mmsk = "0xe3fd1D5c92EA0aEe2547661BEBd3DE3763BBfDc1"
+    // const tmp_mmsk = "0xfDbbC9D12C676257Fa04Cec1d5C14052553C9ED5"
 
     useEffect(()=>{
         try {
-            const csu = getUser(tmp_aadhar, tmp_mmsk).then((data)=>{
+            const csu = getUser(tmp_aadhar, address).then((data)=>{
                 console.log(data);
-                setUserData({...userData, name: data.name, dob: data.dob, aadhar_hash: data.aadharHash})
+                setUserData({...userData, name: data?.name, dob: data?.dob, aadhar_hash: data?.aadharHash})
             });
         } catch (error) {
             console.log(error);
