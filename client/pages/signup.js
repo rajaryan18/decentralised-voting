@@ -11,6 +11,8 @@ import meta from '../public/metamask.png'
 import { useRouter } from 'next/router';
 import AlertCard from '../components/alert';
 import { verify_aadhar } from '../utils/helper_functions';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+
 
 const SignUp = () => {
     // const navigate = useNavigate();
@@ -23,6 +25,12 @@ const SignUp = () => {
         password: '',
         dob: '',
     });
+    const [pass, setPass] = useState("password")
+
+    const handlePass = (event) => {
+        if (pass === "password") setPass("text")
+        else setPass("password")
+    }
 
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })
@@ -76,13 +84,17 @@ const SignUp = () => {
                         value={form.aadhar}
                         handleChange={(e) => handleFormFieldChange('aadhar', e)}
                     />
-                    <FormField
-                        labelName="Password*"
-                        placeholder="Enter new password"
-                        inputType="text"
-                        value={form.password}
-                        handleChange={(e) => handleFormFieldChange('password', e)}
-                    />
+                    <div>
+                        <FormField
+                            labelName="Password*"
+                            placeholder="Enter new password"
+                            inputType={pass}
+                            value={form.password}
+                            handleChange={(e) => handleFormFieldChange('password', e)}
+                        />
+                        {pass !== "password" ? <div className='absolute -mt-8 right-[10%] lg:right-[18%] text-white  scale-[1.4]' onClick={handlePass}><AiFillEye /></div> : <div className='absolute -mt-8 right-[10%] lg:right-[18%] text-white scale-[1.4]' onClick={handlePass}><AiFillEyeInvisible /></div>}
+                    </div>
+
                     <FormField
                         labelName="DOB *"
                         placeholder="Enter your dob"
