@@ -11,7 +11,8 @@ import { useRouter } from "next/router";
 
 export default function Profile() {
     const router = useRouter();
-    const { user, getUser, address, userinfo } = useStateContext();
+
+    const { user, getUser, address, userinfo, getElectionResults, getElectionOfUser } = useStateContext();
     const [expandedOn, setExpandedOn] = useState(false);
     const [expandedPast, setExpandedPast] = useState(false);
 
@@ -27,15 +28,23 @@ export default function Profile() {
 
     //tmp_aadhar = aadhar number of current user, tmp_mmsk = metamask id of current user
     //using above info to get data of current user to show in their profile page
-    // const tmp_aadhar = "1405612208"
-    // const tmp_mmsk = "0xe3fd1D5c92EA0aEe2547661BEBd3DE3763BBfDc1"
+    // const tmp_aadhar = "4218507662"
+    const tmp_mmsk = "0xe3fd1D5c92EA0aEe2547661BEBd3DE3763BBfDc1"
     const aadhar_num = userinfo.aadhar;
 
     useEffect(() => {
         try {
-            const csu = getUser(aadhar_num, address).then((data) => {
+            const csu = getUser(aadhar_num, tmp_mmsk).then((data) => {
                 console.log(data);
+
+                var user_elections = [];
+                data?.elections.map((elec) => {
+                    user_elections.push(parseInt(elec, 10));
+                })
+                console.log(user_elections);
                 setUserData({ ...userData, name: data?.name, dob: data?.dob, aadhar_hash: data?.aadharHash })
+
+                getElectionOfUser(aadhar_num)
             });
         } catch (error) {
             console.log(error);
@@ -55,8 +64,8 @@ export default function Profile() {
                         <div className="Name text-white mt-5 md:mt-2 ml-3 flex flex-col">
                             <div className="text-4xl font-epilogue">{userData.name}</div>
                             <div className="info mt-6">
-                                <div className="aadhar text-white  ">Aadhar number-{userData.aadhar_hash}</div>
-                                <div className="dob text-white mt-1">DOB- {userData.dob}</div>
+                                <div className="aadhar text-white  font-epilogue">Aadhar Number: {aadhar_num}</div>
+                                <div className="dob text-white mt-1 font-epilogue">DOB: {userData.dob}</div>
                             </div>
                         </div>
                         {/* <div className="address ml-12 mt-6 flex flex-row "><div className="adressimage rounded-full bg-red-400 h-4 w-4 mt-1 "></div><div className="text-white text-sm ml-2 ">0x67E73647d7efA79Af20D2badf559208EA8dC5413</div></div> */}
