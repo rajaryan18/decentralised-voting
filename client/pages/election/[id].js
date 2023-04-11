@@ -1,23 +1,35 @@
 import { useRouter } from "next/router";
 import Image from "next/image";
-
 import vote from "../../public/vote.png"
-
-
 import CandidateCard from "../../components/CandidateCard"
-
 import { Canvas } from "@react-three/fiber";
-
 import { OrbitControls } from "@react-three/drei";
 import { Model1 } from "../../components/threejs/Echain";
+import { useStateContext } from "../../context";
+import { useEffect, useState } from "react";
 
 
 const id = () => {
   const router = useRouter();
   const electionId = router.query.id;
-  console.log(electionId);
+  const { getElectionResults, getElectionOfUser, getElectionById } = useStateContext();
+
+  const [election, setElection] = useState({table: []})
+
+  useEffect(()=>{
+    try {
+      getElectionById(electionId).then((data)=>{
+        setElection({...election, table: data})
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }, [])
+
+
   return (
     <div className="bg-primary bg-[#01040f] w-full overflow-hidden flex flex-col align-center pb-[100px]">
+      {console.log(election.table.candidates)}
       <div className="px-[50px] mt-[10px] w-[600px] flex">
         <div className="flex flex-col">
           <h2 className="font-bold text-white text-[40px] w-[600px]">
@@ -43,9 +55,15 @@ const id = () => {
       </div>
       <div className="flex w-[100%]">
         <div className=" w-[50%] ml-[50px] mt-[20px] to-transparent rounded-[20px] p-[20px] flex flex-col gap-[20px]">
-          <CandidateCard />
-          <CandidateCard />
-          <CandidateCard />
+          {election?.table?.candidates?.map((candidate, ind)=>
+            <CandidateCard 
+              key={ind}
+              name = {candidate?.name}
+              party = {candidate?.party}
+              electionId = {electionId}
+              candidateId={ind}
+            />
+          )}
         </div>
         <div className=" w-[50%] mr-[50px] mt-[20px] to-transparent rounded-[20px] p-[20px] flex justify-center items-center">
           <div className="h-[500px] w-[400px] ">
