@@ -12,7 +12,7 @@ const CandidateCard = ({name, party, electionId, candidateId}) => {
     try {
       doVote(electionId, candidateId, aadhar_num)
     } catch (error) {
-      console.log("here", error);
+      console.log("here");
     }
   }
   return (

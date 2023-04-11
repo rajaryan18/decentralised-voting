@@ -65,7 +65,7 @@ export default function Profile() {
                             <div className="text-4xl font-epilogue">{userData.name}</div>
                             <div className="info mt-6">
                                 <div className="aadhar text-white  font-epilogue">Aadhar Number: {aadhar_num}</div>
-                                <div className="dob text-white mt-1 font-epilogue">DOB: {userData.dob}</div>
+                                <div className="dob text-white mt-1 font-epilogue">DOB: {(userData.dob)}</div>
                             </div>
                         </div>
                         {/* <div className="address ml-12 mt-6 flex flex-row "><div className="adressimage rounded-full bg-red-400 h-4 w-4 mt-1 "></div><div className="text-white text-sm ml-2 ">0x67E73647d7efA79Af20D2badf559208EA8dC5413</div></div> */}

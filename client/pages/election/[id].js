@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 const id = () => {
   const router = useRouter();
   const electionId = router.query.id;
-  const { getElectionResults, getElectionOfUser, getElectionById } = useStateContext();
+  const { getElectionResults, getElectionOfUser, getElectionById, startVoting } = useStateContext();
 
   const [election, setElection] = useState({table: []})
 
@@ -29,7 +29,7 @@ const id = () => {
 
   return (
     <div className="bg-primary bg-[#01040f] w-full overflow-hidden flex flex-col align-center pb-[100px]">
-      {console.log(election.table.candidates)}
+      {console.log(election?.table?.candidates)}
       <div className="px-[50px] mt-[10px] w-[600px] flex">
         <div className="flex flex-col">
           <h2 className="font-bold text-white text-[40px] w-[600px]">
