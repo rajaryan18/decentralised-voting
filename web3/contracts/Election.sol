@@ -33,6 +33,17 @@ contract ElectionInfo {
         address ownerAddress;
     }
 
+    struct returnElection {
+        string name;
+        uint256 start_date;
+        uint256 end_date;
+        uint256 noOfCandidates;
+        Candidate[] candidates;
+        string image_url;
+        uint256 totalVoted;
+        Phase currPhase;
+    }
+
     mapping(uint256 => Election) public elections;
     uint256 public numberOfElections;
     //@MODIFIERS
@@ -162,5 +173,44 @@ contract ElectionInfo {
         inPhase(Phase.ONGOING, _electionid)
     {
         elections[_electionid].currPhase = Phase.END;
+    }
+
+    // function to copy strings
+    function copyBytes(bytes memory _bytes) private pure returns (bytes memory) {
+        bytes memory copy = new bytes(_bytes.length);
+        uint256 max = _bytes.length + 31;
+        for (uint256 i=32; i<=max; i+=32)
+        {
+            assembly { mstore(add(copy, i), mload(add(_bytes, i))) }
+        }
+        return copy;
+    }
+
+    function getElectionById(uint256 _id) public view returns (returnElection memory) {
+        require(_id < numberOfElections, "Invalid Election ID");
+        returnElection memory temp;
+        temp.name = string(copyBytes(bytes(elections[_id].name)));
+        temp.start_date = elections[_id].start_date;
+        temp.end_date = elections[_id].end_date;
+        temp.candidates = new Candidate[](elections[_id].noOfCandidates);
+        for(uint256 i=0;i<elections[_id].noOfCandidates;i++) {
+            temp.candidates[i].name = string(copyBytes(bytes(elections[_id].candidates[i].name)));
+            temp.candidates[i].party = string(copyBytes(bytes(elections[_id].candidates[i].party)));
+            temp.candidates[i].image_url = string(copyBytes(bytes(elections[_id].candidates[i].image_url)));
+            temp.candidates[i].party_image_url = string(copyBytes(bytes(elections[_id].candidates[i].party_image_url)));
+        }
+        temp.image_url = string(copyBytes(bytes(elections[_id].image_url)));
+        temp.noOfCandidates = elections[_id].noOfCandidates;
+        temp.currPhase = elections[_id].currPhase;
+        temp.totalVoted = elections[_id].totalVoted;
+        return temp;
+    }
+
+    function getAllElections() public view returns (returnElection[] memory) {
+        returnElection[] memory allElections = new returnElection[](numberOfElections);
+        for(uint256 i=0;i<numberOfElections;i++) {
+            allElections[i] = getElectionById(i);
+        }
+        return allElections;
     }
 }

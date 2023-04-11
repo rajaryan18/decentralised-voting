@@ -209,4 +209,35 @@ describe("Election Contract", function() {
         expect(result[1][max] === 3);
         expect(result[0][max].name === "Raj Aryan");
     });
+
+    it("Can Return All Elections", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        const no_election = await HardhatElection.getAllElections();
+        expect(no_election.length == 0);
+
+        const _name = ["Generale Elections", "GE"];
+        const _image_url = "https://www.google.com";
+        const _start_date = Math.floor(new Date().getTime()/1000);
+        const _end_date = Math.floor(new Date().getTime()/1000) + 3600;  
+        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000);
+        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000);
+        const elections = await HardhatElection.getAllElections();
+        expect(elections.length == 2);
+        expect(elections[0].name == _name[0]);
+        expect(elections[1].name == _name[1]);
+    });
+
+    it("Can Return Election given it's ID", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        const _name = ["Generale Elections", "GE"];
+        const _image_url = "https://www.google.com";
+        const _start_date = Math.floor(new Date().getTime()/1000);
+        const _end_date = Math.floor(new Date().getTime()/1000) + 3600;  
+        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000);
+        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000);
+        const election1 = await HardhatElection.getElectionById(0);
+        const election2 = await HardhatElection.getElectionById(1);
+        expect(election1.name == _name[0]);
+        expect(election2.name == _name[1]);
+    });
 });
