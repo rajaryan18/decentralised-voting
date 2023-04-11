@@ -5,8 +5,12 @@ import { useStateContext } from '../../context';
 import { useState } from 'react';
 import { verify_aadhar } from '../../utils/helper_functions';
 import Loader from '../Loader';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUpCard = (props) => {
+    const notify = () => toast.warning("Wallet Not Connected!");
+    // const successfulLogin = () => toast.success("Login Successful")
     const [isLoading, setIsLoading] = useState(false);
 
     const [form, setForm] = useState({
@@ -20,7 +24,10 @@ const SignUpCard = (props) => {
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!verify_aadhar(form.aadhar)) return console.log("This aadhar doesn't exists");
+        if (!verify_aadhar(form.aadhar)){
+            toast.error("This aadhar doesn't exists")
+            return console.log("This aadhar doesn't exists");
+        }
         if (address) {
 
             setIsLoading(true);
@@ -37,6 +44,7 @@ const SignUpCard = (props) => {
             console.log(form);
         }
         else {
+            notify()
             console.log("Wallet not connected");
         }
     }
@@ -62,6 +70,7 @@ const SignUpCard = (props) => {
                 </div>
                 <p className='text-white text-sm text-center mt-4'>New to Dection? <a href='/signup' onClick={props.on} className=' underline hover:text-blue-300 cursor-pointer'>Sign up</a></p>
             </div>
+            <ToastContainer />
         </div>
 
     );
