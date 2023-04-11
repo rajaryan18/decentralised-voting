@@ -15,6 +15,7 @@ import { Model1 } from "../../components/threejs/Echain";
 const id = () => {
   const router = useRouter();
   const electionId = router.query.id;
+  console.log(electionId);
   return (
     <div className="bg-primary bg-[#01040f] w-full overflow-hidden flex flex-col align-center pb-[100px]">
       <div className="px-[50px] mt-[10px] w-[600px] flex">

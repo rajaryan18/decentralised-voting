@@ -6,9 +6,11 @@ import { useStateContext } from "../../context";
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { IoIosArrowDropupCircle, IoIosArrowDropdownCircle } from "react-icons/io";
 import Link from 'next/link'
+import { useRouter } from "next/router";
 
 
 export default function Profile() {
+    const router = useRouter();
     const { user, getUser, address, userinfo } = useStateContext();
     const [expandedOn, setExpandedOn] = useState(false);
     const [expandedPast, setExpandedPast] = useState(false);
@@ -18,6 +20,10 @@ export default function Profile() {
         dob: '',
         aadhar_hash: '',
     })
+    const push_to_election_page = (pid) => {
+        router.push(`/election/${encodedURIComponent(pid)}`);
+
+    }
 
     //tmp_aadhar = aadhar number of current user, tmp_mmsk = metamask id of current user
     //using above info to get data of current user to show in their profile page
@@ -73,16 +79,19 @@ export default function Profile() {
                             <ul className="list-none bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-between justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                 {expandedOn ? electionData.map((el) => (
                                     <li key={el.id}>
+
+
                                         <ProfileElectionCard
-                                            name={el.name} id={el.id} winner={el.winner} votes={el.votes}
+                                            name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
                                         />
+
                                     </li>
 
                                 )) :
                                     electionData.slice(0, 4).map((el) => (
                                         <li key={el.id}>
                                             <ProfileElectionCard
-                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes}
+                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
                                             />
                                         </li>
                                     ))}
@@ -103,14 +112,14 @@ export default function Profile() {
                                 {expandedPast ? electionData.map((el) => (
                                     <li key={el.id}>
                                         <ProfileElectionCard
-                                            name={el.name} id={el.id} winner={el.winner} votes={el.votes}
+                                            name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
                                         />
                                     </li>
                                 )) :
                                     electionData.slice(0, 4).map((el) => (
                                         <li key={el.id}>
                                             <ProfileElectionCard
-                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes}
+                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
                                             />
                                         </li>
                                     ))}
