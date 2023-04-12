@@ -121,6 +121,10 @@ export const StateContextProvider = ({ children }) => {
 
       const smartContract = getEthereumContract();
       const userID = await smartContract.createUser(name, dob, aadhar, addr, password);
+      await userID.wait();
+      const validate = await checkCredentials(aadhar, password);
+      return validate;
+
     } catch (error) {
       console.log(error);
     }
@@ -238,11 +242,11 @@ export const StateContextProvider = ({ children }) => {
 
 
   //Function to check credentials of particular user
-  const checkCredentials = async (userID, password) => {
+  const checkCredentials = async (aadhar, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const isValidCredentials = await smartContract.checkCredentials(userID, password);
+      const isValidCredentials = await smartContract.checkCredentials(aadhar, password);
       console.log(isValidCredentials);
       return isValidCredentials
 
