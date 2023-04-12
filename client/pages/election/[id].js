@@ -24,7 +24,7 @@ const id = () => {
     try {
       getElectionById(electionId).then((data) => {
         // console.log(data);
-        setElection({ ...election, table: data, phase: 1 })
+        setElection({ ...election, table: data, phase: data?.currPhase })
         // console.log(election);
       })
     } catch (error) {
