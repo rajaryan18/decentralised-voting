@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 
 export default function Profile() {
     const router = useRouter();
+    const jwt = require('jsonwebtoken');
+
 
     const { user, getUser, address, userinfo, getElectionResults, getElectionOfUser } = useStateContext();
     const [expandedOn, setExpandedOn] = useState(false);
@@ -30,7 +32,15 @@ export default function Profile() {
     //using above info to get data of current user to show in their profile page
     // const tmp_aadhar = "4218507662"
     const tmp_mmsk = "0xe3fd1D5c92EA0aEe2547661BEBd3DE3763BBfDc1"
-    const aadhar_num = userinfo.aadhar;
+    const temp_user_info = jwt.verify(userinfo.token, "seekret key(change later and keep in env file)", (err, decoded) => {
+        if (err) {
+            console.log("session expired login again")
+        } else {
+            return decoded
+        }
+    });
+    const aadhar_num = temp_user_info?.aadhar;
+
 
     useEffect(() => {
         try {

@@ -19,7 +19,7 @@ const SignUpCard = (props) => {
     });
     const { connectWallet, getElectionOfUser, setUser, checkCredentials, address, checkIfWalletIsConnected, setUserInfo, userinfo } = useStateContext();
     const [pass, setPass] = useState("password")
-
+    const jwt = require('jsonwebtoken');
     const handlePass = (event) => {
         if (pass === "password") setPass("text")
         else setPass("password")
@@ -44,7 +44,9 @@ const SignUpCard = (props) => {
                 setUser(true);
                 const electionofuser = await getElectionOfUser(form.aadhar);
                 console.log(electionofuser);
-                setUserInfo({ aadhar: form.aadhar });
+                const data = { aadhar: form.aadhar }
+                const token = jwt.sign(data, "seekret key(change later and keep in env file)")
+                setUserInfo({ token: token });
                 toast.success("Login successful");
                 setIsLoading(false);
 

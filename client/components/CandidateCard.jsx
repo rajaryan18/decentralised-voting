@@ -4,10 +4,16 @@ import person from '../public/person.jpg'
 import { useStateContext } from "../context";
 
 const CandidateCard = ({ name, party, electionId, candidateId }) => {
-
+  const jwt = require('jsonwebtoken');
   const { doVote, userinfo } = useStateContext()
-
-  const aadhar_num = userinfo.aadhar;
+  const temp_user_info = jwt.verify(userinfo.token, "seekret key(change later and keep in env file)", (err, decoded) => {
+    if (err) {
+      console.log("session expired login again")
+    } else {
+      return decoded
+    }
+  });
+  const aadhar_num = temp_user_info?.aadhar;
   const handleVote = () => {
     try {
       doVote(electionId, candidateId, aadhar_num)
@@ -23,7 +29,7 @@ const CandidateCard = ({ name, party, electionId, candidateId }) => {
           <p className='text-white' ><span className='text-gradient' >Name: </span> {name}</p>
           <p className='text-white' ><span className='text-gradient' >Party: </span> {party}</p>
         </div>
-        <div onClick={handleVote} className="h-[40px] w-[120px] mb-4 mr-0 md:mr-4 md:mb-0 bg-gradient-to-r from-orange-500 via-golden-500 to-yellow-500 rounded-[15px] flex justify-center items-center font-epilogue hover:cursor-pointer hover:scale-105 hover:shadow-md duration-300" >
+        <div onClick={handleVote} className={` {props.button} h-[40px] w-[120px] mb-4 mr-0 md:mr-4 md:mb-0 bg-gradient-to-r from-orange-500 via-golden-500 to-yellow-500 rounded-[15px] flex justify-center items-center font-epilogue hover:cursor-pointer hover:scale-105 hover:shadow-md duration-300`} >
           <p>Cast Vote</p>
         </div>
       </div>

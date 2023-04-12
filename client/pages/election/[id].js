@@ -8,6 +8,7 @@ import { Model1 } from "../../components/threejs/Echain";
 import { useStateContext } from "../../context";
 import { useEffect, useState } from "react";
 import { electionData } from "../../components/constants";
+import CandidateCardNoVote from "../../components/CandidateCardNoVote";
 
 
 const id = () => {
@@ -24,7 +25,7 @@ const id = () => {
     try {
       getElectionById(electionId).then((data) => {
         // console.log(data);
-        setElection({ ...election, table: data, phase: 1 })
+        setElection({ ...election, table: data, phase: data?.currPhase })
         // console.log(election);
       })
     } catch (error) {
@@ -34,7 +35,46 @@ const id = () => {
   // console.log(election);
   if (election.phase == 0) {
     return (
-      <div className="flex text-white items-center bg-primary bg-[#01040f] justify-center text-center h-[1000px]">pre voting phase</div>
+
+      <div className="bg-primary bg-[#01040f] w-full overflow-hidden flex flex-col align-center pb-[100px]">
+        {/* {console.log(election?.table?.candidates)} */}
+        {/* {console.log("phase is" + election?.table?.candidates)} */}
+        <div className="mx-auto h-fit flex-col w-[85%] mt-[10px] rounded-[20px] flex pl-0 md:pl-2 md:text-start text-center items-center justify-center md:items-start md:justify-start   overflow-visible">
+          <h2 className="font-bold text-white text-[40px] w-[600px]">
+            Hello <br className="md:hidden block" /> Prateek,
+          </h2>
+          <p className="text-gradient first-letter:font-bold text-[20px] w-[600px]">
+            Welome to <br className="md:hidden block" /> Decentralized Election
+          </p>
+        </div>
+        <div className="mx-auto h-[170px] w-[85%] bg-blue-gradient mt-[10px] rounded-[20px] flex  pl-0 md:pl-[20px] overflow-visible">
+          <p className="font-epilogue font-bold flex items-center justify-center text-center md:items-start md:mx-0 mx-auto md:text-start md:justify-start text-4xl md:text-5xl lg:text-6xl text-black mt-[25px] mb-[25px]">
+            Every Vote <br className="md:hidden block" />Counts!
+          </p>
+
+          <Image
+            src={vote}
+            alt="vote"
+            className="hidden lg:block w-[290px] h-[290px] pr-[-50px] mt-[-120px] absolute  right-[12%]"
+          />
+        </div>
+        <div className="flex flex-col lg:flex-row w-[100%]">
+          <div className=" w-[90%] md:w-[75%] mx-auto mt-[20px] to-transparent rounded-[20px] p-[20px] flex flex-col gap-[20px]">
+            <div className="text-5xl my-2 ">Voting hasn't been started yet</div>
+            {election?.table?.candidates?.map((candidate, ind) =>
+              <CandidateCardNoVote
+                key={ind}
+                name={candidate?.name}
+                party={candidate?.party}
+                electionId={electionId}
+                candidateId={ind}
+                button="hidden"
+              />
+            )}
+          </div>
+        </div>
+
+      </div>
     );
 
   } else if (election.phase == 1) {
