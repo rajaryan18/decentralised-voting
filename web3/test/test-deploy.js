@@ -240,4 +240,25 @@ describe("Election Contract", function() {
         expect(election1.name == _name[0]);
         expect(election2.name == _name[1]);
     });
+
+    it("Get Phases of all Elections", async function() {
+        const { HardhatElection } = await loadFixture(deployElectionFixture);
+        const _name = ["Generale Elections", "GE"];
+        const _image_url = "https://www.google.com";
+        const _start_date = Math.floor(new Date().getTime()/1000);
+        const _end_date = Math.floor(new Date().getTime()/1000) + 3600;  
+        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000);
+        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000);
+        let all_phases = await HardhatElection.getPhase();
+        expect(all_phases.length == 0);
+        expect(all_phases[0] == 0 && all_phases[1] == 0);
+
+        await HardhatElection.startVoting(0);
+        all_phases = await HardhatElection.getPhase();
+        expect(all_phases[0] == 1 && all_phases[1] == 0);
+
+        await HardhatElection.endVoting(0);
+        all_phases = await HardhatElection.getPhase();
+        expect(all_phases[0] == 2 && all_phases[1] == 0);
+    });
 });

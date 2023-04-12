@@ -213,4 +213,10 @@ contract ElectionInfo {
         }
         return allElections;
     }
+
+    function getPhase() public view returns (Phase[] memory) {
+        Phase[] memory all_phase = new Phase[](numberOfElections);
+        for(uint256 i=0;i<numberOfElections;i++) all_phase[i] = elections[i].currPhase;
+        return all_phase;
+    }
 }
