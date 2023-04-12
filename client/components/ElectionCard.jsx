@@ -16,8 +16,7 @@ const ElectionCard = ({
       href={{
         pathname: `/election/${id}`,
         query: {
-          id: id,
-          currPhase: phase
+          id: id
         }
       }}
     >
