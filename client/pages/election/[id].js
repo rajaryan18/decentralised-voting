@@ -14,7 +14,7 @@ const id = () => {
   const router = useRouter();
   const electionId = router.query.id;
   const { getElectionResults, getElectionOfUser, getElectionById, startVoting } = useStateContext();
-  const [currentphase, setCurrentphase] = useState(2);
+  const [currentphase, setCurrentphase] = useState(1);
 
   const [election, setElection] = useState({ table: [] })
 
