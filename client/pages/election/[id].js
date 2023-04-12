@@ -14,7 +14,7 @@ const id = () => {
   const router = useRouter();
   const electionId = router.query.id;
   const { getElectionResults, getElectionOfUser, getElectionById, startVoting } = useStateContext();
-  const [currentphase, setCurrentphase] = useState(1);
+  const [currentphase, setCurrentphase] = useState(2);
 
   const [election, setElection] = useState({ table: [] })
 
@@ -22,7 +22,7 @@ const id = () => {
     try {
       getElectionById(electionId).then((data) => {
         setElection({ ...election, table: data })
-
+        // setCurrentphase(election?.table.currPhase)
       })
     } catch (error) {
       console.log(error);
