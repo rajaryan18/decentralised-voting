@@ -21,14 +21,14 @@ const Hero = () => {
   const { user, connectWallet, address, createCampaign, addUser } = useStateContext();
 
 
-  const handleClick = () => {
-    if (user === null) {
-      setuser("hii")
-    }
-    else {
-      setuser(null)
-    }
-  }
+  // const handleClick = () => {
+  //   if (user === null) {
+  //     setuser("hii")
+  //   }
+  //   else {
+  //     setuser(null)
+  //   }
+  // }
 
   return (
     <section id="home" className={`flex md:flex-row flex-col py-6  mx-10 mt-44 md:mt-0`}>
@@ -61,7 +61,7 @@ const Hero = () => {
 
       <div className={`flex-1 flex-col ${styles.flexCenter} md:my-0 my-10 relative  `}>
         <div className='h-[500px] w-[400px] flex flex-row items-center justify-center mb-20  '>
-          {!user ? <SignInCard on={handleClick} /> : <SignedCard on={handleClick} />}
+          {!user ? <SignInCard /> : <SignedCard />}
 
 
         </div>

@@ -121,6 +121,10 @@ export const StateContextProvider = ({ children }) => {
 
       const smartContract = getEthereumContract();
       const userID = await smartContract.createUser(name, dob, aadhar, addr, password);
+      await userID.wait();
+      const validate = await checkCredentials(aadhar, password);
+      return validate;
+
     } catch (error) {
       console.log(error);
     }
@@ -160,7 +164,7 @@ export const StateContextProvider = ({ children }) => {
       const votes = await smartContract.doVote(electionID, candidateID, aadhar);
       console.log(votes);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
@@ -238,11 +242,11 @@ export const StateContextProvider = ({ children }) => {
 
 
   //Function to check credentials of particular user
-  const checkCredentials = async (userID, password) => {
+  const checkCredentials = async (aadhar, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const isValidCredentials = await smartContract.checkCredentials(userID, password);
+      const isValidCredentials = await smartContract.checkCredentials(aadhar, password);
       console.log(isValidCredentials);
       return isValidCredentials
 
@@ -251,11 +255,38 @@ export const StateContextProvider = ({ children }) => {
     }
   }
 
+  //Function to get election by id
+  const getElectionById = async (election_id) => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const election = await smartContract.getElectionById(election_id);
+      // console.log(election);
+      return election
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getAllElections = async () => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask Wallet");
+      const smartContract = getEthereumContract();
+      const allElections = await smartContract.getAllElections();
+      // console.log(allElections);
+      return allElections
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   // const tmp_aadhar = "4218507662"
   // useEffect(()=>{
-  //   const current_user = getUser(tmp_aadhar, address).then((a)=>{
-  //     console.log(a);
-  //   });
+  //   const allelec = getAllElections().then((data)=>{
+  //     console.log(data[0].name);
+  //     // console.log(data[0].candidates[1].name);
+  //   })
+  //   // console.log(allelec);
   // },[])
 
 
@@ -281,7 +312,8 @@ export const StateContextProvider = ({ children }) => {
         getElectionOfUser,
         checkCredentials,
         getUser,
-
+        getElectionById,
+        getAllElections
       }}
     >
       {children}

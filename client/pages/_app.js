@@ -1,3 +1,4 @@
+import { React } from "react"
 import '../styles/globals.css'
 import { StateContextProvider } from '../context'
 import { MetaDetail, Footer, Navbar, Stats, Hero, EthDetail, Features } from "../components/login_components";
@@ -14,14 +15,13 @@ export default function App({ Component, pageProps }) {
   return (
 
     <NonSSRWrapper>
-
+       
       <StateContextProvider>
         <div className={`bg-primary bg-[#01040f] ${styles.paddingX} ${styles.flexCenter}`}>
           <div className={`${styles.boxWidth}`}>
             <Navbar />
           </div>
         </div>
-
         <Component {...pageProps} />
 
         <div className={`bg-primary bg-[#01040f] ${styles.paddingX} ${styles.flexCenter}`}>
@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
           </div>
         </div>
 
-
+      
       </StateContextProvider>
     </NonSSRWrapper>
 

@@ -5,7 +5,6 @@ import { useStateContext } from '../context';
 import CustomButton from '../components/CustomButton';
 import FormField from '../components/FormField';
 import Loader from '../components/Loader';
-
 import { checkIfImage } from '../utils';
 
 const AddCandidate = () => {

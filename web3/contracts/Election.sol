@@ -186,6 +186,7 @@ contract ElectionInfo {
         return copy;
     }
 
+    //Function to get Election By id
     function getElectionById(uint256 _id) public view returns (returnElection memory) {
         require(_id < numberOfElections, "Invalid Election ID");
         returnElection memory temp;
@@ -206,6 +207,7 @@ contract ElectionInfo {
         return temp;
     }
 
+    //Function to get all elections
     function getAllElections() public view returns (returnElection[] memory) {
         returnElection[] memory allElections = new returnElection[](numberOfElections);
         for(uint256 i=0;i<numberOfElections;i++) {
