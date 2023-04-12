@@ -9,12 +9,15 @@ const ElectionCard = ({
   description,
   imageURL,
   id,
+  phase
 }) => {
   return (
     <Link 
       href={{
         pathname: `/election/${id}`,
-        query: id
+        query: {
+          id: id
+        }
       }}
     >
       <div className="rounded-[15px] p-[10px] z-50 no-scrollbar hover:cursor-pointer text-white bg-[#1c1c24] h-[400px] w-[290px] flex items-center flex-col align-center hover:scale-105 duration-300 overflow-y-auto ">

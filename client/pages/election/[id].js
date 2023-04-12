@@ -13,31 +13,35 @@ import { electionData } from "../../components/constants";
 const id = () => {
   const router = useRouter();
   const electionId = router.query.id;
+  // const currentphase = router.query.currPhase;
+  // console.log("Phase: ", currentphase);
+  // const phase = router.query.
   const { getElectionResults, getElectionOfUser, getElectionById, startVoting } = useStateContext();
-  const [currentphase, setCurrentphase] = useState(1);
 
-  const [election, setElection] = useState({ table: [] })
+  const [election, setElection] = useState({ table: [], phase: '' })
 
   useEffect(() => {
     try {
       getElectionById(electionId).then((data) => {
-        setElection({ ...election, table: data })
-        // setCurrentphase(election?.table.currPhase)
+        // console.log(data);
+        setElection({ ...election, table: data, phase: 1 })
+        // console.log(election);
       })
     } catch (error) {
       console.log(error);
     }
   }, [])
-
-  if (currentphase === 0) {
+  // console.log(election);
+  if (election.phase == 0) {
     return (
       <div className="flex text-white items-center bg-primary bg-[#01040f] justify-center text-center h-[1000px]">pre voting phase</div>
     );
 
-  } else if (currentphase === 1) {
+  } else if (election.phase == 1) {
     return (
+
       <div className="bg-primary bg-[#01040f] w-full overflow-hidden flex flex-col align-center pb-[100px]">
-        {console.log(election?.table?.candidates)}
+        {/* {console.log(election?.table?.candidates)} */}
         {/* {console.log("phase is" + election?.table?.candidates)} */}
         <div className="mx-auto h-fit flex-col w-[85%] mt-[10px] rounded-[20px] flex pl-0 md:pl-2 md:text-start text-center items-center justify-center md:items-start md:justify-start   overflow-visible">
           <h2 className="font-bold text-white text-[40px] w-[600px]">

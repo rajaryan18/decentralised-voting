@@ -36,6 +36,7 @@ export default function Home() {
                         TotalVotes={parseInt(election?.totalVoted, 10)}
                         imageURL={speech}
                         description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
+                        phase = {election?.currPhase}
                     />
                 )}
 
