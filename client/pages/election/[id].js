@@ -18,7 +18,7 @@ const id = () => {
   // const phase = router.query.
   const { getElectionResults, getElectionOfUser, getElectionById, startVoting } = useStateContext();
 
-  const [election, setElection] = useState({ table: [], phase: ''})
+  const [election, setElection] = useState({ table: [], phase: '' })
 
   useEffect(() => {
     try {
@@ -39,7 +39,7 @@ const id = () => {
 
   } else if (election.phase == 1) {
     return (
-      
+
       <div className="bg-primary bg-[#01040f] w-full overflow-hidden flex flex-col align-center pb-[100px]">
         {/* {console.log(election?.table?.candidates)} */}
         {/* {console.log("phase is" + election?.table?.candidates)} */}
@@ -100,7 +100,7 @@ const id = () => {
       </div>
     );
 
-  } else{
+  } else {
     return (
       <div className="text-white flex items-center bg-primary bg-[#01040f] justify-center text-center h-[1000px]">past voting phase</div>
     );
