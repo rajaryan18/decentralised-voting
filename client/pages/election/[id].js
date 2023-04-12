@@ -16,17 +16,17 @@ const id = () => {
   // const currentphase = router.query.currPhase;
   // console.log("Phase: ", currentphase);
   // const phase = router.query.
-  const { getElectionResults, getElectionOfUser, getElectionById, startVoting } = useStateContext();
+  const { getElectionResults, getElectionOfUser, getElectionById, startVoting, endVoting } = useStateContext();
 
   const [election, setElection] = useState({ table: [], phase: '' })
 
   useEffect(() => {
     try {
       getElectionById(electionId).then((data) => {
-        // console.log(data);
-        setElection({ ...election, table: data, phase: data?.currPhase })
-        // console.log(election);
+        setElection({ ...election, table: data, phase: data?.currPhase });
       })
+      // startVoting(3)
+      // console.log(getElectionResults(3));
     } catch (error) {
       console.log(error);
     }
@@ -102,7 +102,12 @@ const id = () => {
 
   } else {
     return (
-      <div className="text-white flex items-center bg-primary bg-[#01040f] justify-center text-center h-[1000px]">past voting phase</div>
+      <div className="text-white flex items-center bg-primary bg-[#01040f] justify-center text-center h-[1000px]">
+        {console.log(getElectionResults(electionId).then((data)=>{
+          console.log(data);
+        })) }
+        past voting phase
+      </div>
     );
 
   }
