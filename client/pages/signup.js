@@ -9,9 +9,10 @@ import Loader from '../components/Loader';
 
 import meta from '../public/metamask.png'
 import { useRouter } from 'next/router';
-import AlertCard from '../components/alert';
+// import AlertCard from '../components/alert';
 import { verify_aadhar } from '../utils/helper_functions';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 
@@ -123,7 +124,7 @@ const SignUp = () => {
                     </div>
                 </form>
             </div>
-
+            <ToastContainer />
         </div>
     )
 
