@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
-import person from '../public/person.jpg'
-import { useStateContext } from "../context";
+import person from '../../public/person.jpg'
+import { useStateContext } from "../../context";
 
 const CandidateCard = ({ name, party, electionId, candidateId }) => {
   const jwt = require('jsonwebtoken');
