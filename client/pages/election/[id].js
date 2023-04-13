@@ -21,6 +21,10 @@ const id = () => {
 
   const [election, setElection] = useState({ table: [], phase: '' })
 
+  const handleVote = (ind) =>{
+    
+  }
+
   useEffect(() => {
     try {
       getElectionById(electionId).then((data) => {
@@ -29,6 +33,7 @@ const id = () => {
         setElection({ ...election, table: data, phase: data?.currPhase })
         // console.log(election);
       })
+      endVoting(electionId)
       // startVoting(3)
       // console.log(getElectionResults(3));
     } catch (error) {
@@ -114,6 +119,7 @@ const id = () => {
                 party={candidate?.party}
                 electionId={electionId}
                 candidateId={ind}
+                handleClick = {handleVote(ind)}
               />
             )}
           </div>

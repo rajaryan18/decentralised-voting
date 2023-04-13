@@ -9,7 +9,8 @@ const ElectionCard = ({
   description,
   imageURL,
   id,
-  phase
+  phase,
+  handleClick
 }) => {
   return (
     <Link 
