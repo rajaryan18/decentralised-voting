@@ -177,7 +177,8 @@ export const StateContextProvider = ({ children }) => {
       const endVoting_hash = await smartContract.endVoting(electionID);
       console.log(endVoting_hash);
     } catch (error) {
-      console.log(error);
+      console.log(error.reason);
+      alert(error.reason)
     }
   }
 
