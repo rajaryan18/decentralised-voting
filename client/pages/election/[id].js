@@ -33,7 +33,7 @@ const id = () => {
         setElection({ ...election, table: data, phase: data?.currPhase })
       })
       // setisLoading(false);
-
+      // startVoting(electionId)
     } catch (error) {
       console.log(error);
     }
