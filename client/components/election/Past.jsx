@@ -27,11 +27,11 @@ const PastPhase = ({ name, party, electionId, election, votes }) => {
                 </p>
 
 
-                <Image
+                {/* <Image
                     src={vote}
                     alt="vote"
                     className="hidden lg:block w-[290px] h-[290px] pr-[-50px] mt-[-120px] absolute  right-[12%]"
-                />
+                /> */}
             </div>
             <div className="flex flex-col lg:flex-row w-[100%]">
                 <div className=" w-[90%] md:w-[75%] mx-auto mt-[20px] to-transparent rounded-[20px] p-[20px] flex flex-col gap-[20px]">

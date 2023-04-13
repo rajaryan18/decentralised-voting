@@ -3,6 +3,7 @@ import ElectionCard from '../components/ElectionCard'
 import speech from "/public/speech.svg";
 import { useStateContext } from '../context';
 import { useEffect, useState } from 'react';
+import SearchBar from '../components/searchBar';
 
 
 export default function Home() {
@@ -25,7 +26,9 @@ export default function Home() {
 
     return (
         <div className="bg-primary bg-[#01040f] w-full justify-center overflow-hidden flex flex-wrap gap-[100px] align-center pt-[50px] pb-[50px]" >
-            <div className='z-100 bg-primary bg-[#01040f] w-full justify-center overflow-hidden flex flex-wrap gap-[100px] align-center pt-[50px] pb-[50px]'>
+            <SearchBar />
+            <div className='z-100 bg-primary bg-[#01040f] w-full justify-center overflow-hidden flex flex-wrap gap-[100px] align-center pt-3 pb-[50px]'>
+
                 {/* {console.log(allElections.table)} */}
                 {allElections.table?.map((election, ind) =>
                     <ElectionCard
