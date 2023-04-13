@@ -54,7 +54,6 @@ const PrePhase = ({ electionId, election }) => {
                             party={candidate?.party}
                             electionId={electionId}
                             candidateId={ind}
-                            button="hidden"
                         />
                     )}
                 </div>

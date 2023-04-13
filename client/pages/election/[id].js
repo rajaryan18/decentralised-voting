@@ -11,6 +11,7 @@ import { electionData } from "../../components/constants";
 import CandidateCardNoVote from "../../components/election/CandidateCardNoVote";
 import PrePhase from "../../components/election/Pre";
 import Loader2 from "../../components/Loader2";
+import PastPhase from "../../components/election/Past";
 
 
 const id = () => {
@@ -104,14 +105,11 @@ const id = () => {
     );
 
   } else if (election.phase == 2) {
-    return (
-      <div className="text-white flex items-center bg-primary bg-[#01040f] justify-center text-center h-[1000px]">
-        {console.log(getElectionResults(electionId).then((data) => {
-          console.log(data);
-        }))}
-        past voting phase
-      </div>
-    );
+    return (<div>
+      {/* {isLoading && Loader2} */}
+      {console.log(getElectionResults(electionId).then((data) => { console.log(data); }))}
+      <PastPhase election={election} electionId={electionId} votes={""} />
+    </div>);
 
   } else {
     return (<div className="text-white flex items-center bg-primary bg-[#01040f] justify-center text-center h-[1000px]">

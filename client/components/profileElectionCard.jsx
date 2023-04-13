@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const ProfileElectionCard = (props) => {
     return (
-        <div key={props.id} className='rounded-md  bg-[#252945] hover:scale-110 duration-300 hover:shadow-md hover:shadow-black/75 w-48 mb-8 mx-6 ' >
+        <div key={props.id} className='rounded-md  bg-[#252945] hover:scale-110 duration-300 hover:shadow-md hover:shadow-black/75 w-48 mb-4 mt-4 mx-6 ' >
 
             <div className=" max-w-sm border border-gray-200 rounded-lg shadow">
 

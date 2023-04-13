@@ -44,7 +44,7 @@ export default function Profile() {
 
     useEffect(() => {
         try {
-            const csu = getUser(aadhar_num, tmp_mmsk).then((data) => {
+            const csu = getUser(aadhar_num, address).then((data) => {
                 console.log(data);
 
                 var user_elections = [];
@@ -93,11 +93,11 @@ export default function Profile() {
                             <div className="absolute text-white scale-[1.7] mt-2 right-[10%]"><div>{!expandedOn ? <div onClick={() => { setExpandedOn(true) }}><IoIosArrowDropdownCircle /></div> : <div onClick={() => { setExpandedOn(false) }}><IoIosArrowDropupCircle /></div>}</div></div>
 
                         </div>
-                        <div className="flex bg-[#1e2742] rounded-xl mt-3  items-center justify-center text-center">
+                        <div className="flex h-[400px] bg-[#1e2742] rounded-xl mt-3  items-center justify-center text-center">
 
-                            <ul className="list-none bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-between justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            <ul className="list-none mx-auto my-auto h-[380px] overflow-y-auto no-scrollbar bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-between justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                 {expandedOn ? electionData.map((el) => (
-                                    <li key={el.id}>
+                                    <li key={el.id} >
 
 
                                         <ProfileElectionCard
@@ -108,7 +108,7 @@ export default function Profile() {
 
                                 )) :
                                     electionData.slice(0, 4).map((el) => (
-                                        <li key={el.id}>
+                                        <li key={el.id} className="">
                                             <ProfileElectionCard
                                                 name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
                                             />
