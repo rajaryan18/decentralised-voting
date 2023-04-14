@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import person from '../public/person.jpg'
-import meta from "../public/metamask.png"
+import person from '../../public/person.jpg'
 import Link from 'next/link'
 
 const ProfileElectionCard = (props) => {

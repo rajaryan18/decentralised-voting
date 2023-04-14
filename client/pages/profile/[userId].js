@@ -1,13 +1,14 @@
 //Work on user profile here
 import { useEffect, useState } from "react";
 import { electionData } from "../../components/constants/index"
-import ProfileElectionCard from "../../components/profileElectionCard";
+
 import { useStateContext } from "../../context";
 import { AiFillPlusCircle } from 'react-icons/ai';
-import { IoIosArrowDropupCircle, IoIosArrowDropdownCircle } from "react-icons/io";
+
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import SearchBar from "../../components/searchBar";
+import ResultCardProfile from "../../components/profile/ResultCardProfile";
 
 
 export default function Profile() {
@@ -87,99 +88,14 @@ export default function Profile() {
                     <div className="Upcoming Elections mt-20">
                         <div className="mb-4  ml-2 hover:scale-105 duration-200 bg-orange-500 h-10 w-36 px-3 py-2 text-white rounded-2xl  hover:bg-orange-400 flex flex-row"><Link href="/createelection " className=" flex flex-row justify-center items-center">New Election<div className="mt-1 ml-2 "><AiFillPlusCircle /></div ></Link></div>
                         <div className="mb-10 mt-8 flex  "><SearchBar /></div>
-                        <div className="flex flex-row ">
-
-                            <div className="bg-yellow-500 rounded-full h-4 w-4 mr-2 ml-2 mt-2 px-2"></div>
-
-                            <div className="text-xl text-white">Upcoming Elections </div>
-                            <div className="absolute text-white scale-[1.7] mt-2 right-[10%]"><div>{!expandedUpcoming ? <div onClick={() => { setExpandedUpcoming(true) }}><IoIosArrowDropdownCircle /></div> : <div onClick={() => { setExpandedUpcoming(false) }}><IoIosArrowDropupCircle /></div>}</div></div>
-
-                        </div>
-                        <div className="flex h-[400px] bg-[#1e2742] rounded-xl mt-3  items-center justify-center text-center">
-
-                            <ul className="list-none mx-auto my-auto h-[380px] overflow-y-auto no-scrollbar bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-between justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                {expandedUpcoming ? electionData.map((el) => (
-                                    <li key={el.id} >
-                                        <ProfileElectionCard
-                                            name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
-                                        />
-                                    </li>
-
-                                )) :
-                                    electionData.slice(0, 4).map((el) => (
-                                        <li key={el.id} className="">
-                                            <ProfileElectionCard
-                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
-                                            />
-                                        </li>
-                                    ))}
-                            </ul>
-                        </div>
                     </div>
 
+                    <ResultCardProfile name="Upcoming Elections" electionData={electionData} setExpandedOn={setExpandedUpcoming} expandedOn={expandedUpcoming} color="bg-yellow-500" />
 
-                    <div className="Ongoing Elections mt-20">
+                    <ResultCardProfile name="Ongoing Elections" electionData={electionData} setExpandedOn={setExpandedOn} expandedOn={expandedOn} color="bg-green-500" />
+                    <ResultCardProfile name="Past Elections" electionData={electionData} setExpandedOn={setExpandedPast} expandedOn={expandedPast} color="bg-red-500" />
 
-                        <div className="flex flex-row ">
 
-                            <div className="bg-green-500 rounded-full h-4 w-4 mr-2 ml-2 mt-2 px-2"></div>
-
-                            <div className="text-xl text-white">Ongoing Elections </div>
-                            <div className="absolute text-white scale-[1.7] mt-2 right-[10%]"><div>{!expandedOn ? <div onClick={() => { setExpandedOn(true) }}><IoIosArrowDropdownCircle /></div> : <div onClick={() => { setExpandedOn(false) }}><IoIosArrowDropupCircle /></div>}</div></div>
-
-                        </div>
-                        <div className="flex h-[400px] bg-[#1e2742] rounded-xl mt-3  items-center justify-center text-center">
-
-                            <ul className="list-none mx-auto my-auto h-[380px] overflow-y-auto no-scrollbar bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-between justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                {expandedOn ? electionData.map((el) => (
-                                    <li key={el.id} >
-                                        <ProfileElectionCard
-                                            name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
-                                        />
-                                    </li>
-
-                                )) :
-                                    electionData.slice(0, 4).map((el) => (
-                                        <li key={el.id} className="">
-                                            <ProfileElectionCard
-                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
-                                            />
-                                        </li>
-                                    ))}
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="Past Elections mt-20">
-
-                        <div className="flex flex-row ">
-
-                            <div className="bg-red-500 rounded-full h-4 w-4 mr-2 ml-2 mt-2 px-2"></div>
-
-                            <div className="text-xl text-white">Past Elections </div>
-                            <div className="absolute text-white scale-[1.7] mt-2 right-[10%]"><div>{!expandedPast ? <div onClick={() => { setExpandedPast(true) }}><IoIosArrowDropdownCircle /></div> : <div onClick={() => { setExpandedPast(false) }}><IoIosArrowDropupCircle /></div>}</div></div>
-
-                        </div>
-                        <div className="flex h-[400px] bg-[#1e2742] rounded-xl mt-3  items-center justify-center text-center">
-
-                            <ul className="list-none mx-auto my-auto h-[380px] overflow-y-auto no-scrollbar bg-[#1e2742] px-6 py-10 w-fit mt-2  rounded-xl items-between justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                {expandedPast ? electionData.map((el) => (
-                                    <li key={el.id} >
-                                        <ProfileElectionCard
-                                            name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
-                                        />
-                                    </li>
-                                )) :
-                                    electionData.slice(0, 4).map((el) => (
-                                        <li key={el.id} className="">
-                                            <ProfileElectionCard
-                                                name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
-                                            />
-                                        </li>
-                                    ))}
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div >
         )

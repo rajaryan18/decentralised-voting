@@ -1,18 +1,22 @@
 
-import ElectionCard from '../components/ElectionCard'
-import speech from "/public/speech.svg";
 import { useStateContext } from '../context';
 import { useEffect, useState } from 'react';
 import SearchBar from '../components/searchBar';
+import ResultCardDashboard from '../components/dashboard/ResultCardDashboard';
+
 
 
 export default function Home() {
     // let elections = {table: []}
     // let elections = []
     const { getAllElections } = useStateContext()
-    const [allElections, setAllElections] = useState({
-        table: []
-    })
+    const [allElections, setAllElections] = useState({ table: [] });
+    const [expandedOn, setExpandedOn] = useState(false);
+    const [expandedPre, setExpandedPre] = useState(false);
+
+    const [expandedPast, setExpandedPast] = useState(false);
+
+
     useEffect(() => {
         try {
             getAllElections().then((data) => {
@@ -30,23 +34,15 @@ export default function Home() {
             <div className='z-100 bg-primary bg-[#01040f] w-full justify-center overflow-hidden flex flex-wrap gap-[100px] align-center pt-3 pb-[50px]'>
 
                 {/* {console.log(allElections.table)} */}
-                {allElections.table?.map((election, ind) =>
-                    <ElectionCard
-                        key={ind}
-                        id={ind}
-                        title={election?.name}
-                        candidateCount={election?.candidates?.length}
-                        TotalVotes={parseInt(election?.totalVoted, 10)}
-                        imageURL={speech}
-                        description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo rutrum, pretium neque eu, gravida ligula. Integer ut purus eu diam commodo accumsan."}
-                        phase={election?.currPhase}
-                    />
-                )}
+
+                <ResultCardDashboard name="Upcoming Elections" color="bg-yellow-500" expandedOn={expandedPre} setExpandedOn={setExpandedPre} allElections={allElections} />
+                <ResultCardDashboard name="Ongoing Elections" color="bg-green-500" expandedOn={expandedOn} setExpandedOn={setExpandedOn} allElections={allElections} />
+                <ResultCardDashboard name="Past Elections" color="bg-red-500" expandedOn={expandedPast} setExpandedOn={setExpandedPast} allElections={allElections} />
+
 
             </div>
-            {/* <div className="absolute z-[0] w-[40%] h-[35%] top-20 pink__gradient" />
-            <div className="absolute z-[1] w-[30%] h-[20%] rounded-full white__gradient bottom-60" />
-            <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" /> */}
+
+
         </div >
     )
 }

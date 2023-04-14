@@ -13,12 +13,12 @@ const ElectionCard = ({
   handleClick
 }) => {
   return (
-    <Link 
+    <Link
       href={{
         pathname: `/election/${id}`,
       }}
     >
-      <div className="rounded-[15px] p-[10px] z-50 no-scrollbar hover:cursor-pointer text-white bg-[#1c1c24] h-[400px] w-[290px] flex items-center flex-col align-center hover:scale-105 duration-300 overflow-y-auto ">
+      <div className="mx-2 rounded-[15px] p-[10px] w-fit  z-50  hover:cursor-pointer text-white bg-[#1c1c24] h-[400px] flex items-center flex-col align-center hover:scale-105 duration-300 ">
         <Image
           priority={true}
           src={imageURL}
