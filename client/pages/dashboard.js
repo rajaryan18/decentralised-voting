@@ -38,8 +38,6 @@ export default function Home() {
                 <ResultCardDashboard name="Upcoming Elections" color="bg-yellow-500" expandedOn={expandedPre} setExpandedOn={setExpandedPre} allElections={allElections} />
                 <ResultCardDashboard name="Ongoing Elections" color="bg-green-500" expandedOn={expandedOn} setExpandedOn={setExpandedOn} allElections={allElections} />
                 <ResultCardDashboard name="Past Elections" color="bg-red-500" expandedOn={expandedPast} setExpandedOn={setExpandedPast} allElections={allElections} />
-
-
             </div>
 
 

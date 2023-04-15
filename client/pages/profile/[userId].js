@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useRouter } from "next/router";
 import SearchBar from "../../components/searchBar";
 import ResultCardProfile from "../../components/profile/ResultCardProfile";
+import ProfileElectionCard from "../../components/profile/profileElectionCard";
 
 
 export default function Profile() {
