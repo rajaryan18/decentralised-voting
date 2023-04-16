@@ -48,14 +48,14 @@ function SearchBar(props) {
           class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-2xl border border-gray-300 "
           placeholder="Enter the Election Id . . . ."
           required=""
-          onChange={props.on}
+          onChange={props.on1}
         />
-        <div
+        <div onClick={props.on}
 
           class=" cursor-pointer text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800  font-medium rounded-lg text-sm px-4 py-2"
         >
           Search
-        </div>
+        </div  >
       </div>
     </form>
   </div>

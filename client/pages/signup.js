@@ -52,7 +52,7 @@ const SignUp = () => {
                 // toast.success("Account created successfully");
                 router.push('/')
                 const data = { aadhar: form.aadhar }
-                const token = jwt.sign(data, "seekret key(change later and keep in env file)")
+                const token = jwt.sign(data, "seekret key(change later and keep in env file)", { expiresIn: '1d' });
                 setUserInfo({ token: token });
                 setUser(true);
             } else {

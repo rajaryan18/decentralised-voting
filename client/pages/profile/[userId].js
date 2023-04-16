@@ -21,6 +21,8 @@ export default function Profile() {
     const [expandedOn, setExpandedOn] = useState(false);
     const [expandedPast, setExpandedPast] = useState(false);
     const [expandedUpcoming, setExpandedUpcoming] = useState(false);
+    const [searchword, setSearchWord] = useState("");
+    const [filtereddata, setFilteredData] = useState([]);
 
 
     const [userData, setUserData] = useState({
@@ -28,10 +30,27 @@ export default function Profile() {
         dob: '',
         aadhar_hash: '',
     })
-    const push_to_election_page = (pid) => {
-        router.push(`/election/${encodedURIComponent(pid)}`);
 
+    const handleChange = (e) => {
+        setSearchWord(e.target.value);
+        if (searchword === "") {
+            setFilteredData([]);
+        }
     }
+
+    function onSearch(event) {
+        // const searchWord = event.target.value;
+        // setSearchWord(searchWord);
+        const newFilter = electionData.filter((value) => {
+            return (value.id == searchword);
+        });
+        if (searchword === "") {
+            setFilteredData([]);
+        }
+        else {
+            setFilteredData(newFilter)
+        }
+    };
 
     //tmp_aadhar = aadhar number of current user, tmp_mmsk = metamask id of current user
     //using above info to get data of current user to show in their profile page
@@ -67,6 +86,8 @@ export default function Profile() {
     }, [])
 
 
+
+
     if (user)
         return (
             <div className='bg-primary bg-[#01040f]'>
@@ -86,15 +107,23 @@ export default function Profile() {
                         {/* <div className="address ml-12 mt-6 flex flex-row "><div className="adressimage rounded-full bg-red-400 h-4 w-4 mt-1 "></div><div className="text-white text-sm ml-2 ">0x67E73647d7efA79Af20D2badf559208EA8dC5413</div></div> */}
                     </div>
 
-                    <div className="Upcoming Elections mt-20">
+                    <div className="Search Bar mt-20">
                         <div className="mb-4  ml-2 hover:scale-105 duration-200 bg-orange-500 h-10 w-36 px-3 py-2 text-white rounded-2xl  hover:bg-orange-400 flex flex-row"><Link href="/createelection " className=" flex flex-row justify-center items-center">New Election<div className="mt-1 ml-2 "><AiFillPlusCircle /></div ></Link></div>
-                        <div className="mb-10 mt-8 flex  "><SearchBar /></div>
+                        <div className="mb-10 mt-8 flex  "><SearchBar on={(e) => { onSearch(e) }} on1={(e) => { handleChange(e) }} /></div>
                     </div>
+                    {!searchword ? <div>
+                        <ResultCardProfile name="Upcoming Elections" electionData={electionData} setExpandedOn={setExpandedUpcoming} expandedOn={expandedUpcoming} color="bg-yellow-500" />
+                        <ResultCardProfile name="Ongoing Elections" electionData={electionData} setExpandedOn={setExpandedOn} expandedOn={expandedOn} color="bg-green-500" />
+                        <ResultCardProfile name="Past Elections" electionData={electionData} setExpandedOn={setExpandedPast} expandedOn={expandedPast} color="bg-red-500" />
+                    </div> : filtereddata.map((el) => (
+                        <div key={el.id} >
+                            <ProfileElectionCard
+                                name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
+                            />
+                        </div>
 
-                    <ResultCardProfile name="Upcoming Elections" electionData={electionData} setExpandedOn={setExpandedUpcoming} expandedOn={expandedUpcoming} color="bg-yellow-500" />
+                    ))}
 
-                    <ResultCardProfile name="Ongoing Elections" electionData={electionData} setExpandedOn={setExpandedOn} expandedOn={expandedOn} color="bg-green-500" />
-                    <ResultCardProfile name="Past Elections" electionData={electionData} setExpandedOn={setExpandedPast} expandedOn={expandedPast} color="bg-red-500" />
 
 
                 </div>
