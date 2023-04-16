@@ -115,14 +115,14 @@ export default function Profile() {
                         <ResultCardProfile name="Upcoming Elections" electionData={electionData} setExpandedOn={setExpandedUpcoming} expandedOn={expandedUpcoming} color="bg-yellow-500" />
                         <ResultCardProfile name="Ongoing Elections" electionData={electionData} setExpandedOn={setExpandedOn} expandedOn={expandedOn} color="bg-green-500" />
                         <ResultCardProfile name="Past Elections" electionData={electionData} setExpandedOn={setExpandedPast} expandedOn={expandedPast} color="bg-red-500" />
-                    </div> : filtereddata.map((el) => (
+                    </div> : !filtereddata.length == 0 ? filtereddata.map((el) => (
                         <div key={el.id} >
                             <ProfileElectionCard
                                 name={el.name} id={el.id} winner={el.winner} votes={el.votes} goto={el.id}
                             />
                         </div>
 
-                    ))}
+                    )) : <div className="text-white"></div>}
 
 
 
