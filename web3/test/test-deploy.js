@@ -25,8 +25,8 @@ describe("User Contract", function() {
         const _aadhar = "621429020078";
         const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
-        const user = await HardhatUser.getUser(_aadhar, user1.address);
+        await HardhatUser.createUser(_name, _dob, _aadhar, _password);
+        const user = await HardhatUser.getUser(_aadhar);
 
         expect(user.name === _name);
         expect(user.dob === _dob);
@@ -42,7 +42,7 @@ describe("User Contract", function() {
         const _password1 = bcryptjs.hash('testing', 5);
         const _password2 = bcryptjs.hash('tester', 5);
         // creates new User with the above Parameters
-        await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password1);
+        await HardhatUser.createUser(_name, _dob, _aadhar, _password1);
         const loggedIn = await HardhatUser.checkCredentials(_aadhar, _password1);
         const notLoggedIn = await HardhatUser.checkCredentials(_aadhar, _password2)
         expect(loggedIn == true);
@@ -56,9 +56,9 @@ describe("User Contract", function() {
         const _aadhar = ["621429020078"];
         const _password = bcryptjs.hash('testing', 5);
         // create a User with the above Parameters
-        await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address, _password);
+        await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], _password);
         // check for requires failing
-        await expect(HardhatUser.createUser(_name[1], _dob[1], _aadhar[0], user2.address, _password)).to.be.revertedWith("Aadhars cannot be used again");
+        await expect(HardhatUser.createUser(_name[1], _dob[1], _aadhar[0], _password)).to.be.revertedWith("Aadhars cannot be used again");
     });
 
     it("Cannot Fetch Accounts with Wrong Credentials", async function() {
@@ -68,9 +68,8 @@ describe("User Contract", function() {
         const _aadhar = ["621429020078"];
         const _password = bcryptjs.hash('testing', 5);
         // create a User with the above Parameters
-        await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], user1.address, _password);
-        await expect(HardhatUser.getUser("false number", user1.address)).to.be.revertedWith("Invalid user");
-        await expect(HardhatUser.getUser(_aadhar[0], user2.address)).to.be.revertedWith("Wrong metamask address");
+        await HardhatUser.createUser(_name[0], _dob[0], _aadhar[0], _password);
+        await expect(HardhatUser.getUser("false number")).to.be.revertedWith("Invalid user");
     });
 
     it("Should not Start Election with Wrong Credentials", async function() {
@@ -81,7 +80,7 @@ describe("User Contract", function() {
         const _image_url = "https://www.google.com";
         const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
+        await HardhatUser.createUser(_name, _dob, _aadhar, _password);
     
         await expect(HardhatUser.createElection(_image_url, "Wrong Aadhar", _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000) + 3600)).to.be.revertedWith("Invalid user");
         await expect(HardhatUser.createElection(_image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000), Math.floor(new Date().getTime()/1000))).to.be.revertedWith("Start Date should be before End Date");
@@ -95,7 +94,7 @@ describe("User Contract", function() {
         const _image_url = "https://www.google.com";
         const _password = bcryptjs.hash('testing', 5);
         // creates new User with the above Parameters
-        await HardhatUser.createUser(_name, _dob, _aadhar, user1.address, _password);
+        await HardhatUser.createUser(_name, _dob, _aadhar, _password);
 
         const createdElection = await HardhatUser.createElection(_image_url, _aadhar, _name, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
         const election = await HardhatUser.getElections(_aadhar);
@@ -120,13 +119,14 @@ describe("Election Contract", function() {
         const { HardhatElection } = await loadFixture(deployElectionFixture);
         const _name = "Generale Elections";
         const _image_url = "https://www.google.com";
+        const _aadhar = "621429020078";
         const _start_date = Math.floor(new Date().getTime()/1000);
         const _end_date = Math.floor(new Date().getTime()/1000) + 3600;
         // checks all the requirements
-        await expect(HardhatElection.init(_name,_image_url, _start_date-100000, _end_date)).to.be.revertedWith("The start date should be date in future");
-        await expect(HardhatElection.init(_name, _image_url, _start_date+100000, _start_date+100000)).to.be.revertedWith("The end date should be ahead of the start date");
+        await expect(HardhatElection.init(_name,_image_url, _start_date-100000, _end_date, _aadhar)).to.be.revertedWith("The start date should be date in future");
+        await expect(HardhatElection.init(_name, _image_url, _start_date+100000, _start_date+100000, _aadhar)).to.be.revertedWith("The end date should be ahead of the start date");
         // check if electon has been created
-        const election = await HardhatElection.init(_name, _image_url, _start_date+100000, _end_date+100000);
+        const election = await HardhatElection.init(_name, _image_url, _start_date+100000, _end_date+100000, _aadhar);
         const eid = election.value.toNumber();
 
         expect(eid === 1);
@@ -135,33 +135,36 @@ describe("Election Contract", function() {
     it("Can Start Voting", async function() {
         const { HardhatElection } = await loadFixture(deployElectionFixture);
         const _image_url = "https://www.google.com";
-        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
-        await expect(HardhatElection.startVoting(1)).to.be.revertedWith("Invalid Election ID");
-        await HardhatElection.startVoting(0);
+        const _aadhar = "621429020078";
+        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600, _aadhar);
+        await expect(HardhatElection.startVoting(1, _aadhar)).to.be.revertedWith("Invalid Election ID");
+        await HardhatElection.startVoting(0, _aadhar);
         // force an error with starting again
-        await expect(HardhatElection.startVoting(0)).to.be.revertedWith("Wrong phase");
+        await expect(HardhatElection.startVoting(0, _aadhar)).to.be.revertedWith("Wrong phase");
     });
 
     it("Can End Voting", async function() {
         const { HardhatElection } = await loadFixture(deployElectionFixture);
         const _image_url = "https://www.google.com";
-        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
-        await expect(HardhatElection.endVoting(1)).to.be.revertedWith("Invalid Election ID");
-        await expect(HardhatElection.endVoting(0)).to.be.revertedWith("Wrong phase");
-        await HardhatElection.startVoting(0);
-        await HardhatElection.endVoting(0);
+        const _aadhar = "621429020078";
+        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600, _aadhar);
+        await expect(HardhatElection.endVoting(1, _aadhar)).to.be.revertedWith("Invalid Election ID");
+        await expect(HardhatElection.endVoting(0, _aadhar)).to.be.revertedWith("Wrong phase");
+        await HardhatElection.startVoting(0, _aadhar);
+        await HardhatElection.endVoting(0, _aadhar);
     });
 
     it("Can Add Candidates", async function() {
         const { HardhatElection } = await loadFixture(deployElectionFixture);
         const _image_url = "https://www.google.com";
-        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
+        const _aadhar = "621429020078";
+        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600, _aadhar);
 
-        await HardhatElection.addCandidates("Raj Aryan", 0, "BJP", _image_url, _image_url);
-        await HardhatElection.startVoting(0);
-        await expect(HardhatElection.addCandidates("Aayush", 0, "BJP", _image_url, _image_url)).to.be.revertedWith("Wrong phase");
-        await expect(HardhatElection.getCandidates(5)).to.be.revertedWith("Invalid Election ID");
-        const candidates = await HardhatElection.getCandidates(0);
+        await HardhatElection.addCandidates("Raj Aryan", 0, "BJP", _image_url, _image_url, _aadhar);
+        await HardhatElection.startVoting(0, _aadhar);
+        await expect(HardhatElection.addCandidates("Aayush", 0, "BJP", _image_url, _image_url, _aadhar)).to.be.revertedWith("Wrong phase");
+        await expect(HardhatElection.getCandidates(5, _aadhar)).to.be.revertedWith("Invalid Election ID");
+        const candidates = await HardhatElection.getCandidates(0, _aadhar);
 
         expect(candidates[0].name === "Raj Aryan");
     });
@@ -169,13 +172,13 @@ describe("Election Contract", function() {
     it("Can Cast Votes", async function() {
         const { HardhatElection } = await loadFixture(deployElectionFixture);
         const _image_url = "https://www.google.com";
-        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
-
         const _aadhar = [ "621429020078", "621429020077", "621429020079" ];
-        await HardhatElection.addCandidates("Raj Aryan", 0, "BJP", _image_url, _image_url);
-        await HardhatElection.addCandidates("Aayush", 0, "BJP", _image_url, _image_url);
+        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600, _aadhar[0]);
+
+        await HardhatElection.addCandidates("Raj Aryan", 0, "BJP", _image_url, _image_url, _aadhar[0]);
+        await HardhatElection.addCandidates("Aayush", 0, "BJP", _image_url, _image_url, _aadhar[0]);
         await expect(HardhatElection.doVote(0, 5, _aadhar[0])).to.be.revertedWith("Wrong phase");
-        await HardhatElection.startVoting(0);
+        await HardhatElection.startVoting(0, _aadhar[0]);
         await expect(HardhatElection.doVote(0, 5, _aadhar[0])).to.be.revertedWith("Invalid Candidate ID");
        
         const votes = await HardhatElection.doVote(0, 0, _aadhar[0]);
@@ -188,19 +191,19 @@ describe("Election Contract", function() {
     it("Shows End Results", async function() {
         const { HardhatElection } = await loadFixture(deployElectionFixture);
         const _image_url = "https://www.google.com";
-        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600);
-
         const _aadhar = [ "621429020078", "621429020077", "621429020079" ];
-        await HardhatElection.addCandidates("Raj Aryan", 0, "NJP", _image_url, _image_url);
-        await HardhatElection.addCandidates("Aayush", 0, "BJP", _image_url, _image_url);
+        await HardhatElection.init("Raj Aryan", _image_url, Math.floor(new Date().getTime()/1000) + 100000, Math.floor(new Date().getTime()/1000) + 103600, _aadhar[0]);
 
-        await HardhatElection.startVoting(0);
+        await HardhatElection.addCandidates("Raj Aryan", 0, "NJP", _image_url, _image_url, _aadhar[0]);
+        await HardhatElection.addCandidates("Aayush", 0, "BJP", _image_url, _image_url, _aadhar[0]);
+
+        await HardhatElection.startVoting(0, _aadhar[0]);
         await HardhatElection.doVote(0, 0, _aadhar[0]);
         await HardhatElection.doVote(0, 0, _aadhar[1]);
         await HardhatElection.doVote(0, 0, _aadhar[2]);
 
         await expect(HardhatElection.getElectionResults(0)).to.be.revertedWith("Wrong phase");
-        await HardhatElection.endVoting(0);
+        await HardhatElection.endVoting(0, _aadhar[0]);
         const result = await HardhatElection.getElectionResults(0);
         let max = 0;
         for(let i=1;i<result[0].length;i++) {
@@ -217,10 +220,11 @@ describe("Election Contract", function() {
 
         const _name = ["Generale Elections", "GE"];
         const _image_url = "https://www.google.com";
+        const _aadhar = [ "621429020078", "621429020077", "621429020079" ];
         const _start_date = Math.floor(new Date().getTime()/1000);
         const _end_date = Math.floor(new Date().getTime()/1000) + 3600;  
-        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000);
-        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000);
+        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000, _aadhar[0]);
+        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000, _aadhar[0]);
         const elections = await HardhatElection.getAllElections();
         expect(elections.length == 2);
         expect(elections[0].name == _name[0]);
@@ -231,10 +235,11 @@ describe("Election Contract", function() {
         const { HardhatElection } = await loadFixture(deployElectionFixture);
         const _name = ["Generale Elections", "GE"];
         const _image_url = "https://www.google.com";
+        const _aadhar = [ "621429020078", "621429020077", "621429020079" ];
         const _start_date = Math.floor(new Date().getTime()/1000);
         const _end_date = Math.floor(new Date().getTime()/1000) + 3600;  
-        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000);
-        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000);
+        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000, _aadhar[0]);
+        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000, _aadhar[0]);
         const election1 = await HardhatElection.getElectionById(0);
         const election2 = await HardhatElection.getElectionById(1);
         expect(election1.name == _name[0]);
@@ -246,18 +251,19 @@ describe("Election Contract", function() {
         const _name = ["Generale Elections", "GE"];
         const _image_url = "https://www.google.com";
         const _start_date = Math.floor(new Date().getTime()/1000);
-        const _end_date = Math.floor(new Date().getTime()/1000) + 3600;  
-        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000);
-        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000);
+        const _end_date = Math.floor(new Date().getTime()/1000) + 3600;
+        const _aadhar = [ "621429020078", "621429020077", "621429020079" ]; 
+        await HardhatElection.init(_name[0], _image_url, _start_date+100000, _end_date+100000, _aadhar[0]);
+        await HardhatElection.init(_name[1], _image_url, _start_date+100000, _end_date+100000, _aadhar[0]);
         let all_phases = await HardhatElection.getPhase();
         expect(all_phases.length == 0);
         expect(all_phases[0] == 0 && all_phases[1] == 0);
 
-        await HardhatElection.startVoting(0);
+        await HardhatElection.startVoting(0, _aadhar[0]);
         all_phases = await HardhatElection.getPhase();
         expect(all_phases[0] == 1 && all_phases[1] == 0);
 
-        await HardhatElection.endVoting(0);
+        await HardhatElection.endVoting(0, _aadhar[0]);
         all_phases = await HardhatElection.getPhase();
         expect(all_phases[0] == 2 && all_phases[1] == 0);
     });
