@@ -30,7 +30,7 @@ contract ElectionInfo {
         // bytes32[] voted;
         mapping(bytes32 => bool) voted;
         Phase currPhase;
-        address ownerAddress;
+        bytes32 aadharhash;
     }
 
     struct returnElection {
@@ -48,11 +48,11 @@ contract ElectionInfo {
     uint256 public numberOfElections;
     //@MODIFIERS
     // only owner modifier
-    modifier onlyOwner(uint256 _electionid) {
+    modifier onlyOwner(uint256 _electionid, string memory _aadhar) {
         require(_electionid < numberOfElections, "Invalid Election ID");
         require(
-            msg.sender == elections[_electionid].ownerAddress,
-            "Acess Denied,you aren't the owner of the election.wrong metamask address"
+            hashAadhar(_aadhar) == elections[_electionid].aadharhash,
+            "Acess Denied,you aren't the owner of the election. Incorrect Aadhar"
         );
         _;
     }
@@ -77,7 +77,8 @@ contract ElectionInfo {
         string memory _name,
         string memory _image_url,
         uint256 _start_date,
-        uint256 _end_date
+        uint256 _end_date,
+        string memory _aadhar
     ) public returns (uint256) {
         Election storage voting = elections[numberOfElections];
         //checks if everything is okay
@@ -93,7 +94,7 @@ contract ElectionInfo {
         voting.name = _name;
         voting.start_date = _start_date;
         voting.end_date = _end_date;
-        voting.ownerAddress = msg.sender;
+        voting.aadharhash = hashAadhar(_aadhar);
         voting.currPhase = Phase.PRESTART;
         voting.totalVoted = 0;
         voting.noOfCandidates = 0;
@@ -104,9 +105,9 @@ contract ElectionInfo {
     }
 
     //to add Candidates
-    function addCandidates(string memory _name, uint256 _electionid, string memory _party, string memory _image_url, string memory _party_image_url)
+    function addCandidates(string memory _name, uint256 _electionid, string memory _party, string memory _image_url, string memory _party_image_url, string memory _aadhar)
         public
-        onlyOwner(_electionid)
+        onlyOwner(_electionid, _aadhar)
         inPhase(Phase.PRESTART, _electionid)
     {
         Candidate memory temp;
@@ -119,7 +120,7 @@ contract ElectionInfo {
         elections[_electionid].noOfCandidates++;
     }
 
-    function getCandidates(uint256 _electionid) public view onlyOwner(_electionid) returns(Candidate[] memory) {
+    function getCandidates(uint256 _electionid, string memory _aadhar) public view onlyOwner(_electionid, _aadhar) returns(Candidate[] memory) {
         require(_electionid < numberOfElections, "Invalid Election ID");
         return elections[_electionid].candidates;
     }
@@ -141,9 +142,9 @@ contract ElectionInfo {
     }
 
     //function to start voting, only official can start voting (here phase changes from PRESTART to ONGOING)
-    function startVoting(uint256 _electionid)
+    function startVoting(uint256 _electionid, string memory _aadhar)
         public
-        onlyOwner(_electionid)
+        onlyOwner(_electionid, _aadhar)
         inPhase(Phase.PRESTART, _electionid)
     {
         elections[_electionid].currPhase = Phase.ONGOING;
@@ -167,9 +168,9 @@ contract ElectionInfo {
     }
 
     //function to end voting
-    function endVoting(uint256 _electionid)
+    function endVoting(uint256 _electionid, string memory _aadhar)
         public
-        onlyOwner(_electionid)
+        onlyOwner(_electionid, _aadhar)
         inPhase(Phase.ONGOING, _electionid)
     {
         elections[_electionid].currPhase = Phase.END;
