@@ -1,0 +1,42 @@
+import React, { useState } from 'react';
+import FormField from './FormField';
+import { AiFillEye, AiFillEyeInvisible, AiFillCloseCircle } from 'react-icons/ai'
+import CustomButton from './CustomButton';
+
+
+function PasswordPopper(props) {
+    const [pass, setPass] = useState("password")
+
+    const handlePass = (event) => {
+        if (pass === "password") setPass("text")
+        else setPass("password")
+    }
+
+
+    return (
+        <div className="fixed inset-0 z-10 h-screen bg-[rgba(0,0,0,0.7)] flex items-center justify-center flex-col">
+            <div className='px-10  bg-[#283457] text-white rounded-lg mx-4 '>
+                <div className='flex items-end justify-end scale-[1.4] mt-4 text-red-400 mr-[12%] hover:text-red-500   mb-4'><div onClick={props.visi} className=" cursor-pointer"><AiFillCloseCircle /></div></div>
+                <div className='mb-6'>This is a critical action and requires you to re-enter your password.</div>
+
+                <div>
+                    <FormField
+
+                        placeholder="Enter your password"
+                        inputType={pass}
+                    // value={form.password}
+                    // handleChange={(e) => handleFormFieldChange('password', e)}
+                    />
+                    {pass !== "password" ? <div className='flex items-end mr-[18%] mb-10 justify-end -mt-8  text-white scale-[1.4] pl-10' onClick={handlePass}><AiFillEye /></div> : <div className='flex mb-10 items-end  mr-[18%] justify-end -mt-8  text-white scale-[1.4] pl-10' onClick={handlePass}><AiFillEyeInvisible /></div>}
+                </div>
+
+                <div className="flex justify-center items-center mt-[25px]">
+
+                    <div className="px-4 py-2 mb-8 rounded-lg hover:scale-105 duration-300 cursor-pointer hover:bg-blue-600 bg-blue-500 ">Submit</div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default PasswordPopper;

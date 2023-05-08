@@ -5,6 +5,7 @@ import SearchBar from '../components/searchBar';
 import ResultCardDashboard from '../components/dashboard/ResultCardDashboard';
 import ElectionCard from '../components/dashboard/ElectionCard';
 import { logger } from 'ethers';
+import PasswordPopper from '../components/PasswordPopper';
 
 
 
@@ -16,6 +17,13 @@ export default function Home() {
     const [expandedPast, setExpandedPast] = useState(false);
     const [searchword, setSearchWord] = useState("");
     const [filtereddata, setFilteredData] = useState([]);
+    const [visible, setVisible] = useState(true);
+
+    const visi = (e) => {
+        setVisible(false);
+    }
+
+
 
     const handleChange = (e) => {
         setSearchWord(e.target.value);
@@ -53,6 +61,7 @@ export default function Home() {
 
     return (
         <div className="bg-primary bg-[#01040f] w-full justify-center overflow-hidden flex flex-wrap gap-[100px] align-center pt-[50px] pb-[50px]" >
+            {visible && <PasswordPopper visi={visi} />}
             <SearchBar />
             <div className='z-100 bg-primary bg-[#01040f] w-full justify-center overflow-hidden flex flex-wrap gap-[100px] align-center pt-3 pb-[50px]'>
                 {console.log((allElections.table))}
