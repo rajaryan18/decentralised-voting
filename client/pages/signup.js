@@ -45,7 +45,7 @@ const SignUp = () => {
         if (!verify_aadhar(form.aadhar)) return console.log("This aadhar doesn't exists");
         if (address) {
             setIsLoading(true);
-            const addedUser = await addUser(form.name, form.dob, form.aadhar, address, form.password);
+            const addedUser = await addUser(form.name, form.dob, form.aadhar, form.password);
 
             if (addedUser) {
                 setIsLoading(false);

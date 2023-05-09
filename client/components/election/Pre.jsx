@@ -6,7 +6,7 @@ import CandidateCardNoVote from './CandidateCardNoVote';
 import Link from 'next/link';
 import { convertToDate, convertToIST } from '../../utils/helper_functions'
 
-
+//we have to pass aadhar and password in startVoting function
 
 const PrePhase = ({ electionId, election }) => {
 

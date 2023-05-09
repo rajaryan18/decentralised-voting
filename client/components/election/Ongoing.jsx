@@ -4,6 +4,10 @@ import { useStateContext } from "../../context";
 import vote from "../../public/vote.png";
 import CandidateCard from './CandidateCard';
 
+//Here we have to pass aadhar and password in endvoting function
+//aadhar = ?
+//password = ?
+
 const OngoingPhase = ({ name, party, electionId, candidateId, election }) => {
 
     const { endVoting } = useStateContext();
@@ -22,7 +26,7 @@ const OngoingPhase = ({ name, party, electionId, candidateId, election }) => {
                     Every Vote <br className="md:hidden block" />Counts!
                 </p>
                 <div className='flex flex-row justify-between'>
-                    <div onClick={() => { endVoting(electionId) }} className='bg-red-600 hover:bg-red-500 text-md  mx-6 md:mx-0  rounded-xl px-4 py-2 h-fit w-fit text-white hover:scale-105 duration-300 '>End Election</div>
+                    <div onClick={() => { endVoting(electionId, aadhar, password)}} className='bg-red-600 hover:bg-red-500 text-md  mx-6 md:mx-0  rounded-xl px-4 py-2 h-fit w-fit text-white hover:scale-105 duration-300 '>End Election</div>
                 </div>
 
                 {/* <Image

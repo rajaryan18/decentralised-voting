@@ -68,7 +68,7 @@ export default function Profile() {
 
     useEffect(() => {
         try {
-            const csu = getUser(aadhar_num, address).then((data) => {
+            const csu = getUser(aadhar_num).then((data) => {
                 console.log(data);
 
                 var user_elections = [];

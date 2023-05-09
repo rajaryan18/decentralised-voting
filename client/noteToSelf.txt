@@ -1,0 +1,5 @@
+- Pass aadhar and password in startVoting function in Pre.jsx
+- Pass aadhar and password in endVoting function in Ongoing.jsx
+- function getCandidates(electionID, aadhar) is not being used anywhere
+- Create password field in createElection.jsx page 
+- add aadhar and password in form feild of addCandidate.js page

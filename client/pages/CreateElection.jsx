@@ -19,7 +19,8 @@ const CreateElection = () => {
     description: '',
     startDate: '',
     deadline: '',
-    image: ''
+    image: '',
+    password: ''
   });
 
   const handleFormFieldChange = (fieldName, e) => {
@@ -34,7 +35,7 @@ const CreateElection = () => {
 
     if (!verify_aadhar(form.aadhar)) return console.log("This Aadhar doesn't exists");
     setIsLoading(true);
-    const camp = await createCampaign(form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline))
+    const camp = await createCampaign(form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline), form.password)
     setIsLoading(false);
     console.log(camp);
     console.log(form);

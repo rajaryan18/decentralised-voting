@@ -16,7 +16,9 @@ const AddCandidate = () => {
         name: '',
         party: '',
         partyImage: '',
-        candidateImage: ''
+        candidateImage: '',
+        aadhar: '',
+        password: ''
     });
 
     const handleFormFieldChange = (fieldName, e) => {
@@ -28,7 +30,7 @@ const AddCandidate = () => {
         e.preventDefault();
         console.log(form);
         setIsLoading(true);
-        const addedCandidate = await addCandidate(form.name, form.electionId, form.party, form.candidateImage, form.partyImage);
+        const addedCandidate = await addCandidate(form.name, form.electionId, form.party, form.candidateImage, form.partyImage, form.aadhar, form.password);
         setIsLoading(false);
     }
 
