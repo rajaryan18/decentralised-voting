@@ -105,8 +105,8 @@ contract ElectionInfo {
     }
 
     //to add Candidates
-    function addCandidates(string memory _name, uint256 _electionid, string memory _party, string memory _image_url, string memory _party_image_url, string memory _aadhar)
-        public
+    function addingCandidate(string memory _name, uint256 _electionid, string memory _party, string memory _image_url, string memory _party_image_url, string memory _aadhar)
+        internal
         onlyOwner(_electionid, _aadhar)
         inPhase(Phase.PRESTART, _electionid)
     {
@@ -142,8 +142,8 @@ contract ElectionInfo {
     }
 
     //function to start voting, only official can start voting (here phase changes from PRESTART to ONGOING)
-    function startVoting(uint256 _electionid, string memory _aadhar)
-        public
+    function startVote(uint256 _electionid, string memory _aadhar)
+        internal
         onlyOwner(_electionid, _aadhar)
         inPhase(Phase.PRESTART, _electionid)
     {
@@ -168,8 +168,8 @@ contract ElectionInfo {
     }
 
     //function to end voting
-    function endVoting(uint256 _electionid, string memory _aadhar)
-        public
+    function endVote(uint256 _electionid, string memory _aadhar)
+        internal
         onlyOwner(_electionid, _aadhar)
         inPhase(Phase.ONGOING, _electionid)
     {

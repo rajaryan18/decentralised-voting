@@ -62,10 +62,12 @@ contract UserInfo is ElectionInfo {
         string memory _aadhar,
         string memory _name,
         uint256 _start_date,
-        uint256 _end_date
+        uint256 _end_date,
+        string memory _password
     ) public returns (uint256) {
         bytes32 aadhar_hash = hashAadhar(_aadhar);
         require(Users[aadhar_hash].aadharHash == aadhar_hash, "Invalid user");
+        require(checkCredentials(_aadhar, _password) == true, "User not authenticated");
         require(_start_date < _end_date, "Start Date should be before End Date");
         // User storage item = Users[aadhar_hash];
         // require(
@@ -115,5 +117,19 @@ contract UserInfo is ElectionInfo {
         bytes32 aadhar_hash = hashAadhar(_aadhar);
         if(keccak256(abi.encodePacked(login[aadhar_hash])) == keccak256(abi.encodePacked(password))) return true;
         return false;
+    }
+
+    function addCandidates(string memory _name, uint256 _electionid, string memory _party, string memory _image_url, string memory _party_image_url, string memory _aadhar, string memory _password) public {
+        require(checkCredentials(_aadhar, _password) == true, "User not authenticated");
+        addingCandidate(_name, _electionid, _party, _image_url, _party_image_url, _aadhar);
+    }
+
+    function startVoting(uint256 _electionid, string memory _aadhar, string memory _password) public {
+        require(checkCredentials(_aadhar, _password) == true, "User not authenticated");
+        startVote(_electionid, _aadhar);
+    }
+    function endVoting(uint256 _electionid, string memory _aadhar, string memory _password) public {
+        require(checkCredentials(_aadhar, _password) == true, "User not authenticated");
+        endVote(_electionid, _aadhar);
     }
 }
