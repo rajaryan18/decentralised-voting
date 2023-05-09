@@ -102,11 +102,11 @@ export const StateContextProvider = ({ children }) => {
   };
 
   //Function to create election
-  const createElection = async (image_url, aadhar, election_name, start_date, end_date) => {
+  const createElection = async (image_url, aadhar, election_name, start_date, end_date, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const election_count = await smartContract.createElection(image_url, aadhar, election_name, start_date, end_date);
+      const election_count = await smartContract.createElection(image_url, aadhar, election_name, start_date, end_date, password);
       console.log(election_count);
     } catch (error) {
       console.log(error);
@@ -115,12 +115,12 @@ export const StateContextProvider = ({ children }) => {
 
 
   //Function to create new user (Sign Up)
-  const addUser = async (name, dob, aadhar, addr, password) => {
+  const addUser = async (name, dob, aadhar, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
 
       const smartContract = getEthereumContract();
-      const userID = await smartContract.createUser(name, dob, aadhar, addr, password);
+      const userID = await smartContract.createUser(name, dob, aadhar, password);
       await userID.wait();
       const validate = await checkCredentials(aadhar, password);
       return validate;
@@ -132,7 +132,7 @@ export const StateContextProvider = ({ children }) => {
 
 
   //Function to get any user
-  const getUser = async (aadhar, address) => {
+  const getUser = async (aadhar) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
 
@@ -145,11 +145,11 @@ export const StateContextProvider = ({ children }) => {
   };
 
   //Function to add candidate to election with some election id
-  const addCandidate = async (candidate_name, electionID, party_name, candidate_image_url, party_image_url) => {
+  const addCandidate = async (candidate_name, electionID, party_name, candidate_image_url, party_image_url, aadhar, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const added_candidate = await smartContract.addCandidates(candidate_name, electionID, party_name, candidate_image_url, party_image_url);
+      const added_candidate = await smartContract.addCandidates(candidate_name, electionID, party_name, candidate_image_url, party_image_url, aadhar, password);
       console.log(added_candidate);
     } catch (error) {
       console.log(error);
@@ -170,11 +170,11 @@ export const StateContextProvider = ({ children }) => {
   }
 
   //Function to end Voting(can be done only by election admin)
-  const endVoting = async (electionID) => {
+  const endVoting = async (electionID, aadhar, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const endVoting_hash = await smartContract.endVoting(electionID);
+      const endVoting_hash = await smartContract.endVoting(electionID, aadhar, password);
       console.log(endVoting_hash);
     } catch (error) {
       console.log(error.reason);
@@ -183,7 +183,7 @@ export const StateContextProvider = ({ children }) => {
   }
 
   //Function to startVoting(Only election admin can start voting)
-  const startVoting = async (electionID) => {
+  const startVoting = async (electionID, aadhar, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
@@ -207,11 +207,11 @@ export const StateContextProvider = ({ children }) => {
   }
 
   //Function to get Candidates of particular election with electionID
-  const getCandidates = async (electionID) => {
+  const getCandidates = async (electionID, aadhar) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const candidates = await smartContract.getCandidates(electionID);
+      const candidates = await smartContract.getCandidates(electionID, aadhar);
       console.log(candidates);
     } catch (error) {
       console.log(error);
@@ -219,16 +219,16 @@ export const StateContextProvider = ({ children }) => {
   }
 
   //Function to get all users
-  const getAllUsers = async () => {
-    try {
-      if (!ethereum) return alert("Please install MetaMask Wallet");
-      const smartContract = getEthereumContract();
-      const allUsers = await smartContract.getAllUsers();
-      console.log(allUsers);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // const getAllUsers = async () => {
+  //   try {
+  //     if (!ethereum) return alert("Please install MetaMask Wallet");
+  //     const smartContract = getEthereumContract();
+  //     const allUsers = await smartContract.getAllUsers();
+  //     console.log(allUsers);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   //function of get election created by particular user
   const getElectionOfUser = async (aadhar) => {
