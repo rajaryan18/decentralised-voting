@@ -15,7 +15,7 @@ function PasswordPopper(props) {
 
     return (
         <div className="fixed inset-0 z-10 h-screen bg-[rgba(0,0,0,0.7)] flex items-center justify-center flex-col">
-            <div className='px-10  bg-[#283457] text-white rounded-lg mx-4 '>
+            <div className='sm:px-10 px-4   bg-[#283457] text-white rounded-lg mx-4 '>
                 <div className='flex items-end justify-end scale-[1.4] mt-4 text-red-400 mr-[12%] hover:text-red-500   mb-4'><div onClick={props.visi} className=" cursor-pointer"><AiFillCloseCircle /></div></div>
                 <div className='mb-6'>This is a critical action and requires you to re-enter your password.</div>
 
@@ -27,7 +27,7 @@ function PasswordPopper(props) {
                     // value={form.password}
                     // handleChange={(e) => handleFormFieldChange('password', e)}
                     />
-                    {pass !== "password" ? <div className='flex items-end mr-[18%] mb-10 justify-end -mt-8  text-white scale-[1.4] pl-10' onClick={handlePass}><AiFillEye /></div> : <div className='flex mb-10 items-end  mr-[18%] justify-end -mt-8  text-white scale-[1.4] pl-10' onClick={handlePass}><AiFillEyeInvisible /></div>}
+                    {pass !== "password" ? <div className='flex w-fit h-fit items-end sm:ml-[90%] ml-[85%] cursor-pointer mb-10 justify-end -mt-8  text-white scale-[1.4] px-2' onClick={handlePass}><AiFillEye /></div> : <div className='flex w-fit h-fit items-end sm:ml-[90%] ml-[85%] cursor-pointer mb-10 justify-end -mt-8  text-white scale-[1.4] px-2' onClick={handlePass}><AiFillEyeInvisible /></div>}
                 </div>
 
                 <div className="flex justify-center items-center mt-[25px]">
