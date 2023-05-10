@@ -24,10 +24,7 @@ const AddCandidate = () => {
         password: ''
     });
 
-    useEffect(() => {
-        setForm({ ...form, "aadhar": aadhar_num })
 
-    }, []);
 
     const temp_user_info = jwt.verify(
         userinfo.token,
@@ -41,6 +38,10 @@ const AddCandidate = () => {
         }
     );
     const aadhar_num = temp_user_info?.aadhar;
+    useEffect(() => {
+        setForm({ ...form, "aadhar": aadhar_num })
+
+    }, []);
 
     const [visible, setVisible] = useState(false);
 

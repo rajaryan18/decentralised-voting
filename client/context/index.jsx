@@ -177,6 +177,7 @@ export const StateContextProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
       const endVoting_hash = await smartContract.endVoting(electionID, aadhar, password);
+      await endVoting_hash.wait();
       console.log(endVoting_hash);
     } catch (error) {
       console.log(error.reason);
@@ -190,6 +191,7 @@ export const StateContextProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
       const startVoting_hash = await smartContract.startVoting(electionID, aadhar, password);
+      await startVoting_hash.wait();
       console.log(startVoting_hash);
     } catch (error) {
       console.log(error);
