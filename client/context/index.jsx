@@ -107,6 +107,7 @@ export const StateContextProvider = ({ children }) => {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
       const election_count = await smartContract.createElection(image_url, aadhar, election_name, start_date, end_date, password);
+      await election_count.wait();
       console.log(election_count);
     } catch (error) {
       console.log(error);
@@ -310,7 +311,6 @@ export const StateContextProvider = ({ children }) => {
         startVoting,
         getElectionResults,
         getCandidates,
-        getAllUsers,
         getElectionOfUser,
         checkCredentials,
         getUser,
