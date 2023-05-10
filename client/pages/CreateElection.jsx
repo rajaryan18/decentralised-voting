@@ -43,7 +43,6 @@ const CreateElection = () => {
 
     if (!verify_aadhar(form.aadhar)) return console.log("This Aadhar doesn't exists");
     setVisible(false);
-
     setIsLoading(true);
     const camp = await createCampaign(form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline), form.password)
     setIsLoading(false);

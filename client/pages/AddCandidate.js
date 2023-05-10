@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { ethers } from 'ethers';
 import { useStateContext } from '../context';
@@ -6,11 +6,14 @@ import CustomButton from '../components/CustomButton';
 import FormField from '../components/FormField';
 import Loader from '../components/Loader';
 import { checkIfImage } from '../utils';
+import PasswordPopper from '../components/PasswordPopper';
 
 const AddCandidate = () => {
     // const navigate = useNavigate();
+    const jwt = require("jsonwebtoken");
+
     const [isLoading, setIsLoading] = useState(false);
-    const { addCandidate, user } = useStateContext();
+    const { addCandidate, user, userinfo } = useStateContext();
     const [form, setForm] = useState({
         electionId: '',
         name: '',
@@ -21,6 +24,36 @@ const AddCandidate = () => {
         password: ''
     });
 
+    useEffect(() => {
+        setForm({ ...form, "aadhar": aadhar_num })
+
+    }, []);
+
+    const temp_user_info = jwt.verify(
+        userinfo.token,
+        "seekret key(change later and keep in env file)",
+        (err, decoded) => {
+            if (err) {
+                console.log("session expired login again");
+            } else {
+                return decoded;
+            }
+        }
+    );
+    const aadhar_num = temp_user_info?.aadhar;
+
+    const [visible, setVisible] = useState(false);
+
+    const visioff = (e) => {
+        setVisible(false);
+        setForm({ ...form, "password": e.target.value })
+    }
+
+    const vision = (e) => {
+        e.preventDefault();
+        setVisible(true);
+    }
+
     const handleFormFieldChange = (fieldName, e) => {
         setForm({ ...form, [fieldName]: e.target.value })
     }
@@ -29,7 +62,9 @@ const AddCandidate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(form);
+        setVisible(false);
         setIsLoading(true);
+
         const addedCandidate = await addCandidate(form.name, form.electionId, form.party, form.candidateImage, form.partyImage, form.aadhar, form.password);
         setIsLoading(false);
     }
@@ -40,12 +75,14 @@ const AddCandidate = () => {
         return (
             <div className="bg-primary bg-[#01040f] flex justify-center items-center flex-col  sm:p-10 p-4">
                 {isLoading && <Loader />}
+                {visible && <PasswordPopper visi={visioff} submit={handleSubmit} value={form.password} change={(e) => handleFormFieldChange('password', e)} />}
 
 
-                <form onSubmit={handleSubmit} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
+                <form onSubmit={vision} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
                     <div className="flex flex-wrap gap-[40px] ">
                         <FormField
                             labelName="Election Id*"
+                            // labelName={aadhar_num}
                             placeholder="Enter the election id"
                             inputType="number"
                             value={form.electionId}

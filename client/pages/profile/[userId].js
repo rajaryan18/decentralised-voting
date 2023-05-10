@@ -59,7 +59,7 @@ export default function Profile() {
   //tmp_aadhar = aadhar number of current user, tmp_mmsk = metamask id of current user
   //using above info to get data of current user to show in their profile page
   // const tmp_aadhar = "4218507662"
-//   const tmp_mmsk = "0xe3fd1D5c92EA0aEe2547661BEBd3DE3763BBfDc1";
+  //   const tmp_mmsk = "0xe3fd1D5c92EA0aEe2547661BEBd3DE3763BBfDc1";
   const temp_user_info = jwt.verify(
     userinfo.token,
     "seekret key(change later and keep in env file)",
@@ -73,12 +73,12 @@ export default function Profile() {
   );
   const aadhar_num = temp_user_info?.aadhar;
 
-const [allElections, setAllElections] = useState([]);
-const [electionID, setElectionID] = useState([])
+  const [allElections, setAllElections] = useState([]);
+  const [electionID, setElectionID] = useState([])
 
   useEffect(() => {
     try {
-        const csu = getUser(aadhar_num).then((data) => {
+      const csu = getUser(aadhar_num).then((data) => {
         setUserData({
           ...userData,
           name: data?.name,
@@ -86,13 +86,13 @@ const [electionID, setElectionID] = useState([])
           aadhar_hash: data?.aadharHash,
         });
         setAllElections([])
-        data?.elections.map((eid)=>{
-            getElectionById(parseInt(eid, 10)).then((election)=>{
-                setAllElections(allElections => [...allElections, election])
-            })
+        data?.elections.map((eid) => {
+          getElectionById(parseInt(eid, 10)).then((election) => {
+            setAllElections(allElections => [...allElections, election])
+          })
         })
-        getElectionOfUser(aadhar_num).then((eid)=>{
-            setElectionID([...electionID, eid]);
+        getElectionOfUser(aadhar_num).then((eid) => {
+          setElectionID([...electionID, eid]);
         })
       });
     } catch (error) {
@@ -135,7 +135,7 @@ const [electionID, setElectionID] = useState([])
           <div className="Search Bar mt-20">
             <div className="mb-4  ml-2 hover:scale-105 duration-200 bg-orange-500 h-10 w-36 px-3 py-2 text-white rounded-2xl  hover:bg-orange-400 flex flex-row">
               <Link
-                href="/CreateElection"
+                href="/createelection"
                 className=" flex flex-row justify-center items-center"
               >
                 New Election
@@ -163,7 +163,7 @@ const [electionID, setElectionID] = useState([])
                 setExpandedOn={setExpandedUpcoming}
                 expandedOn={expandedUpcoming}
                 color="bg-yellow-500"
-                eIDs = {electionID}
+                eIDs={electionID}
               />
               <ResultCardProfile
                 name="Ongoing Elections"
@@ -171,7 +171,7 @@ const [electionID, setElectionID] = useState([])
                 setExpandedOn={setExpandedOn}
                 expandedOn={expandedOn}
                 color="bg-green-500"
-                eIDs = {electionID}
+                eIDs={electionID}
               />
               <ResultCardProfile
                 name="Past Elections"
@@ -179,7 +179,7 @@ const [electionID, setElectionID] = useState([])
                 setExpandedOn={setExpandedPast}
                 expandedOn={expandedPast}
                 color="bg-red-500"
-                eIDs = {electionID}
+                eIDs={electionID}
               />
             </div>
           ) : !filtereddata.length == 0 ? (
