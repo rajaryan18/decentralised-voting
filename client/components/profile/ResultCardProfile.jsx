@@ -64,9 +64,9 @@ const { getElectionById } = useStateContext();
                 <li key={ind}>
                   <ProfileElectionCard
                     name={el.name}
-                    id={ (eIDs.length == 0) ? "" : parseInt(eIDs[0][ind])}
+                    id={parseInt(el.id)}
                     votes={parseInt(el.totalVoted)}
-                    goto={ (eIDs.length == 0) ? "" : parseInt(eIDs[0][ind])}
+                    goto={parseInt(el.id)}
                   />
                 </li>
               ))
@@ -74,10 +74,10 @@ const { getElectionById } = useStateContext();
                 <li key={ind} className="">
                   <ProfileElectionCard
                     name={el.name}
-                    id={ (eIDs.length == 0) ? "" : parseInt(eIDs[0][ind])}
+                    id = {parseInt(el.id)}
                     // winner={el.winner}
                     votes={parseInt(el.totalVoted)}
-                    goto={ (eIDs.length == 0) ? "" : parseInt(eIDs[0][ind])}
+                    goto={parseInt(el.id)}
                   />
                 </li>
               ))}
