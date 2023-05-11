@@ -107,10 +107,14 @@ contract UserInfo is ElectionInfo {
     // }
 
     //returns the array of election ids of that specific user
-    function getElections(string memory _aadhar) public view returns (uint256[] memory) {
+    function getElections(string memory _aadhar) public view returns (returnElection[] memory) {
         bytes32 aadhar_hash = hashAadhar(_aadhar);
         require(Users[aadhar_hash].aadharHash == aadhar_hash, "Invalid User");
-        return Users[aadhar_hash].elections;
+        returnElection[] memory temp = new returnElection[](Users[aadhar_hash].noOfElections);
+        for(uint256 i=0;i<Users[aadhar_hash].noOfElections;i++) {
+            temp[i] = getElectionById(Users[aadhar_hash].elections[i]);
+        }
+        return temp;
     }
 
     function checkCredentials(string memory _aadhar, string memory password) public view returns (bool) {
@@ -131,5 +135,10 @@ contract UserInfo is ElectionInfo {
     function endVoting(uint256 _electionid, string memory _aadhar, string memory _password) public {
         require(checkCredentials(_aadhar, _password) == true, "User not authenticated");
         endVote(_electionid, _aadhar);
+    }
+
+    function doVote(uint256 _electionid, uint256 _candidateID, string memory _aadhar, string memory _password) public returns (uint256[] memory) {
+        require(checkCredentials(_aadhar, _password) == true, "User not authenticated");
+        return do_Vote(_electionid, _candidateID, _aadhar);
     }
 }

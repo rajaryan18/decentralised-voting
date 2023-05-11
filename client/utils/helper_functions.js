@@ -1,4 +1,7 @@
 const aadhar = require("./aadhar.json");
+const bcrypt = require("bcryptjs");
+
+const salt = "$2a$10$CwTycUXWue0Thq9StjUM0u";
 
 export function verify_aadhar(aadhar_number) {
     if(aadhar.hasOwnProperty(aadhar_number)) return true;
@@ -19,8 +22,13 @@ export function convertToIST(date) {
     return ist_date;
 }
 
+export function generate_hash(_string) {
+    return bcrypt.hashSync(_string, salt);
+}
+
 // Tests
 // console.log(verify_aadhar("2309457323"))
 // console.log(verify_aadhar("123"));
 // console.log(convertToDate(convertToUNIX(new Date())));
 // convertToIST(new Date());
+// console.log(generate_hash("Testing"));

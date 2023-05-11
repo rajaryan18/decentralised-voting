@@ -102,7 +102,8 @@ describe("User Contract", function() {
         const election = await HardhatUser.getElections(_aadhar);
         
         expect(election.length === 1);
-        expect(createdElection.value.toNumber === election[0].toNumber());
+        expect(election[0].name === _name);
+        expect(createdElection.value.toNumber === election[0].id.toNumber());
     });
 
     it("Can Start Voting", async function() {
@@ -172,15 +173,15 @@ describe("User Contract", function() {
 
         await HardhatUser.addCandidates("Raj Aryan", 0, "BJP", _image_url, _image_url, _aadhar, _password);
         await HardhatUser.addCandidates("Aayush", 0, "BJP", _image_url, _image_url, _aadhar, _password);
-        await expect(HardhatUser.doVote(0, 5, _aadhar)).to.be.revertedWith("Wrong phase");
+        await expect(HardhatUser.doVote(0, 5, _aadhar, _password)).to.be.revertedWith("Wrong phase");
         await HardhatUser.startVoting(0, _aadhar, _password);
-        await expect(HardhatUser.doVote(0, 5, _aadhar)).to.be.revertedWith("Invalid Candidate ID");
+        await expect(HardhatUser.doVote(0, 5, _aadhar, _password)).to.be.revertedWith("Invalid Candidate ID");
        
-        const votes = await HardhatUser.doVote(0, 0, _aadhar);
+        const votes = await HardhatUser.doVote(0, 0, _aadhar, _password);
 
         expect(votes.length === 2);
 
-        await expect(HardhatUser.doVote(0, 0, _aadhar)).to.be.revertedWith("Voter has already voted");
+        await expect(HardhatUser.doVote(0, 0, _aadhar, _password)).to.be.revertedWith("Voter has already voted");
     });
 
     it("Shows End Results", async function() {
@@ -198,9 +199,12 @@ describe("User Contract", function() {
         await HardhatUser.addCandidates("Aayush", 0, "BJP", _image_url, _image_url, _aadhar, _password);
 
         await HardhatUser.startVoting(0, _aadhar, _password);
-        await HardhatUser.doVote(0, 0, _aadhar[0]);
-        await HardhatUser.doVote(0, 0, _aadhar[1]);
-        await HardhatUser.doVote(0, 0, _aadhar[2]);
+        await HardhatUser.createUser(_name, _dob, _aadhar[0], _password);
+        await HardhatUser.createUser(_name, _dob, _aadhar[1], _password);
+        await HardhatUser.createUser(_name, _dob, _aadhar[2], _password);
+        await HardhatUser.doVote(0, 0, _aadhar[0], _password);
+        await HardhatUser.doVote(0, 0, _aadhar[1], _password);
+        await HardhatUser.doVote(0, 0, _aadhar[2], _password);
 
         await expect(HardhatUser.getElectionResults(0)).to.be.revertedWith("Wrong phase");
         await HardhatUser.endVoting(0, _aadhar, _password);

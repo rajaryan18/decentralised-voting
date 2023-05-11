@@ -34,6 +34,7 @@ contract ElectionInfo {
     }
 
     struct returnElection {
+        uint256 id;
         string name;
         uint256 start_date;
         uint256 end_date;
@@ -154,11 +155,11 @@ contract ElectionInfo {
     //here _id is id of voting, and _candidateID is ID of candidate to whom vote is given.
     //_aadharHash is the person who has voted and we are storing it in voted[]
     //function returns array of number of votes given to each candidate
-    function doVote(
+    function do_Vote(
         uint256 _electionid,
         uint256 _candidateID,
         string memory _aadhar
-    ) public inPhase(Phase.ONGOING, _electionid) returns (uint256[] memory) {
+    ) internal inPhase(Phase.ONGOING, _electionid) returns (uint256[] memory) {
         require(_candidateID < elections[_electionid].noOfCandidates && _candidateID >= 0, "Invalid Candidate ID");
         require(!elections[_electionid].voted[keccak256(abi.encodePacked(_aadhar))], "Voter has already voted");
         elections[_electionid].numberOfVotes[_candidateID]++;
@@ -191,6 +192,7 @@ contract ElectionInfo {
     function getElectionById(uint256 _id) public view returns (returnElection memory) {
         require(_id < numberOfElections, "Invalid Election ID");
         returnElection memory temp;
+        temp.id = _id;
         temp.name = string(copyBytes(bytes(elections[_id].name)));
         temp.start_date = elections[_id].start_date;
         temp.end_date = elections[_id].end_date;
