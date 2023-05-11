@@ -88,7 +88,7 @@ const PrePhase = ({ electionId, election }) => {
                 </p>
                 <div className='flex flex-row justify-between'>
                     <div onClick={vision} className='bg-red-600 hover:bg-red-500 text-md  mx-6 md:mx-0  rounded-xl px-4 py-2 h-fit w-fit text-white hover:scale-105 duration-300 '>Start Election</div>
-                    <div className='bg-red-600 hover:bg-red-500 text-md mx-6  rounded-xl px-4 py-2 h-fit w-fit text-white hover:scale-105 duration-300 '><Link href='/addCandidate'>Add Candidate</Link></div>
+                    <div className='bg-red-600 hover:bg-red-500 text-md mx-6  rounded-xl px-4 py-2 h-fit w-fit text-white hover:scale-105 duration-300 '><Link href='/AddCandidate'>Add Candidate</Link></div>
                 </div>
 
                 {/* <Image

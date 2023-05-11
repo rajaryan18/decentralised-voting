@@ -14,6 +14,7 @@ const CandidateCard = ({ name, party, electionId, candidateId }) => {
     }
   });
   const aadhar_num = temp_user_info?.aadhar;
+  
   const handleVote = () => {
     try {
       doVote(electionId, candidateId, aadhar_num)

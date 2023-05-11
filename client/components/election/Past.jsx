@@ -11,6 +11,7 @@ const PastPhase = ({ name, party, electionId, election, votes }) => {
 
     return (
         <div className="bg-primary bg-[#01040f] w-full overflow-hidden flex flex-col align-center pb-[100px]">
+            {console.log(election?.table)}
             {/* {console.log(election?.table)} */}
             {/* {console.log("phase is" + election?.table?.candidates)} */}
             <div className="mx-auto h-fit flex-col w-[85%] mt-[10px] rounded-[20px] flex pl-0 md:pl-2 md:text-start text-center items-center justify-center md:items-start md:justify-start   overflow-visible">
@@ -39,13 +40,13 @@ const PastPhase = ({ name, party, electionId, election, votes }) => {
                         <div className='text-center justify-center items-center text-2xl md:text-3xl '> Voting has ended</div>
 
                     </div>
-                    {election?.table?.candidates?.map((candidate, ind) =>
+                    {election?.table[0]?.map((candidate, ind) =>
                         <CandidateResultCard
                             key={ind}
                             name={candidate?.name}
                             party={candidate?.party}
                             electionId={electionId}
-                            votes={""}
+                            votes={parseInt(election?.table[1][ind])}
                         />
                     )}
                 </div>

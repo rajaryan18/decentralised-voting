@@ -42,7 +42,10 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!verify_aadhar(form.aadhar)) return console.log("This aadhar doesn't exists");
+        if (!verify_aadhar(form.aadhar)){
+            toast.error("This aadhar doesn't exists")
+            return console.log("This aadhar doesn't exists");
+        }
         if (address) {
             setIsLoading(true);
             const addedUser = await addUser(form.name, form.dob, form.aadhar, generate_hash(form.password));

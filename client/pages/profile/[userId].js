@@ -135,7 +135,7 @@ export default function Profile() {
           <div className="Search Bar mt-20">
             <div className="mb-4  ml-2 hover:scale-105 duration-200 bg-orange-500 h-10 w-36 px-3 py-2 text-white rounded-2xl  hover:bg-orange-400 flex flex-row">
               <Link
-                href="/createelection"
+                href="/CreateElection"
                 className=" flex flex-row justify-center items-center"
               >
                 New Election

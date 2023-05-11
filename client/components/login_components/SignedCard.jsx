@@ -23,7 +23,7 @@ const SignedCard = (props) => {
                     {address ? "Connected" : "Connect metamask"}<Image src={meta} alt="metamask" className="h-6 w-6 mt-[1px] ml-2" />
 
                 </button>
-                <Link href='/createelection' className=" bg-gradient-to-r flex from-[#60e0e6] to-[#03b7c1] cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-[] h-[50px] w-[80%] justify-center text-white rounded-xl mt-3 mx-auto text-center py-3">
+                <Link href='/CreateElection' className=" bg-gradient-to-r flex from-[#60e0e6] to-[#03b7c1] cursor-pointer hover:scale-105 duration-200 hover:shadow-lg shadow-black  bg-[] h-[50px] w-[80%] justify-center text-white rounded-xl mt-3 mx-auto text-center py-3">
                     Create Election
 
                 </Link>

@@ -19,6 +19,7 @@ const id = () => {
   const [isLoading, setisLoading] = useState(false);
 
   const [election, setElection] = useState({ table: [], phase: '' })
+  const [electionResult, setElectionResult] = useState({ table: [] })
 
 
 
@@ -27,7 +28,9 @@ const id = () => {
       // setisLoading(true);
       getElectionById(electionId).then((data) => {
         setElection({ ...election, table: data, phase: data?.currPhase });
-        setElection({ ...election, table: data, phase: data?.currPhase })
+      })
+      getElectionResults(electionId).then((data)=>{
+        setElectionResult({...electionResult, table: data});
       })
       // setisLoading(false);
       // startVoting(electionId)
@@ -49,8 +52,8 @@ const id = () => {
   }
 
   else if (election.phase == 2) {
-    return (<div>{console.log(getElectionResults(electionId).then((data) => { console.log(data); }))}
-      <PastPhase election={election} electionId={electionId} votes={""} /></div>);
+    return (<div>
+      <PastPhase election={electionResult} electionId={electionId} votes={""} /></div>);
   }
 
   else {
