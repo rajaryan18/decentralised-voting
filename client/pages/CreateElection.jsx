@@ -4,7 +4,7 @@ import { useStateContext } from '../context';
 import CustomButton from '../components/CustomButton';
 import FormField from '../components/FormField';
 import Loader from '../components/Loader';
-import { convertToUNIX, verify_aadhar } from '../utils/helper_functions'
+import { convertToUNIX, verify_aadhar, generate_hash } from '../utils/helper_functions'
 import PasswordPopper from '../components/PasswordPopper';
 
 import { checkIfImage } from '../utils';
@@ -44,7 +44,7 @@ const CreateElection = () => {
     if (!verify_aadhar(form.aadhar)) return console.log("This Aadhar doesn't exists");
     setVisible(false);
     setIsLoading(true);
-    const camp = await createCampaign(form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline), form.password)
+    const camp = await createCampaign(form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline), generate_hash(form.password))
     setIsLoading(false);
     setForm({ ...form, "password": e.target.value })
     console.log(camp);

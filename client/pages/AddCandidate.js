@@ -7,6 +7,7 @@ import FormField from '../components/FormField';
 import Loader from '../components/Loader';
 import { checkIfImage } from '../utils';
 import PasswordPopper from '../components/PasswordPopper';
+import { generate_hash } from '../utils/helper_functions';
 
 const AddCandidate = () => {
     // const navigate = useNavigate();
@@ -66,7 +67,7 @@ const AddCandidate = () => {
         setVisible(false);
         setIsLoading(true);
 
-        const addedCandidate = await addCandidate(form.name, form.electionId, form.party, form.candidateImage, form.partyImage, form.aadhar, form.password);
+        const addedCandidate = await addCandidate(form.name, form.electionId, form.party, form.candidateImage, form.partyImage, form.aadhar, generate_hash(form.password));
         setIsLoading(false);
     }
 

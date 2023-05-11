@@ -3,7 +3,7 @@ import Image from 'next/image'
 import meta from "../../public/metamask.png"
 import { useStateContext } from '../../context';
 import { useState } from 'react';
-import { verify_aadhar } from '../../utils/helper_functions';
+import { verify_aadhar, generate_hash } from '../../utils/helper_functions';
 import Loader from '../Loader';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -37,7 +37,7 @@ const SignUpCard = (props) => {
         if (address) {
 
             setIsLoading(true);
-            const loginedUser = await checkCredentials(form.aadhar, form.password);
+            const loginedUser = await checkCredentials(form.aadhar, generate_hash(form.password));
 
             if (loginedUser) {
 

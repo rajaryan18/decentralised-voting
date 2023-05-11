@@ -5,6 +5,7 @@ import vote from "../../public/vote.png";
 import CandidateCard from './CandidateCard';
 import Loader from '../Loader';
 import PasswordPopper from '../PasswordPopper';
+import { generate_hash } from '../../utils/helper_functions';
 
 //Here we have to pass aadhar and password in endvoting function
 //aadhar = ?
@@ -60,7 +61,7 @@ const OngoingPhase = ({ name, party, electionId, candidateId, election }) => {
         setVisible(false);
         setIsLoading(true);
 
-        const addedCandidate = await endVoting(electionId, form.aadhar, form.password);
+        const addedCandidate = await endVoting(electionId, form.aadhar, generate_hash(form.password));
         setIsLoading(false);
         window.location.reload();
 

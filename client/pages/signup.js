@@ -10,7 +10,7 @@ import Loader from '../components/Loader';
 import meta from '../public/metamask.png'
 import { useRouter } from 'next/router';
 // import AlertCard from '../components/alert';
-import { verify_aadhar } from '../utils/helper_functions';
+import { verify_aadhar, generate_hash } from '../utils/helper_functions';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -45,7 +45,7 @@ const SignUp = () => {
         if (!verify_aadhar(form.aadhar)) return console.log("This aadhar doesn't exists");
         if (address) {
             setIsLoading(true);
-            const addedUser = await addUser(form.name, form.dob, form.aadhar, form.password);
+            const addedUser = await addUser(form.name, form.dob, form.aadhar, generate_hash(form.password));
 
             if (addedUser) {
                 setIsLoading(false);

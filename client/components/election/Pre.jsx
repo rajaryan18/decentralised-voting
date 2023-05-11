@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { convertToDate, convertToIST } from '../../utils/helper_functions'
 import PasswordPopper from '../PasswordPopper';
 import Loader from '../Loader';
-
+import { generate_hash } from '../../utils/helper_functions';
 //we have to pass aadhar and password in startVoting function
 
 const PrePhase = ({ electionId, election }) => {
@@ -61,7 +61,7 @@ const PrePhase = ({ electionId, election }) => {
         setVisible(false);
         setIsLoading(true);
 
-        const addedCandidate = await startVoting(electionId, form.aadhar, form.password);
+        const addedCandidate = await startVoting(electionId, form.aadhar, generate_hash(form.password));
         setIsLoading(false);
         window.location.reload();
     }
