@@ -107,7 +107,7 @@ const OngoingPhase = ({ name, party, electionId, candidateId, election }) => {
                             party={candidate?.party}
                             electionId={electionId}
                             candidateId={ind}
-                            
+
                         />
                     )}
                 </div>
