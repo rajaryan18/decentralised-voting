@@ -43,8 +43,9 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!verify_aadhar(form.aadhar)){
-            toast.error("This aadhar doesn't exists")
-            return console.log("This aadhar doesn't exists");
+            toast.error("This aadhar doesn't exists, use one of the aadhar from console log")
+            console.log("Available Aadhars: " , "544739466360", "281010769460", "103538249747", "815297666199");
+            return;
         }
         if (address) {
             setIsLoading(true);

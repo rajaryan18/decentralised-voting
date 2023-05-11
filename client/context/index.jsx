@@ -64,7 +64,7 @@ export const StateContextProvider = ({ children }) => {
   const checkIfWalletIsConnected = async () => {
     try {
       if (!ethereum) {
-        return alert("Please install MetaMask wallet");
+        return alert("Please install MetaMask wallet, and get sepoliaETH from 'https://sepoliafaucet.com/' ");
       }
 
       const accounts = await ethereum.request({
