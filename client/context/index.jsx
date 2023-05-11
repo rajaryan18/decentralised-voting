@@ -159,11 +159,11 @@ export const StateContextProvider = ({ children }) => {
   }
 
   // Functio to do vote
-  const doVote = async (electionID, candidateID, aadhar) => {
+  const doVote = async (electionID, candidateID, aadhar, password) => {
     try {
       if (!ethereum) return alert("Please install MetaMask Wallet");
       const smartContract = getEthereumContract();
-      const votes = await smartContract.doVote(electionID, candidateID, aadhar);
+      const votes = await smartContract.doVote(electionID, candidateID, aadhar, password);
       await votes.wait()
       console.log(votes);
     } catch (error) {
