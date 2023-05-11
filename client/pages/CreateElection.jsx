@@ -5,6 +5,7 @@ import CustomButton from '../components/CustomButton';
 import FormField from '../components/FormField';
 import Loader from '../components/Loader';
 import { convertToUNIX, verify_aadhar } from '../utils/helper_functions'
+import PasswordPopper from '../components/PasswordPopper';
 
 import { checkIfImage } from '../utils';
 
@@ -22,21 +23,30 @@ const CreateElection = () => {
     image: '',
     password: ''
   });
+  const [visible, setVisible] = useState(false);
+
+  const visioff = (e) => {
+    setVisible(false);
+    setForm({ ...form, "password": e.target.value })
+  }
+
+  const vision = (e) => {
+    e.preventDefault();
+    setVisible(true);
+  }
 
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value })
   }
-  const handleFormFieldChangeTime = (fieldName, e) => {
-    setForm({ ...form, [fieldName]: convertToUNIX(e.target.value) })
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!verify_aadhar(form.aadhar)) return console.log("This Aadhar doesn't exists");
+    setVisible(false);
     setIsLoading(true);
     const camp = await createCampaign(form.image, form.aadhar, form.title, convertToUNIX(form.startDate), convertToUNIX(form.deadline), form.password)
     setIsLoading(false);
+    setForm({ ...form, "password": e.target.value })
     console.log(camp);
     console.log(form);
   }
@@ -45,11 +55,12 @@ const CreateElection = () => {
     return (
       <div className="bg-primary bg-[#01040f] flex justify-center items-center flex-col  sm:p-10 p-4">
         {isLoading && <Loader />}
+        {visible && <PasswordPopper visi={visioff} submit={handleSubmit} value={form.password} change={(e) => handleFormFieldChange('password', e)} />}
         <div className="bg-blue-gradient flex justify-center items-center p-[16px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
           <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">Start an Election</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
+        <form onSubmit={vision} className="w-full md:lg-[80%] lg:w-[75%] mt-[65px] flex flex-col gap-[30px]">
           <FormField
             labelName="Aadhar number*"
             placeholder="Enter your Aadhar"
@@ -115,7 +126,7 @@ const CreateElection = () => {
             <CustomButton
               btnType="submit"
               title="Submit new election"
-              handleClick={handleSubmit}
+              handleClick={vision}
               styles="bg-[#1dc071]"
             />
           </div>

@@ -24,15 +24,15 @@ function PasswordPopper(props) {
 
                         placeholder="Enter your password"
                         inputType={pass}
-                    // value={form.password}
-                    // handleChange={(e) => handleFormFieldChange('password', e)}
+                        value={props.value}
+                        handleChange={props.change}
                     />
                     {pass !== "password" ? <div className='flex w-fit h-fit items-end sm:ml-[90%] ml-[85%] cursor-pointer mb-10 justify-end -mt-8  text-white scale-[1.4] px-2' onClick={handlePass}><AiFillEye /></div> : <div className='flex w-fit h-fit items-end sm:ml-[90%] ml-[85%] cursor-pointer mb-10 justify-end -mt-8  text-white scale-[1.4] px-2' onClick={handlePass}><AiFillEyeInvisible /></div>}
                 </div>
 
                 <div className="flex justify-center items-center mt-[25px]">
 
-                    <div className="px-4 py-2 mb-8 rounded-lg hover:scale-105 duration-300 cursor-pointer hover:bg-blue-600 bg-blue-500 ">Submit</div>
+                    <div onClick={props.submit} className="px-4 py-2 mb-8 rounded-lg hover:scale-105 duration-300 cursor-pointer hover:bg-blue-600 bg-blue-500 ">Submit</div>
                 </div>
             </div>
         </div>
